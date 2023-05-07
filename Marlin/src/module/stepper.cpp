@@ -287,7 +287,7 @@ xyze_int8_t Stepper::count_direction{0};
 #define MINDIR(A) (count_direction[_AXIS(A)] < 0)
 #define MAXDIR(A) (count_direction[_AXIS(A)] > 0)
 
-#define STEPTEST(A,M,I) TERN0(HAS_ ##A## ##I## _ ##M, !(TEST(endstops.state(), A## ##I## _ ##M) && M## DIR(A)) && !locked_ ##A## ##I## _motor)
+#define STEPTEST(A,M,I) TERN0(USE_##A##I##_##M, !(TEST(endstops.state(), A##I##_##M) && M## DIR(A)) && !locked_ ##A##I##_motor)
 
 #define DUAL_ENDSTOP_APPLY_STEP(A,V)             \
   if (separate_multi_axis) {                     \
@@ -3156,6 +3156,9 @@ void Stepper::init() {
     sei();
   #endif
 
+  // Init direction states
+  apply_directions();
+
   #if HAS_MOTOR_CURRENT_SPI || HAS_MOTOR_CURRENT_PWM
     initialized = true;
     digipot_init();
@@ -3466,7 +3469,7 @@ void Stepper::report_positions() {
 
     #if HAS_Z_AXIS
       // Update step counts
-      if (z_step) count_position.z += z_dir ? -1 : 1;
+      if (z_step) count_position.z += z_dir ? 1 : -1;
     #endif
 
     AWAIT_HIGH_PULSE();

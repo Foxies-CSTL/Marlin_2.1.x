@@ -84,6 +84,9 @@
 #if ANY(Q5, QQSP)
                 /*--- Choice UI TFT ----*/
   #define TFT_COLOR_UI           //(C) (Default) UI Color MARLIN
+  //=====Option portrait for QQSP/Q5 TFT_COLOR_UI ======
+  //#define TFT_ROTATION TFT_ROTATE_90      //Enable mode PORTRAIT for COLOR_UI (90 or 270)
+
   //#define TFT_CLASSIC_UI       //(F) Standard LCD (UI Classic LCD)
   //#define MOD_BTT_UI           //(s) UI TOUCH for QQSP/Q5(without Wifi module) and BTT TFT screen.
   //#define TFT_LVGL_UI          //(I) Standard LCD (UI Color MKS) Color MKS (Bug with captor sensor PR22595)
@@ -94,10 +97,11 @@
 #else
                 /*--- Choice UI TFT ----*/
   #define TFT_COLOR_UI         //(C) UI Color MARLIN with Mks-TS35v2
+              //=====Option portrait for SR TFT_COLOR_UI ======
+  //#define TFT_ROTATION TFT_ROTATE_90      //Enable mode PORTRAIT for COLOR_UI (90 or 270)
+  
   //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen like CrealityTouch or Mks H43
-  //=====Option portrait for QQSP/Q5 ======
-  //#define TFT_PORTRAIT 
 #endif
 
 /* ========================================//

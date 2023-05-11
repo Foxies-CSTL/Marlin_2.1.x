@@ -1903,7 +1903,9 @@ bool Planner::_populate_block(
   /* <-- add a slash to enable
     SERIAL_ECHOLNPGM(
       "  _populate_block FR:", fr_mm_s,
-      " A:", target.a, " (", da, " steps)"
+      #if HAS_X_AXIS
+        " A:", target.a, " (", da, " steps)"
+      #endif
       #if HAS_Y_AXIS
         " B:", target.b, " (", db, " steps)"
       #endif
@@ -2204,11 +2206,17 @@ bool Planner::_populate_block(
 
   TERN_(HAS_EXTRUDERS, block->steps.e = esteps);
 
-  block->step_event_count = _MAX(LOGICAL_AXIS_LIST(esteps,
-    block->steps.a, block->steps.b, block->steps.c,
-    block->steps.i, block->steps.j, block->steps.k,
-    block->steps.u, block->steps.v, block->steps.w
-  ));
+  block->step_event_count = (
+    #if NUM_AXES
+      _MAX(LOGICAL_AXIS_LIST(esteps,
+        block->steps.a, block->steps.b, block->steps.c,
+        block->steps.i, block->steps.j, block->steps.k,
+        block->steps.u, block->steps.v, block->steps.w
+      ))
+    #elif HAS_EXTRUDERS
+      esteps
+    #endif
+  );
 
   // Bail if this is a zero-length block
   if (block->step_event_count < MIN_STEPS_PER_SEGMENT) return false;
@@ -2474,8 +2482,8 @@ bool Planner::_populate_block(
   #if ENABLED(LIN_ADVANCE)
     bool use_advance_lead = false;
   #endif
-  if (NUM_AXIS_GANG(
-         !block->steps.a, && !block->steps.b, && !block->steps.c,
+  if (true NUM_AXIS_GANG(
+      && !block->steps.a, && !block->steps.b, && !block->steps.c,
       && !block->steps.i, && !block->steps.j, && !block->steps.k,
       && !block->steps.u, && !block->steps.v, && !block->steps.w)
   ) {                                                             // Is this a retract / recover move?
@@ -3173,14 +3181,14 @@ bool Planner::buffer_line(const xyze_pos_t &cart, const_feedRate_t fr_mm_s
         if (delta.a <= POLAR_FAST_RADIUS )
           calculated_feedrate = settings.max_feedrate_mm_s[Y_AXIS];
         else {
-            // Normalized vector of movement
-            const float diffBLength = ABS((2.0f * PI * diff.a) * (diff.b / 360.0f)),
-                        diffTheta = DEGREES(ATAN2(diff.a, diffBLength)),
-                        normalizedTheta = 1.0f - (ABS(diffTheta > 90.0f ? 180.0f - diffTheta : diffTheta) / 90.0f);
+          // Normalized vector of movement
+          const float diffBLength = ABS((2.0f * M_PI * diff.a) * (diff.b / 360.0f)),
+                      diffTheta = DEGREES(ATAN2(diff.a, diffBLength)),
+                      normalizedTheta = 1.0f - (ABS(diffTheta > 90.0f ? 180.0f - diffTheta : diffTheta) / 90.0f);
 
-            // Normalized position along the radius
-            const float radiusRatio = PRINTABLE_RADIUS/delta.a;
-            calculated_feedrate += (fr_mm_s * radiusRatio * normalizedTheta);
+          // Normalized position along the radius
+          const float radiusRatio = (PRINTABLE_RADIUS) / delta.a;
+          calculated_feedrate += (fr_mm_s * radiusRatio * normalizedTheta);
         }
       }
       const feedRate_t feedrate = calculated_feedrate;

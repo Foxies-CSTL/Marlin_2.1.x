@@ -267,7 +267,7 @@
 #endif
 
 //= For users who dont have a terminal =//
-#if BOTH(ADD_MENUS, TFT_CLASSIC_UI)||BOTH(ADD_MENUS, TFT_COLOR_UI)||BOTH(ADD_MENUS, TFT_BTT_UI)
+#if ALL(ADD_MENUS, TFT_CLASSIC_UI)||ALL(ADD_MENUS, TFT_COLOR_UI)||ALL(ADD_MENUS, TFT_BTT_UI)
   #define DELTA_CALIBRATION_MENU        // (Default) Auto for CLASSIC and COLOR.
   #define LCD_INFO_MENU                 // (Default) Informations printer.
   //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.
@@ -322,7 +322,7 @@
   //#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
   //#define SET_PROGRESS_MANUALLY
   #define G26_MESH_VALIDATION
-#elif BOTH(TFT_COLOR_UI, SR_MKS)
+#elif ALL(TFT_COLOR_UI, SR_MKS)
   #define MKS_TS35_V2_0             // Only for NanoV2 or V3
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
   #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
@@ -343,7 +343,7 @@
 #endif
 
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 
-#if BOTH(STOCK, Q5)||BOTH(STOCK, QQSP)
+#if ALL(STOCK, Q5)||ALL(STOCK, QQSP)
   #ifdef Q5
     #define DRIVER_AXES TMC2208_STANDALONE
   #else
@@ -391,7 +391,7 @@
   #endif
 #endif
 //Add definition for UART for Q5
-#if BOTH(Q5, Q_UART8)||BOTH(Q5, Q_UART9)||BOTH(NANO1X, Q_UART8)||BOTH(NANO1X, Q_UART9)
+#if ALL(Q5, Q_UART8)||ALL(Q5, Q_UART9)||ALL(NANO1X, Q_UART8)||ALL(NANO1X, Q_UART9)
     #define X_SERIAL_TX_PIN             PA10  // RXD1
     #define X_SERIAL_RX_PIN             PA10  // RXD1
     #define Y_SERIAL_TX_PIN             PA9   // TXD1
@@ -539,12 +539,12 @@
     #define SHAPING_ZETA_X  0.15f
     #define SHAPING_FREQ_Y    40.00
     #define SHAPING_ZETA_Y  0.15f
-  #elif BOTH(SRM, DDRIVE)   //SDHX 20230215
+  #elif ALL(SRM, DDRIVE)   //SDHX 20230215
     #define SHAPING_FREQ_X    51.06
     #define SHAPING_ZETA_X  0.15f  
     #define SHAPING_FREQ_Y    43.48
     #define SHAPING_ZETA_Y  0.15f
-  #elif BOTH(QQSP, DDRIVE)
+  #elif ALL(QQSP, DDRIVE)
     #define SHAPING_FREQ_X   51.06// 25.6
     #define SHAPING_ZETA_X  0.15f  
     #define SHAPING_FREQ_Y   43.48// 25.6
@@ -579,6 +579,6 @@
   #define I2C_BD_DELAY  18 //20
 #endif
 // NEOPIXEL for SR_MKS
-#if BOTH(NEOPIXEL_LED, SR_MKS)
+#if ALL(NEOPIXEL_LED, SR_MKS)
   #define LED_PWM    SERVO0_PIN
 #endif

@@ -286,11 +286,10 @@
     #define MKS_TEST_POWER_LOSS_PIN         PA2   // PW_DET
     #define MKS_TEST_PS_ON_PIN              PB2   // PW_OFF
   #endif
-#elif ENABLED(BACKUP_POWER_SUPPLY)
-  #define POWER_LOSS_PIN                    PA2   // PW_DET (UPS) MKSPWC
 #else
-    #define POWER_LOSS_PIN                  -1    // PW_DET
-    #define PS_ON_PIN                       PB2   // PW_OFF
+  //#define POWER_LOSS_PIN                  PA2   // PW_DET
+  //#define PS_ON_PIN                       PB2   // PW_OFF
+  #define FIL_RUNOUT_PIN                    PA4
 #endif
 
 /**
@@ -310,25 +309,18 @@
 //
 #if ENABLED(MKS_PWC)
   #if ENABLED(TFT_LVGL_UI)
-    #undef PSU_CONTROL
+    #if ENABLED(PSU_CONTROL)
+      #error "PSU_CONTROL is incompatible with MKS_PWC plus TFT_LVGL_UI."
+    #endif
     #undef MKS_PWC
     #define SUICIDE_PIN                     PB2   // Enable MKSPWC SUICIDE PIN
-    #define SUICIDE_PIN_STATE              false // Enable MKSPWC PIN STATE
-    #define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
-    #define KILL_PIN_STATE                  true  // Enable MKSPWC PIN STATE
-  #else    
+    #define SUICIDE_PIN_STATE               LOW   // Enable MKSPWC PIN STATE
+  #else
     #define PS_ON_PIN                       PA3   // PW_OFF
-    #define KILL_PIN                        PA2
-    #define KILL_PIN_STATE                  HIGH
   #endif
+  #define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
+  #define KILL_PIN_STATE                  HIGH  // Enable MKSPWC PIN STATE
 #endif
-
-#if ENABLED(PSU_CONTROL)
-  #define KILL_PIN                          PA2   // PW_DET
-  #define KILL_PIN_STATE                    HIGH
-  //#define PS_ON_PIN                       PA3   // PW_CN /PW_OFF
-#endif
-
 
 //
 // LED / NEOPixel
@@ -394,19 +386,27 @@
   #define LCD_RESET_PIN                     PC6   // FSMC_RST
   #define LCD_BACKLIGHT_PIN                 PD13
 
+  #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
+  #define DOGLCD_SCK                        -1
+  
+  #define TOUCH_CS_PIN                      PC2   // SPI2_NSS
+  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
+  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
+  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
+  
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
   #define FSMC_CS_PIN                       PD7   // NE4
   #define FSMC_RS_PIN                       PD11  // A0
 
-  #define TOUCH_BUTTONS_HW_SPI
-  #define TOUCH_BUTTONS_HW_SPI_DEVICE          2
-
   #define TFT_CS_PIN                 FSMC_CS_PIN
-  #define TFT_RS_PIN                 FSMC_RS_PIN 
+  #define TFT_RS_PIN                 FSMC_RS_PIN
+
+//  #define TOUCH_BUTTONS_HW_SPI
+//  #define TOUCH_BUTTONS_HW_SPI_DEVICE          2
+
   #define TFT_RESET_PIN                     PC6   // FSMC_RST
   #define TFT_BACKLIGHT_PIN                 PD13
-  #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
-  #define DOGLCD_SCK                        -1
+
   //-----------------------------//
   /*
   //#define TFT_RESET_PIN                     PC6   // FSMC_RST
@@ -430,10 +430,6 @@
   #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
   #define DOGLCD_SCK                        -1
   */
-  #define TOUCH_CS_PIN                      PC2   // SPI2_NSS
-  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
-  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
-  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
   
   #ifdef TFT_CLASSIC_UI
     #define TFT_MARLINBG_COLOR            0x3186  // Grey

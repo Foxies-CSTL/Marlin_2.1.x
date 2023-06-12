@@ -2042,7 +2042,7 @@
     #define INVERT_E0_DIR true    //QQS-Q5_A4988
   #endif
 #endif
-#if BOTH(QQSP, Q_TMC)
+#if ALL(QQSP, Q_TMC)
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR true
@@ -2052,7 +2052,7 @@
     #define INVERT_E0_DIR false
   #endif
 #endif
-#if BOTH(Q5, Q_TMC)
+#if ALL(Q5, Q_TMC)
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR false
@@ -3791,7 +3791,7 @@ EEPROM_W25Q
  *   TFT_ROTATE_270, TFT_ROTATE_270_MIRROR_X, TFT_ROTATE_270_MIRROR_Y,
  *   TFT_MIRROR_X, TFT_MIRROR_Y, TFT_NO_ROTATION
  */
-#if BOTH(TFT_COLOR_UI, Q5)|| BOTH(TFT_CLASSIC_UI, Q5)
+#if ALL(TFT_COLOR_UI, Q5)|| ALL(TFT_CLASSIC_UI, Q5)
   #define TFT_ROTATION TFT_ROTATE_180
 #endif
 #ifndef TFT_ROTATION

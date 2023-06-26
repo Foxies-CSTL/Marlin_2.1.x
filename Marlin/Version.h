@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "Polyformer-2.1.x"
+//#define SHORT_BUILD_VERSION "2.1.2.1"
 
 /**
  * Verbose version identifier which should contain a reference to the location
@@ -41,16 +41,12 @@
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
-<<<<<<< Updated upstream
-//#define STRING_DISTRIBUTION_DATE "2022-11-22"
-=======
-#define STRING_DISTRIBUTION_DATE "2022-11-14"
->>>>>>> Stashed changes
+//#define STRING_DISTRIBUTION_DATE "2023-05-16"
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-#define MACHINE_NAME "PolyFormerFW"
+//#define MACHINE_NAME "3D Printer"
 
 /**
  * The SOURCE_CODE_URL is the location where users will find the Marlin Source
@@ -58,7 +54,7 @@
  * has a distinct Github fork— the Source Code URL should just be the main
  * Marlin repository.
  */
-#define SOURCE_CODE_URL "github.com/MarlinFirmware/Marlin2"
+//#define SOURCE_CODE_URL "github.com/MarlinFirmware/Marlin"
 
 /**
  * Default generic printer UUID.

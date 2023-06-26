@@ -29,8 +29,11 @@
  * #define SERIAL_PORT_2 3
  */
 
-#define ALLOW_STM32DUINO
-#include "env_validate.h"
+#if NOT_TARGET(__STM32F1__, STM32F1xx)
+  #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
+#elif HAS_MULTI_HOTEND || E_STEPPERS > 1
+  #error "FLSUN HiSpeedV1 only supports 1 hotend / E stepper."
+#endif
 
 #define BOARD_INFO_NAME      "FLSun HiSpeedV1"
 #define BOARD_WEBSITE_URL    "github.com/Foxies-CSTL"
@@ -78,26 +81,15 @@
 //
 // Servos
 //
-//#define SERVO0_PIN                        PA8   // Enable BLTOUCH support on IO0 (WIFI connector)
+//#define SERVO0_PIN                        PA8   // use IO0 to enable BLTOUCH support/remove Mks_Wifi
 
 //
 // Limit Switches
 //
-#define X_DIAG_PIN                          PA15  //-X
-#define Y_DIAG_PIN                          PA12  //-Y
-#define Z_DIAG_PIN                          PC4  //-Z
-
-#ifdef SENSORLESS_PROBING // Need to wire between DIAG pin and endstop XYZ
-  #define X_STOP_PIN                  X_DIAG_PIN 
-  #define Y_STOP_PIN                  Y_DIAG_PIN
-  #define Z_STOP_PIN                  Z_DIAG_PIN
-  //#define Z_MIN_PIN                   Z_DIAG_PIN 
-#else
-  #define X_STOP_PIN                  X_DIAG_PIN  // +X 
-  #define Y_STOP_PIN                  Y_DIAG_PIN  // +Y
-  #define Z_MAX_PIN                   Z_DIAG_PIN  // +Z
-  #define Z_MIN_PIN                         PA11  // -Z
-#endif
+#define X_STOP_PIN                          PA15  // -X
+#define Y_STOP_PIN                          PA12  // -Y
+#define Z_MIN_PIN                           PA11  // -Z
+#define Z_MAX_PIN                           PC4   // +Z
 
 #ifndef FIL_RUNOUT_PIN
   #define FIL_RUNOUT_PIN                    PA4   // MT_DET
@@ -128,85 +120,62 @@
  * to the most compatible.
  */
 #if HAS_TMC_UART
-  #define TMC_BAUD_RATE                   19200
-  #ifdef TMC_HARDWARE_SERIAL /*  TMC2209 */
-    /**
-    * HardwareSerial with one pin for four drivers.
-    * Compatible with TMC2209. Provides best performance.
-    * Requires SLAVE_ADDRESS definitions in Configuration_adv.h and proper
-    * jumper configuration. Uses only one I/O pin like PA10/PA9/PC7/PA8.
-    * Install the jumpers in the following way, for example:
-    */
-    // The 4xTMC2209 module doesn't have a serial multiplexer and
-    // needs to set *_SLAVE_ADDRESS in Configuration_adv.h for X,Y,Z,E0
-    #define  X_SLAVE_ADDRESS 3    // |  |  :
-    #define  Y_SLAVE_ADDRESS 2    // :  |  :
-    #define  Z_SLAVE_ADDRESS 1    // |  :  :
-    //#define E0_SLAVE_ADDRESS 0    // :  :  :
-
-    #define X_SERIAL_TX_PIN                  PA8  // IO0
-    #define X_SERIAL_RX_PIN      X_SERIAL_TX_PIN  // IO0
-    #define Y_SERIAL_TX_PIN      X_SERIAL_TX_PIN  // IO0
-    #define Y_SERIAL_RX_PIN      X_SERIAL_TX_PIN  // IO0
-    #define Z_SERIAL_TX_PIN      X_SERIAL_TX_PIN  // IO0
-    #define Z_SERIAL_RX_PIN      X_SERIAL_TX_PIN  // IO0
-  #else /*  TMC220x   */
-    // SoftwareSerial with one pin per driver
-    // Compatible with TMC2208 and TMC2209 drivers
-    #define  X_SLAVE_ADDRESS 0
-    #define  Y_SLAVE_ADDRESS 0
-    #define  Z_SLAVE_ADDRESS 0
-    
-    #define X_SERIAL_TX_PIN                   PA10  // RXD1
-    #define X_SERIAL_RX_PIN                   PA10  // RXD1
-    #define Y_SERIAL_TX_PIN                   PA9   // TXD1
-    #define Y_SERIAL_RX_PIN                   PA9   // TXD1
-    #define Z_SERIAL_TX_PIN                   PC7   // IO1
-    #define Z_SERIAL_RX_PIN                   PC7   // IO1
-  #endif
+  // SoftwareSerial with one pin per driver
+  // Compatible with TMC2208 and TMC2209 drivers
+  #define X_SERIAL_TX_PIN                   PA10  // RXD1
+  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
+  #define Y_SERIAL_TX_PIN                   PA9   // TXD1
+  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
+  #define Z_SERIAL_TX_PIN                   PC7   // IO1
+  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
+  #define TMC_BAUD_RATE                    19200
 #else
   // Motor current PWM pins
   #define MOTOR_CURRENT_PWM_XY_PIN          PA6   // VREF2/3 CONTROL XY
   #define MOTOR_CURRENT_PWM_Z_PIN           PA7   // VREF4 CONTROL Z
-  #define MOTOR_CURRENT_PWM_RANGE          1500   // (255 * (1000mA / 65535)) * 257 = 1000 is equal 1.6v Vref in turn equal 1Amp
+  #define MOTOR_CURRENT_PWM_RANGE           1500  // (255 * (1000mA / 65535)) * 257 = 1000 is equal 1.6v Vref in turn equal 1Amp
   #ifndef DEFAULT_PWM_MOTOR_CURRENT
-    #define DEFAULT_PWM_MOTOR_CURRENT { 900, 900, 850 }
+    #define DEFAULT_PWM_MOTOR_CURRENT { 800, 800, 800 }
   #endif
 
-  /**
-   * MKS Robin_Wifi or another ESP8266 module
-   *
-   *      __ESP(M1)__       -J1-
-   *  GND| 15 | | 08 |+3v3  (22)  RXD1      (PA10)
-   *     | 16 | | 07 |MOSI  (21)  TXD1      (PA9)   Active LOW, probably OK to leave floating
-   *  IO2| 17 | | 06 |MISO  (19)  IO1       (PC7)   Leave as unused (ESP3D software configures this with a pullup so OK to leave as floating)
-   *  IO0| 18 | | 05 |CLK   (18)  IO0       (PA8)   Must be HIGH (ESP3D software configures this with a pullup so OK to leave as floating)
-   *  IO1| 19 | | 03 |EN    (03)  WIFI_EN           Must be HIGH for module to run
-   *     | nc | | nc |      (01)  WIFI_CTRL (PA5)
-   *   RX| 21 | | nc |
-   *   TX| 22 | | 01 |RST
-   *       ￣￣ AE￣￣
-   */
-  // Module ESP-WIFI
-  #define WIFI_IO0_PIN                      PA8   // MKS ESP WIFI IO0 PIN
-  #define WIFI_IO1_PIN       			          PC7   // MKS ESP WIFI IO1 PIN
-  #define WIFI_RESET_PIN				            PA5   // MKS ESP WIFI RESET PIN
+  #if ENABLED(WIFISUPPORT)
+    /**
+     * MKS Robin_Wifi or another ESP8266 module
+     *
+     *      __ESP(M1)__       -J1-
+     *  GND| 15 | | 08 |+3v3  (22)  RXD1      (PA10)
+     *     | 16 | | 07 |MOSI  (21)  TXD1      (PA9)   Active LOW, probably OK to leave floating
+     *  IO2| 17 | | 06 |MISO  (19)  IO1       (PC7)   Leave as unused (ESP3D software configures this with a pullup so OK to leave as floating)
+     *  IO0| 18 | | 05 |CLK   (18)  IO0       (PA8)   Must be HIGH (ESP3D software configures this with a pullup so OK to leave as floating)
+     *  IO1| 19 | | 03 |EN    (03)  WIFI_EN           Must be HIGH for module to run
+     *     | nc | | nc |      (01)  WIFI_CTRL (PA5)
+     *   RX| 21 | | nc |
+     *   TX| 22 | | 01 |RST
+     *       ￣￣ AE￣￣
+     */
+    // Module ESP-WIFI
+    #define ESP_WIFI_MODULE_COM                2  // Must also set either SERIAL_PORT or SERIAL_PORT_2 to this
+    #define ESP_WIFI_MODULE_BAUDRATE    BAUDRATE  // Must use same BAUDRATE as SERIAL_PORT & SERIAL_PORT_2
+    #define ESP_WIFI_MODULE_RESET_PIN       PA5   // WIFI CTRL/RST
+    #define ESP_WIFI_MODULE_ENABLE_PIN      -1
+    #define ESP_WIFI_MODULE_TXD_PIN         PA9   // MKS or ESP WIFI RX PIN
+    #define ESP_WIFI_MODULE_RXD_PIN         PA10  // MKS or ESP WIFI TX PIN
+  #endif
 #endif
 
 //
 // EXTRUDER
 //
 #if AXIS_DRIVER_TYPE_E0(TMC2208) || AXIS_DRIVER_TYPE_E0(TMC2209)
-  #define E0_SLAVE_ADDRESS 0
   #define E0_SERIAL_TX_PIN                  PA8   // IO0
   #define E0_SERIAL_RX_PIN                  PA8   // IO0
-  #define TMC_BAUD_RATE                   19200
+  #define TMC_BAUD_RATE                    19200
 #else
   // Motor current PWM pins
   #define MOTOR_CURRENT_PWM_E_PIN           PB0   // VREF1 CONTROL E
-  #define MOTOR_CURRENT_PWM_RANGE          1500   // (255 * (1000mA / 65535)) * 257 = 1000 is equal 1.6v Vref in turn equal 1Amp
+  #define MOTOR_CURRENT_PWM_RANGE           1500  // (255 * (1000mA / 65535)) * 257 = 1000 is equal 1.6v Vref in turn equal 1Amp
   #ifndef DEFAULT_PWM_MOTOR_CURRENT
-   #define DEFAULT_PWM_MOTOR_CURRENT { 900, 900, 850 }
+   #define DEFAULT_PWM_MOTOR_CURRENT { 800, 800, 800 }
   #endif
 #endif
 
@@ -253,29 +222,17 @@
   #define KILL_PIN_STATE                    HIGH
   //#define PS_ON_PIN                       PA3   // PW_CN /PW_OFF
 #endif
-#if ENABLED(MKS_PWC)
-  #if ENABLED(TFT_LVGL_UI)
-    #undef PSU_CONTROL
-    #define SUICIDE_PIN                     PB2   // Enable MKSPWC SUICIDE PIN
-    #define SUICIDE_PIN_INVERTING          false  // Enable MKSPWC PIN STATE
-    #define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
-    #define KILL_PIN_STATE                  true  // Enable MKSPWC PIN STATE
-  #else
-    #define PS_ON_PIN                       PA3   //PW_OFF, you can change it to other pin
-    #define KILL_PIN                        PA2   //PW_DET, you can change it to other pin
-    #define KILL_PIN_STATE                  true  //true : HIGH level trigger
-  #endif
-#endif
 
 #if HAS_TFT_LVGL_UI
   #define MT_DET_1_PIN                      PA4   // MT_DET
-  #define MT_DET_PIN_STATE                  LOW
+  #define MT_DET_2_PIN                      PE6
+  #define MT_DET_PIN_STATE                   LOW
 #endif
 
 //
 // LED / NEOPixel
 //
-//#define LED_PIN                             PB2   // BOOT1
+//#define LED_PIN                           PB2   // BOOT1
 
 #if ENABLED(NEOPIXEL_LED)
   #define LED_PWM                           PC7   // IO1
@@ -301,6 +258,7 @@
 #else
   #define SDIO_SUPPORT
   #define SDIO_CLOCK                     4500000  // 4.5 MHz
+  #define SDIO_READ_RETRIES                   16
   #define ONBOARD_SPI_DEVICE                   1  // SPI1
   #define ONBOARD_SD_CS_PIN                 PC11
   #define SD_DETECT_PIN                     -1    // SD_CD (-1 active refresh)
@@ -311,6 +269,10 @@
 //
 #ifndef BEEPER_PIN
   #define BEEPER_PIN                        PC5
+#endif
+
+#if ENABLED(SPEAKER) && BEEPER_PIN == PC5
+  #error "FLSun HiSpeed default BEEPER_PIN is not a SPEAKER."
 #endif
 
 //
@@ -329,24 +291,18 @@
    * Setting an 'LCD_RESET_PIN' may cause a flicker when entering the LCD menu
    * because Marlin uses the reset as a failsafe to revive a glitchy LCD.
    */
-  #define LCD_RESET_PIN                     PC6   // FSMC_RST
-  #define LCD_BACKLIGHT_PIN                 PD13
+  //#define TFT_RESET_PIN                   PC6   // FSMC_RST
+  #define TFT_BACKLIGHT_PIN                 PD13
 
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
   #define FSMC_DMA_DEV                      DMA2
   #define FSMC_DMA_CHANNEL               DMA_CH5
+
   #define FSMC_CS_PIN                       PD7   // NE4
   #define FSMC_RS_PIN                       PD11  // A0
 
-  #define TOUCH_BUTTONS_HW_SPI
-  #define TOUCH_BUTTONS_HW_SPI_DEVICE          2
-
   #define TFT_CS_PIN                 FSMC_CS_PIN
-  #define TFT_RS_PIN                 FSMC_RS_PIN 
-  #define TFT_RESET_PIN                     PC6   // FSMC_RST
-  #define TFT_BACKLIGHT_PIN                 PD13
-  #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
-  #define DOGLCD_SCK                        -1
+  #define TFT_RS_PIN                 FSMC_RS_PIN
 
   #ifdef TFT_CLASSIC_UI
     #define TFT_MARLINBG_COLOR            0x3186  // Grey
@@ -355,6 +311,13 @@
     #define TFT_BTOKMENU_COLOR            0x145F  // Cyan
   #endif
   #define TFT_BUFFER_SIZE                  14400
+
+#elif HAS_GRAPHICAL_TFT
+
+  #define TFT_RESET_PIN                     PC6
+  #define TFT_BACKLIGHT_PIN                 PD13
+  #define TFT_CS_PIN                        PD7   // NE4
+  #define TFT_RS_PIN                        PD11  // A0
 
 #endif
 

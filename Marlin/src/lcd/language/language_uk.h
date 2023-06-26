@@ -465,7 +465,7 @@ namespace Language_uk {
     LSTR MSG_INIT_EEPROM                    = _UxGT("Ініціаліз. EEPROM");
   #endif
   LSTR MSG_ERR_EEPROM_CRC                   = _UxGT("Збій EEPROM: CRC");
-  LSTR MSG_ERR_EEPROM_INDEX                 = _UxGT("Збій EEPROM: індекс");
+  LSTR MSG_ERR_EEPROM_SIZE                  = _UxGT("Збій EEPROM: розмір");
   LSTR MSG_ERR_EEPROM_VERSION               = _UxGT("Збій EEPROM: версія");
   LSTR MSG_SETTINGS_STORED                  = _UxGT("Параметри збережені");
   LSTR MSG_MEDIA_UPDATE                     = _UxGT("Оновити SD-картку");
@@ -625,9 +625,6 @@ namespace Language_uk {
   LSTR MSG_ERR_MINTEMP                      = _UxGT("МІНІМАЛЬНА Т") LCD_STR_DEGREE;
   LSTR MSG_HALTED                           = _UxGT("ПРИНТЕР ЗУПИНЕНО");
   LSTR MSG_PLEASE_RESET                     = _UxGT("Перезавантажте");
-  LSTR MSG_SHORT_DAY                        = _UxGT("д"); // One character only
-  LSTR MSG_SHORT_HOUR                       = _UxGT("г"); // One character only
-  LSTR MSG_SHORT_MINUTE                     = _UxGT("х"); // One character only
   LSTR MSG_HEATING                          = _UxGT("Нагрівання...");
   LSTR MSG_COOLING                          = _UxGT("Охолодження...");
   LSTR MSG_BED_HEATING                      = _UxGT("Нагрів столу...");
@@ -913,12 +910,8 @@ namespace Language_uk {
 
   LSTR MSG_SD_CARD                          = _UxGT("SD Картка");
   LSTR MSG_USB_DISK                         = _UxGT("USB Диск");
-}
 
-#if FAN_COUNT == 1
-  #define MSG_FIRST_FAN_SPEED       MSG_FAN_SPEED
-  #define MSG_EXTRA_FIRST_FAN_SPEED MSG_EXTRA_FAN_SPEED
-#else
-  #define MSG_FIRST_FAN_SPEED       MSG_FAN_SPEED_N
-  #define MSG_EXTRA_FIRST_FAN_SPEED MSG_EXTRA_FAN_SPEED_N
-#endif
+  LSTR MSG_SHORT_DAY                        = _UxGT("д"); // One character only
+  LSTR MSG_SHORT_HOUR                       = _UxGT("г"); // One character only
+  LSTR MSG_SHORT_MINUTE                     = _UxGT("х"); // One character only
+}

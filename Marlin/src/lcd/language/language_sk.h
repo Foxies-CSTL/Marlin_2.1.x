@@ -82,11 +82,11 @@ namespace Language_sk {
   LSTR MSG_FILAMENT_SET                   = _UxGT("Nastav. filamentu");
   LSTR MSG_FILAMENT_MAN                   = _UxGT("Správa filamentu");
   LSTR MSG_MANUAL_LEVELING                = _UxGT("Ručné rovnanie");
-  LSTR MSG_LEVBED_FL                      = _UxGT("Ľavý predný");
-  LSTR MSG_LEVBED_FR                      = _UxGT("Pravý predný");
-  LSTR MSG_LEVBED_C                       = _UxGT("Stred");
-  LSTR MSG_LEVBED_BL                      = _UxGT("Ľavý zadný");
-  LSTR MSG_LEVBED_BR                      = _UxGT("Pravý zadný");
+  LSTR MSG_TRAM_FL                        = _UxGT("Ľavý predný");
+  LSTR MSG_TRAM_FR                        = _UxGT("Pravý predný");
+  LSTR MSG_TRAM_C                         = _UxGT("Stred");
+  LSTR MSG_TRAM_BL                        = _UxGT("Ľavý zadný");
+  LSTR MSG_TRAM_BR                        = _UxGT("Pravý zadný");
   LSTR MSG_MANUAL_MESH                    = _UxGT("Ručná mriežka");
   LSTR MSG_AUTO_MESH                      = _UxGT("Automat. mriežka");
   LSTR MSG_AUTO_Z_ALIGN                   = _UxGT("Auto-zarovn. Z");
@@ -363,7 +363,7 @@ namespace Language_sk {
   LSTR MSG_PID_AUTOTUNE_FAILED            = _UxGT("Kal. PID zlyhala!");
   LSTR MSG_BAD_HEATER_ID                  = _UxGT("Zlý extrudér");
   LSTR MSG_TEMP_TOO_HIGH                  = _UxGT("Príliš vysoká tepl.");
-  LSTR MSG_TIMEOUT                        = _UxGT("Čas vypršal.");
+  LSTR MSG_TIMEOUT                        = _UxGT("Čas vypršal");
   LSTR MSG_PID_BAD_HEATER_ID              = _UxGT("Auto-kal. zlyhala! Zlý extrúder.");
   LSTR MSG_PID_TEMP_TOO_HIGH              = _UxGT("Auto-kal. zlyhala! Príliš vysoká tepl.");
   LSTR MSG_PID_TIMEOUT                    = _UxGT("Auto-kal. zlyhala! Čas vypršal.");

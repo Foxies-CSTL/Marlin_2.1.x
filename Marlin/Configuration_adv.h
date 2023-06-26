@@ -1507,7 +1507,7 @@
      * Use a height slightly above the estimated nozzle-to-probe Z offset.
      * For example, with an offset of -5, consider a starting height of -4.
      */
-    #define PROBE_OFFSET_WIZARD_START_Z ( Z_OFFSET +1 )
+    #define PROBE_OFFSET_WIZARD_START_Z ( Z_OffSet +1 )
 
     // Set a convenient position to do the calibration (probing point and nozzle/bed-distance)
     //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
@@ -2088,7 +2088,7 @@
 // Specify additional languages for the UI. Default specified by LCD_LANGUAGE.
 //
 #if ANY(DOGLCD, TFT_COLOR_UI, TOUCH_UI_FTDI_EVE, IS_DWIN_MARLINUI, ANYCUBIC_LCD_VYPER)
-  #define LCD_LANGUAGE_2 fr
+  //#define LCD_LANGUAGE_2 fr
   #define LCD_LANGUAGE_3 de
   #define LCD_LANGUAGE_4 es
   #define LCD_LANGUAGE_5 it
@@ -2725,7 +2725,7 @@
   #endif
   //#define RETRACT_LENGTH_SWAP        13   // (mm) Default swap retract length (positive value)
   //#define RETRACT_FEEDRATE           45   // (mm/s) Default feedrate for retracting
-  #define RETRACT_ZRAISE                0.4 // (mm) Default retract Z-raise
+  #define RETRACT_ZRAISE                0.2 // (mm) Default retract Z-raise
   #define RETRACT_RECOVER_LENGTH        0   // (mm) Default additional recover length (added to retract length on recover)
   #define RETRACT_RECOVER_LENGTH_SWAP   0   // (mm) Default additional swap recover length (added to retract length on recover from toolchange)
   #define RETRACT_RECOVER_FEEDRATE      8   // (mm/s) Default feedrate for recovering from retraction
@@ -3349,27 +3349,27 @@
   #define HYBRID_THRESHOLD
 
   #define X_HYBRID_THRESHOLD     150  // [mm/s]
-  #define X2_HYBRID_THRESHOLD    100
+  //#define X2_HYBRID_THRESHOLD    100
   #define Y_HYBRID_THRESHOLD     150
-  #define Y2_HYBRID_THRESHOLD    100
+  //#define Y2_HYBRID_THRESHOLD    100
   #define Z_HYBRID_THRESHOLD     150
-  #define Z2_HYBRID_THRESHOLD      3
-  #define Z3_HYBRID_THRESHOLD      3
-  #define Z4_HYBRID_THRESHOLD      3
-  #define I_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
-  #define J_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
-  #define K_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
-  #define U_HYBRID_THRESHOLD       3  // [mm/s]
-  #define V_HYBRID_THRESHOLD       3
-  #define W_HYBRID_THRESHOLD       3
+  //#define Z2_HYBRID_THRESHOLD      3
+  //#define Z3_HYBRID_THRESHOLD      3
+  //#define Z4_HYBRID_THRESHOLD      3
+  //#define I_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
+  //#define J_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
+  //#define K_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
+  //#define U_HYBRID_THRESHOLD       3  // [mm/s]
+  //#define V_HYBRID_THRESHOLD       3
+  //#define W_HYBRID_THRESHOLD       3
   #define E0_HYBRID_THRESHOLD     60
-  #define E1_HYBRID_THRESHOLD     30
-  #define E2_HYBRID_THRESHOLD     30
-  #define E3_HYBRID_THRESHOLD     30
-  #define E4_HYBRID_THRESHOLD     30
-  #define E5_HYBRID_THRESHOLD     30
-  #define E6_HYBRID_THRESHOLD     30
-  #define E7_HYBRID_THRESHOLD     30
+  //#define E1_HYBRID_THRESHOLD     30
+  //#define E2_HYBRID_THRESHOLD     30
+  //#define E3_HYBRID_THRESHOLD     30
+  //#define E4_HYBRID_THRESHOLD     30
+  //#define E5_HYBRID_THRESHOLD     30
+  //#define E6_HYBRID_THRESHOLD     30
+  //#define E7_HYBRID_THRESHOLD     30
 
   /**
    * Use StallGuard to home / probe X, Y, Z.

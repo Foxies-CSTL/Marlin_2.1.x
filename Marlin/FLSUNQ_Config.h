@@ -111,6 +111,8 @@
 * =========================================//
 */
 //#define LCD_LANGUAGE en                // Change for your country ('bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'el':'Greek', 'fi':'Finnish', 'hr':'Croatian', 'hu':'Hungarian', 'jp_kana':'Japanese', 'nl':'Dutch', 'pl':'Polish', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', etc)
+#define LCD_LANGUAGE_2 fr                // Add your language for TFT_COLOR_UI ex: zh_CN
+
 //#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
 
 /*_________________________________4______________________________*/
@@ -160,9 +162,9 @@
 //#define X_PROBE                        // Uncomment and Set an other probe (invert the logic too).
 
 // Ajust the position of your new probe (BD_SENSOR, IR, piezo).
-//#define X_OFFSET 0 //-2                // Uncomment and set your own X OffSet
-//#define Y_OFFSET 0 //14.7              // Uncomment and set your own Y OffSet
-//#define Z_OFFSET 0 //-2.5              // Uncomment and set your own Z OffSet
+//#define X_OffSet 0 //-2                // Uncomment and set your own X OffSet
+//#define Y_OffSet 0 //14.7              // Uncomment and set your own Y OffSet
+//#define Z_OffSet 0 //-2.5              // Uncomment and set your own Z OffSet
 
                   /* User settings Hotend */ 
 
@@ -201,9 +203,9 @@
 
 /*_______________________6____________________*/
   //======Many options for Modules: ========//
-#define LIN_ADVANCE                      // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
-#define POWER_LOSS_RECOVERY              // (Default) Continue print after Power-Loss.
-//#define FWRETRACT                      // Firmware-based and LCD-controlled retract
+#define LIN_ADVANCE                    // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
+#define POWER_LOSS_RECOVERY            // (Default) Continue print after Power-Loss.
+#define FWRETRACT                      // (Default) Firmware-based and LCD-controlled retract
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -227,7 +229,7 @@
 #define HOST_ACTION_COMMANDS             // Default - Action Command Prompt support Message on Octoprint
 #define HOST_START_MENU_ITEM             // Add a menu item that tells the host to start a print
 
-//#define BINARY_FILE_TRANSFER             // Bin transfert for ESP3D firmware v2.1 or others.
+//#define BINARY_FILE_TRANSFER           // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option.
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
 //#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB. block the request octoprint
@@ -275,7 +277,8 @@
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
   //#define TOUCH_IDLE_SLEEP_MINS 5     // Auto-Sleep to 5mn screenview. (M255 S100)
   //#define LCD_BACKLIGHT_TIMEOUT_MINS 3 // (mn) Timeout before turning off the backlight
-  #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
+  //#define MENU_ADDAUTOSTART           // Add a menu option to run auto#.g files
+#define SOUND_MENU_ITEM                 // Add a mute option to the LCD menu
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
@@ -459,9 +462,9 @@
 // SENSORLESS_PROBING
 #ifdef STALLGUARD_2
   #define N_PROBE
-  #define X_OFFSET 0.0
-  #define Y_OFFSET 0.0
-  #define Z_OFFSET 0.80
+  #define X_OffSet 0.0
+  #define Y_OffSet 0.0
+  #define Z_OffSet 0.80
 #endif
 
 //===================PART CONSTANTS VARIALBES ===================//
@@ -503,15 +506,15 @@
   #endif
 #endif
 //Z_OffSet
-#ifndef Z_OFFSET
+#ifndef Z_OffSet
   #ifndef Q5
-    #define X_OFFSET    0
-    #define Y_OFFSET    0
-    #define Z_OFFSET  -16.2
+    #define X_OffSet    0
+    #define Y_OffSet    0
+    #define Z_OffSet  -16.2
   #else
-    #define X_OFFSET    0
-    #define Y_OFFSET    0
-    #define Z_OFFSET  -18
+    #define X_OffSet    0
+    #define Y_OffSet    0
+    #define Z_OffSet  -18
   #endif
 #endif
 // TMC Current in UART mode

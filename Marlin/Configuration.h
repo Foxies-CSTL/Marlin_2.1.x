@@ -1837,7 +1837,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { X_OFFSET, Y_OFFSET, Z_OFFSET } //(QQS -16.2) (Q5 -18)
+#define NOZZLE_TO_PROBE_OFFSET { X_OffSet, Y_OffSet, Z_OffSet } //(QQS -16.2) (Q5 -18)
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 #define PROBING_TOOL 0
@@ -2117,7 +2117,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS PRINTABLE_RADIUS
 #define Y_MAX_POS PRINTABLE_RADIUS
-#define Z_MAX_POS MANUAL_Z_HOME_POS
+#define Z_MAX_POS DELTA_HEIGHT
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
 //#define J_MIN_POS 0

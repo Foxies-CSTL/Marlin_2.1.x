@@ -81,11 +81,11 @@ namespace Language_it {
   LSTR MSG_FILAMENT_SET                   = _UxGT("Impostaz.filamento");
   LSTR MSG_FILAMENT_MAN                   = _UxGT("Gestione filamento");
   LSTR MSG_MANUAL_LEVELING                = _UxGT("Livel.manuale");
-  LSTR MSG_LEVBED_FL                      = _UxGT("Davanti Sinistra");
-  LSTR MSG_LEVBED_FR                      = _UxGT("Davanti Destra");
-  LSTR MSG_LEVBED_C                       = _UxGT("Centro");
-  LSTR MSG_LEVBED_BL                      = _UxGT("Dietro Sinistra");
-  LSTR MSG_LEVBED_BR                      = _UxGT("Dietro Destra");
+  LSTR MSG_TRAM_FL                        = _UxGT("Davanti Sinistra");
+  LSTR MSG_TRAM_FR                        = _UxGT("Davanti Destra");
+  LSTR MSG_TRAM_C                         = _UxGT("Centro");
+  LSTR MSG_TRAM_BL                        = _UxGT("Dietro Sinistra");
+  LSTR MSG_TRAM_BR                        = _UxGT("Dietro Destra");
   LSTR MSG_MANUAL_MESH                    = _UxGT("Mesh Manuale");
   LSTR MSG_AUTO_MESH                      = _UxGT("Generaz.Autom.Mesh");
   LSTR MSG_AUTO_Z_ALIGN                   = _UxGT("Allineam.automat. Z");
@@ -364,7 +364,7 @@ namespace Language_it {
   LSTR MSG_PID_AUTOTUNE_FAILED            = _UxGT("Calibr.PID fallito!");
   LSTR MSG_BAD_HEATER_ID                  = _UxGT("Estrusore invalido.");
   LSTR MSG_TEMP_TOO_HIGH                  = _UxGT("Temp.troppo alta.");
-  LSTR MSG_TIMEOUT                        = _UxGT("Tempo scaduto.");
+  LSTR MSG_TIMEOUT                        = _UxGT("Tempo scaduto");
   LSTR MSG_PID_BAD_HEATER_ID              = _UxGT("Calibrazione fallita! Estrusore errato.");
   LSTR MSG_PID_TEMP_TOO_HIGH              = _UxGT("Calibrazione fallita! Temperatura troppo alta.");
   LSTR MSG_PID_TIMEOUT                    = _UxGT("Calibrazione fallita! Tempo scaduto.");

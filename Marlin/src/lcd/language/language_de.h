@@ -68,12 +68,12 @@ namespace Language_de {
   LSTR MSG_FILAMENT_SET                   = _UxGT("Fila. Einstellungen");
   LSTR MSG_FILAMENT_MAN                   = _UxGT("Filament Management");
   LSTR MSG_MANUAL_LEVELING                = _UxGT("Manuell Nivellierung");
-  LSTR MSG_LEVBED_FL                      = _UxGT("Vorne Links");
-  LSTR MSG_LEVBED_FR                      = _UxGT("Vorne Rechts");
-  LSTR MSG_LEVBED_C                       = _UxGT("Mitte");
-  LSTR MSG_LEVBED_BL                      = _UxGT("Hinten Links");
-  LSTR MSG_LEVBED_BR                      = _UxGT("Hinten Rechts");
-  LSTR MSG_MANUAL_MESH                    = _UxGT("manuelles Netz");
+  LSTR MSG_TRAM_FL                        = _UxGT("Vorne Links");
+  LSTR MSG_TRAM_FR                        = _UxGT("Vorne Rechts");
+  LSTR MSG_TRAM_C                         = _UxGT("Mitte");
+  LSTR MSG_TRAM_BL                        = _UxGT("Hinten Links");
+  LSTR MSG_TRAM_BR                        = _UxGT("Hinten Rechts");
+  LSTR MSG_MANUAL_MESH                    = _UxGT("Manuelles Netz");
   LSTR MSG_AUTO_MESH                      = _UxGT("Netz auto. erstellen");
   LSTR MSG_AUTO_Z_ALIGN                   = _UxGT("Z-Achsen ausgleichen");
   LSTR MSG_ITERATION                      = _UxGT("G34 Iteration: %i");
@@ -343,7 +343,7 @@ namespace Language_de {
   LSTR MSG_PID_AUTOTUNE_FAILED            = _UxGT("PID Autotune fehlge.!");
   LSTR MSG_BAD_HEATER_ID                  = _UxGT("ungültiger Extruder.");
   LSTR MSG_TEMP_TOO_HIGH                  = _UxGT("Temperatur zu hoch.");
-  LSTR MSG_TIMEOUT                        = _UxGT("Timeout.");
+  LSTR MSG_TIMEOUT                        = _UxGT("Timeout");
   LSTR MSG_PID_BAD_HEATER_ID              = _UxGT("Autotune fehlge.! Ungültiger Extruder");
   LSTR MSG_PID_TEMP_TOO_HIGH              = _UxGT("Autotune fehlge.! Temperatur zu hoch.");
   LSTR MSG_PID_TIMEOUT                    = _UxGT("Autotune fehlge.! Timeout.");

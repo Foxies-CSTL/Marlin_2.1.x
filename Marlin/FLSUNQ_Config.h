@@ -205,7 +205,7 @@
   //======Many options for Modules: ========//
 #define LIN_ADVANCE                    // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
 #define POWER_LOSS_RECOVERY            // (Default) Continue print after Power-Loss.
-#define FWRETRACT                      // (Default) Firmware-based and LCD-controlled retract
+//#define FWRETRACT                      // (Default) Firmware-based and LCD-controlled retract
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -232,7 +232,7 @@
 //#define BINARY_FILE_TRANSFER           // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option.
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
-//#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB. block the request octoprint
+#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB. block the request octoprint
 //#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
 
 //----------Options Plus-----------//

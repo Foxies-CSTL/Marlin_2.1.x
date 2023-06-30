@@ -40,16 +40,13 @@
 #endif
 
 void _goto_manual_move_z(const_float_t);
+
 // Global storage
 float z_offset_backup, calculated_z_offset, z_offset_ref;
 
 void set_offset_and_go_back(const_float_t z) {
   probe.offset.z = z;
-  #if ENABLED(DELTA)
-    SET_SOFT_ENDSTOP_ENABLED(true);
-  #else
-    SET_SOFT_ENDSTOP_LOOSE(false);
-  #endif
+  SET_SOFT_ENDSTOP_LOOSE(false);
   TERN_(HAS_LEVELING, set_bed_leveling_enabled(menu_leveling_was_active));
   ui.goto_previous_screen_no_defer();
 }
@@ -122,11 +119,7 @@ void prepare_for_probe_offset_wizard() {
   ui.synchronize(GET_TEXT_F(MSG_PROBE_WIZARD_MOVING));
   ui.wait_for_move = false;
 
-  #if ENABLED(DELTA)
-    SET_SOFT_ENDSTOP_ENABLED(false);
-  #else
-    SET_SOFT_ENDSTOP_LOOSE(true); // Disable soft endstops for free Z movement
-  #endif
+  SET_SOFT_ENDSTOP_LOOSE(true); // Disable soft endstops for free Z movement
 
   // Go to Calibration Menu
   ui.goto_screen(probe_offset_wizard_menu);

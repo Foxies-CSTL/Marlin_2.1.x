@@ -4011,7 +4011,7 @@ static_assert(_PLUS_TEST(3), "DEFAULT_MAX_ACCELERATION values must be positive."
  */
 #if HAS_ZV_SHAPING
   #if ENABLED(DELTA)
-    #error "Input Shaping is not compatible with DELTA kinematics."
+    //#error "Input Shaping is not compatible with DELTA kinematics."
   #elif ENABLED(SCARA)
     #error "Input Shaping is not compatible with SCARA kinematics."
   #elif ENABLED(TPARA)

@@ -77,7 +77,7 @@ void MarlinUI::tft_idle() {
     #else
       #define BOOT_LOGO_W TFT_WIDTH   // MarlinLogo320x240x16
       #define BOOT_LOGO_H TFT_HEIGHT
-      #define SITE_URL_Y (TFT_HEIGHT - 54)
+      #define SITE_URL_Y (TFT_HEIGHT - 22)
     #endif
     tft.add_image((TFT_WIDTH - BOOT_LOGO_W) / 2, (TFT_HEIGHT - BOOT_LOGO_H) / 2, imgBootScreen);
     #ifdef WEBSITE_URL

@@ -241,6 +241,7 @@ inline float home_bump_mm(const AxisEnum axis) {
     #endif
   );
   #define SET_SOFT_ENDSTOP_LOOSE(loose) (soft_endstop._loose = loose)
+  #define SET_SOFT_ENDSTOP_ENABLED(enabled) (soft_endstop._enabled = enabled)
 
 #else // !HAS_SOFTWARE_ENDSTOPS
 

@@ -149,9 +149,9 @@
 //#define X_PROBE                        // Uncomment and Set an other probe (IR, Hal) Note:invert the logic too.
 
 // Ajust the position of your new probe (BD_SENSOR, IR, piezo).
-//#define X_OFFSET 0 //-2                // Uncomment and set your own X OffSet
-//#define Y_OFFSET 0 //14.7              // Uncomment and set your own Y OffSet
-//#define Z_OFFSET 0 //-2.5              // Uncomment and set your own Z OffSet
+//#define X_OffSet 0 //-2                // Uncomment and set your own X OffSet
+//#define Y_OffSet 0 //14.7              // Uncomment and set your own Y OffSet
+//#define Z_OffSet 0 //-2.5              // Uncomment and set your own Z OffSet
 
                   /* User settings Hotend */ 
 
@@ -426,9 +426,9 @@
 // SENSORLESS_PROBING
 #ifdef STALLGUARD_2
   #define N_PROBE
-  #define X_OFFSET 0.0
-  #define Y_OFFSET 0.0
-  #define Z_OFFSET 0.80
+  #define X_OffSet 0.0
+  #define Y_OffSet 0.0
+  #define Z_OffSet 0.80
 #endif
 
 //===================PART CONSTANTS VARIALBES ===================//
@@ -470,15 +470,15 @@
   #endif
 #endif
 //Z_OffSet
-#ifndef Z_OFFSET
+#ifndef Z_OffSet
   #ifndef Q5
-    #define X_OFFSET        0
-    #define Y_OFFSET        0
-    #define Z_OFFSET       -16.2
+    #define X_OffSet        0
+    #define Y_OffSet        0
+    #define Z_OffSet       -16.2
   #else
-    #define X_OFFSET        0
-    #define Y_OFFSET        0
-    #define Z_OFFSET       -18
+    #define X_OffSet        0
+    #define Y_OffSet        0
+    #define Z_OffSet       -18
   #endif
 #endif
 // TMC Current in UART mode

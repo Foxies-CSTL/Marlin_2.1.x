@@ -130,8 +130,8 @@ void safe_delay(millis_t ms) {
         #endif
         #if ABL_PLANAR
           SERIAL_ECHOPGM("ABL Adjustment");
-          LOOP_LINEAR_AXES(a) {
-            SERIAL_CHAR(' ', AXIS_CHAR(a));
+          LOOP_NUM_AXES(a) {
+            SERIAL_ECHOPGM_P((PGM_P)pgm_read_ptr(&SP_AXIS_STR[a]));
             serial_offset(planner.get_axis_position_mm(AxisEnum(a)) - current_position[a]);
           }
         #else

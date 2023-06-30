@@ -49,6 +49,9 @@
 #define TMC_I_LABEL 'I', '0'
 #define TMC_J_LABEL 'J', '0'
 #define TMC_K_LABEL 'K', '0'
+#define TMC_U_LABEL 'U', '0'
+#define TMC_V_LABEL 'V', '0'
+#define TMC_W_LABEL 'W', '0'
 
 #define TMC_X2_LABEL 'X', '2'
 #define TMC_Y2_LABEL 'Y', '2'
@@ -91,6 +94,15 @@
 #endif
 #if HAS_K_AXIS && !defined(CHOPPER_TIMING_K)
   #define CHOPPER_TIMING_K CHOPPER_TIMING
+#endif
+#if HAS_U_AXIS && !defined(CHOPPER_TIMING_U)
+  #define CHOPPER_TIMING_U CHOPPER_TIMING
+#endif
+#if HAS_V_AXIS && !defined(CHOPPER_TIMING_V)
+  #define CHOPPER_TIMING_V CHOPPER_TIMING
+#endif
+#if HAS_W_AXIS && !defined(CHOPPER_TIMING_W)
+  #define CHOPPER_TIMING_W CHOPPER_TIMING
 #endif
 #if HAS_EXTRUDERS && !defined(CHOPPER_TIMING_E)
   #define CHOPPER_TIMING_E CHOPPER_TIMING

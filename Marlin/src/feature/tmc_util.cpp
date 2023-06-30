@@ -423,6 +423,18 @@
         if (monitor_tmc_driver(stepperK, need_update_error_counters, need_debug_reporting))
           step_current_down(stepperK);
       #endif
+      #if AXIS_IS_TMC(U)
+        if (monitor_tmc_driver(stepperU, need_update_error_counters, need_debug_reporting))
+          step_current_down(stepperU);
+      #endif
+      #if AXIS_IS_TMC(V)
+        if (monitor_tmc_driver(stepperV, need_update_error_counters, need_debug_reporting))
+          step_current_down(stepperV);
+      #endif
+      #if AXIS_IS_TMC(W)
+        if (monitor_tmc_driver(stepperW, need_update_error_counters, need_debug_reporting))
+          step_current_down(stepperW);
+      #endif
 
       #if AXIS_IS_TMC(E0)
         (void)monitor_tmc_driver(stepperE0, need_update_error_counters, need_debug_reporting);
@@ -803,6 +815,15 @@
     #if AXIS_IS_TMC(K)
       if (k) tmc_status(stepperK, n);
     #endif
+    #if AXIS_IS_TMC(U)
+      if (u) tmc_status(stepperU, n);
+    #endif
+    #if AXIS_IS_TMC(V)
+      if (v) tmc_status(stepperV, n);
+    #endif
+    #if AXIS_IS_TMC(W)
+      if (w) tmc_status(stepperW, n);
+    #endif
 
     if (TERN0(HAS_EXTRUDERS, e)) {
       #if AXIS_IS_TMC(E0)
@@ -876,6 +897,15 @@
     #endif
     #if AXIS_IS_TMC(K)
       if (k) tmc_parse_drv_status(stepperK, n);
+    #endif
+    #if AXIS_IS_TMC(U)
+      if (u) tmc_parse_drv_status(stepperU, n);
+    #endif
+    #if AXIS_IS_TMC(V)
+      if (v) tmc_parse_drv_status(stepperV, n);
+    #endif
+    #if AXIS_IS_TMC(W)
+      if (w) tmc_parse_drv_status(stepperW, n);
     #endif
 
     if (TERN0(HAS_EXTRUDERS, e)) {
@@ -1082,6 +1112,15 @@
     #if AXIS_IS_TMC(K)
       if (k) tmc_get_registers(stepperK, n);
     #endif
+    #if AXIS_IS_TMC(U)
+      if (u) tmc_get_registers(stepperU, n);
+    #endif
+    #if AXIS_IS_TMC(V)
+      if (v) tmc_get_registers(stepperV, n);
+    #endif
+    #if AXIS_IS_TMC(W)
+      if (w) tmc_get_registers(stepperW, n);
+    #endif
 
     if (TERN0(HAS_EXTRUDERS, e)) {
       #if AXIS_IS_TMC(E0)
@@ -1238,6 +1277,15 @@ void test_tmc_connection(LOGICAL_AXIS_ARGS(const bool)) {
   #if AXIS_IS_TMC(K)
     if (k) axis_connection += test_connection(stepperK);
   #endif
+  #if AXIS_IS_TMC(U)
+    if (u) axis_connection += test_connection(stepperU);
+  #endif
+  #if AXIS_IS_TMC(V)
+    if (v) axis_connection += test_connection(stepperV);
+  #endif
+  #if AXIS_IS_TMC(W)
+    if (w) axis_connection += test_connection(stepperW);
+  #endif
 
   if (TERN0(HAS_EXTRUDERS, e)) {
     #if AXIS_IS_TMC(E0)
@@ -1306,6 +1354,15 @@ void test_tmc_connection(LOGICAL_AXIS_ARGS(const bool)) {
     #endif
     #if AXIS_HAS_SPI(K)
       SET_CS_PIN(K);
+    #endif
+    #if AXIS_HAS_SPI(U)
+      SET_CS_PIN(U);
+    #endif
+    #if AXIS_HAS_SPI(V)
+      SET_CS_PIN(V);
+    #endif
+    #if AXIS_HAS_SPI(W)
+      SET_CS_PIN(W);
     #endif
     #if AXIS_HAS_SPI(E0)
       SET_CS_PIN(E0);

@@ -24,7 +24,7 @@
 // ATmega2560
 
 #if HOTENDS > 2 || E_STEPPERS > 2
-  #error "Creality3D RAMPS supports only 2 hotends / E-steppers. Comment out this line to continue."
+  #error "Creality RAMPS supports up to 2 hotends / E steppers."
 #endif
 
 #define BOARD_INFO_NAME "Creality3D RAMPS"

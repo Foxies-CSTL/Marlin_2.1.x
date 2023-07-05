@@ -454,7 +454,7 @@
 // Shift register panels
 // ---------------------
 // 2 wire Non-latching LCD SR from:
-// https://bitbucket.org/fmalpartida/new-liquidcrystal/wiki/schematics#!shiftregister-connection
+// https://github.com/fmalpartida/New-LiquidCrystal/wiki/schematics#user-content-ShiftRegister_connection
 #if ENABLED(FF_INTERFACEBOARD)
   #define SR_LCD_3W_NL    // Non latching 3 wire shift register
   #define IS_ULTIPANEL 1
@@ -533,6 +533,20 @@
 #endif
 
 #if ANY(HAS_WIRED_LCD, EXTENSIBLE_UI, DWIN_LCD_PROUI, DWIN_CREALITY_LCD_JYERSUI)
+  /**
+   * HAS_DISPLAY indicates the display uses these MarlinUI methods...
+   *  - update
+   *  - abort_print
+   *  - pause_print
+   *  - resume_print
+   *  - poweroff        (for PSU_CONTROL and HAS_MARLINUI_MENU)
+   *
+   *  ...and implements these MarlinUI methods:
+   *  - zoffset_overlay (if BABYSTEP_GFX_OVERLAY or MESH_EDIT_GFX_OVERLAY are supported)
+   *  - draw_kill_screen
+   *  - kill_screen
+   *  - draw_status_message
+   */
   #define HAS_DISPLAY 1
 #endif
 

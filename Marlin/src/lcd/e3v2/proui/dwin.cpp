@@ -575,6 +575,7 @@ void drawPrintProgressElapsed() {
 }
 
 #if ENABLED(SHOW_REMAINING_TIME)
+  uint32_t _remain_time = 0;
   void drawPrintProgressRemain() {
     MString<12> buf;
     buf.setf(F("%02i:%02i "), _remain_time / 3600, (_remain_time % 3600) / 60);
@@ -1319,7 +1320,6 @@ void eachMomentUpdate() {
 
       // Remaining time
       #if ENABLED(SHOW_REMAINING_TIME)
-        static uint32_t _remain_time = 0;
         if (_remain_time != ui.get_remaining_time()) {
           _remain_time = ui.get_remaining_time();
           drawPrintProgressRemain();
@@ -2357,7 +2357,7 @@ void setFlow() { setPIntOnClick(MIN_PRINT_FLOW, MAX_PRINT_FLOW, []{ planner.refr
         if (isnan(zval))
           LCD_MESSAGE(MSG_ZPROBE_OUT);
         else
-          ui.set_status(TS(F("X:"), p_float_t(xpos, 1), F(" Y:"), p_float_t(ypos, 1), F(" Z:")));
+          ui.set_status(TS(F("X:"), p_float_t(xpos, 1), F(" Y:"), p_float_t(ypos, 1), F(" Z:"), p_float_t(zval, 2)));
         inLev = false;
       }
       return zval;
@@ -2375,14 +2375,6 @@ void setFlow() { setPIntOnClick(MIN_PRINT_FLOW, MAX_PRINT_FLOW, []{ planner.refr
 
   #endif
 
-  inline void tramFL() { tram(0); }
-  inline void tramFR() { tram(1); }
-  inline void tramBR() { tram(2); }
-  inline void tramBL() { tram(3); }
-  #if ENABLED(BED_TRAMMING_INCLUDE_CENTER)
-    inline void tramC() { tram(4); }
-  #endif
-
   #if HAS_BED_PROBE && HAS_MESH
 
     void trammingwizard() {
@@ -2391,14 +2383,14 @@ void setFlow() { setPIntOnClick(MIN_PRINT_FLOW, MAX_PRINT_FLOW, []{ planner.refr
         return;
       }
       bed_mesh_t zval = {0};
-      zval[0][0] = tramFL();
+      zval[0][0] = tram(0);
       checkkey = ID_NothingToDo;
       meshViewer.drawMesh(zval, 2, 2);
-      zval[1][0] = tramFR();
+      zval[1][0] = tram(1);
       meshViewer.drawMesh(zval, 2, 2);
-      zval[1][1] = tramBR();
+      zval[1][1] = tram(2);
       meshViewer.drawMesh(zval, 2, 2);
-      zval[0][1] = tramBL();
+      zval[0][1] = tram(3);
       meshViewer.drawMesh(zval, 2, 2);
 
       DWINUI::drawCenteredString(140, F("Calculating average"));
@@ -3031,12 +3023,12 @@ void drawPrepareMenu() {
       #elif !HAS_BED_PROBE && HAS_ZOFFSET_ITEM
         MENU_ITEM_F(ICON_MoveZ0, "Home Z and disable", onDrawMenuItem, homeZAndDisable);
       #endif
-      MENU_ITEM(ICON_Axis, MSG_TRAM_FL, onDrawMenuItem, tramFL);
-      MENU_ITEM(ICON_Axis, MSG_TRAM_FR, onDrawMenuItem, tramFR);
-      MENU_ITEM(ICON_Axis, MSG_TRAM_BR, onDrawMenuItem, tramBR);
-      MENU_ITEM(ICON_Axis, MSG_TRAM_BL, onDrawMenuItem, tramBL);
+      MENU_ITEM(ICON_Axis, MSG_TRAM_FL, onDrawMenuItem, []{ (void)tram(0); });
+      MENU_ITEM(ICON_Axis, MSG_TRAM_FR, onDrawMenuItem, []{ (void)tram(1); });
+      MENU_ITEM(ICON_Axis, MSG_TRAM_BR, onDrawMenuItem, []{ (void)tram(2); });
+      MENU_ITEM(ICON_Axis, MSG_TRAM_BL, onDrawMenuItem, []{ (void)tram(3); });
       #if ENABLED(BED_TRAMMING_INCLUDE_CENTER)
-        MENU_ITEM(ICON_Axis, MSG_TRAM_C, onDrawMenuItem, tramC);
+        MENU_ITEM(ICON_Axis, MSG_TRAM_C, onDrawMenuItem, []{ (void)tram(4); });
       #endif
     }
     updateMenu(trammingMenu);

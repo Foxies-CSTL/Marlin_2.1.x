@@ -340,8 +340,23 @@ void MarlinUI::draw_status_screen() {
     TERN_(TOUCH_SCREEN, touch.add_control(FLOWRATE, x, y, component_width, 32, active_extruder));
   #endif
 
-  y += TERN(HAS_UI_480x272, 36, 44);
+  y += TERN(HAS_UI_480x272, 30, 48);
 
+  #if ENABLED(TOUCH_SCREEN)
+    // Settings button
+    add_control(SETTINGS_X, y, menu_main, imgSettings);
+
+    // SD-card button / Cancel button
+    #if HAS_MEDIA
+      const bool cm = card.isMounted(), pa = printingIsActive();
+      if (cm && pa)
+        add_control(SDCARD_X, y, STOP, imgCancel, true, COLOR_CONTROL_CANCEL);
+      else
+        add_control(SDCARD_X, y, menu_media, imgSD, cm && !pa, COLOR_CONTROL_ENABLED, COLOR_CONTROL_DISABLED); // 64px icon size
+    #endif
+    y += STATUS_MARGIN_SIZE + TERN(TFT_COLOR_UI_PORTRAIT, 64, 44);
+  #endif
+  
   const progress_t progress = TERN(HAS_PRINT_PROGRESS_PERMYRIAD, get_progress_permyriad, get_progress_percent)();
   #if ENABLED(SHOW_ELAPSED_TIME) && DISABLED(SHOW_REMAINING_TIME)
     // Print duration so far (time elapsed) - centered

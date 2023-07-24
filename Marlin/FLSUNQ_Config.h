@@ -98,11 +98,11 @@
   //#define TFT_OTHER            // For the user who haven't the same screen.
 #else
                 /*--- Choice UI TFT ----*/
-  #define TFT_COLOR_UI         //(C) UI Color MARLIN with Mks-TS35v2
+  #define TFT_COLOR_UI           //(C) UI Color MARLIN with Mks-TS35v2
               //=====Option portrait for SR TFT_COLOR_UI ======
   //#define TFT_ROTATION TFT_ROTATE_90      //Enable mode PORTRAIT for COLOR_UI (90 or 270)
   
-  //#define TFT_BTT_UI             //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
+  //#define TFT_BTT_UI           //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen like CrealityTouch or Mks H43
 #endif
 
@@ -318,23 +318,23 @@
   #define MOD_AUX                   // enable the UART2 for BTT_TFT (TOUCH UI)
   #define TFT_CLASSIC_UI
   #define MKS_ROBIN_TFT32
-  #define HOST_STATUS_NOTIFICATIONS
   //#define TFT_GENERIC
   //#define TFT_DRIVER AUTO
   //#define TFT_INTERFACE_FSMC        //Default socket on MKS_nano, mini, hispeed.
   //#define TFT_RES_320x240
   //#define ULTRA_LCD//CR10_STOCKDISPLAY
   //#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
-  //#define SET_PROGRESS_MANUALLY
   #define G26_MESH_VALIDATION
 #elif ALL(TFT_COLOR_UI, SR_MKS)
   #define MKS_TS35_V2_0             // Only for NanoV2 or V3
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
   #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
+  #define TFT_THEME DELTAFOX        // TFT Theme for Color_UI
 #elif ENABLED(TFT_OTHER)
   //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
-  #define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
+  #define MKS_ROBIN_TFT35           // Mks_Robin_TFT35V2.0
   //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
+  #define TFT_THEME DELTAFOX        // TFT Theme for Color_UI
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #elif ENABLED(TFT_PORTRAIT)
   #define TFT_ROTATION TFT_ROTATE_90       //PORTRAIT TFT32
@@ -342,9 +342,11 @@
   #define TOUCH_ORIENTATION TOUCH_PORTRAIT //PORTRAIT TFT32
   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  #define TFT_THEME DELTAFOX        // TFT Theme for Color_UI
 #else
   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
+  #define TFT_THEME DELTAFOX        // TFT Theme for Color_UI
 #endif
 
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 

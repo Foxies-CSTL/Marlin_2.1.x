@@ -27,6 +27,7 @@
 * New MoBo temp.
 * New stm32f1.ini (hispeed)
 * add state time/restant
+* Show the E position (filament used) during printing
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV
@@ -87,7 +88,7 @@
                 /*--- Choice UI TFT ----*/
   #define TFT_COLOR_UI           //(C) (Default) UI Color MARLIN
   //=====Option portrait for QQSP/Q5 TFT_COLOR_UI ======
-  //#define TFT_ROTATION TFT_ROTATE_90      //Enable mode PORTRAIT for COLOR_UI (90 or 270)
+  //#define TFT_ROTATION TFT_ROTATE_90      //Enable mode PORTRAIT for COLOR_UI(90 or 270)
 
   //#define TFT_CLASSIC_UI       //(F) Standard LCD (UI Classic LCD)
   //#define MOD_BTT_UI           //(s) UI TOUCH for QQSP/Q5(without Wifi module) and BTT TFT screen.
@@ -427,7 +428,7 @@
 #ifdef QQS_UARTH
     #define MICROSTEPS32
     #define Q_TMC
-    #define BOOT_MARLIN_LOGO_SMALL
+    //#define BOOT_MARLIN_LOGO_SMALL
     #define TMC_HARDWARE_SERIAL
     #define DRIVER_AXES TMC2209
     #ifndef DRIVER_EXT

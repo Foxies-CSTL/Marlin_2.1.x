@@ -107,6 +107,7 @@ extern const tImage NoLogo;
   extern const tImage MarlinLogo195x59x16;
   extern const tImage MarlinLogo240x250x16;
   extern const tImage MarlinLogo320x240x16;
+  extern const tImage MarlinLogo320x250x16;
   extern const tImage MarlinLogo480x320x16;
   extern const tImage MarlinLogo1024x600x16;
 #endif

@@ -20,6 +20,9 @@
  *
  */
 #pragma once
+
+#define MOVE_AXIS_SCREEN  // Special "Move Axis" screen activated by touching coordinates area
+
 #ifndef COLOR_BACKGROUND
   #define COLOR_BACKGROUND        COLOR_DARK
 #endif

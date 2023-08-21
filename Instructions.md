@@ -18,6 +18,7 @@ So to know this reference, it is necessary to perform a Delta calibration which 
 All these operations are calculated by the firmware embedded in your printer. But before carrying out this Delta calibration, you must make a good mechanical check (stability of the structure, identical tension of the belts, play in the moving parts, etc). 
 
 From there, you can launch a calibration of your Delta printer which will provide you with precision in the movement of the print head and will be the basis for a healthy operation.
+
 Important: Also be aware that if you change any part of this assembly, calibration will be necessary/obligatory again,
 - moving the printer,
 - frame oscillations,
@@ -62,6 +63,7 @@ Here is a summary of the steps to follow in order:
  => it's correct so store settings. Go to next print and enjoy.
 
  => This isn't correct so do a test print of the pattern (not interruptible).
+ 
   a. Result is correct on the whole then problem with the Slicer settings, check dot 7.
 
 📌Note:

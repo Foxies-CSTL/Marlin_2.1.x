@@ -1769,8 +1769,9 @@
 
   // SD Card Sorting options
   #if ENABLED(SDCARD_SORT_ALPHA)
+    #define SDSORT_REVERSE     true  // Sort file names in reverse order
     #define SDSORT_LIMIT       40     // Maximum number of sorted items (10-256). Costs 27 bytes each.
-    #define FOLDER_SORTING     -1     // -1=above  0=none  1=below
+    #define FOLDER_SORTING     1     // -1=above  0=none  1=below
     #define SDSORT_GCODE       true  // Allow turning sorting on/off with LCD and M34 G-code.
     #define SDSORT_USES_RAM    true  // Pre-allocate a static array for faster pre-sorting.
     #define SDSORT_USES_STACK  false  // Prefer the stack for pre-sorting to give back some SRAM. (Negated by next 2 options.)
@@ -4546,7 +4547,9 @@
 #endif
 
 // Enable Tests that will run at startup and produce a report
-//#define MARLIN_TEST_BUILD
+#ifdef DBUG
+  #define MARLIN_TEST_BUILD
+#endif
 
 // Enable Marlin dev mode which adds some special commands
 #ifdef DBUG

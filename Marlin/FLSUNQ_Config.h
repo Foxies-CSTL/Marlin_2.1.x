@@ -28,6 +28,7 @@
 * New stm32f1.ini (hispeed)
 * add state time/restant
 * Show the E position (filament used) during printing
+* Show the last file on first place.
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV
@@ -580,9 +581,9 @@
   #ifdef QQSP
     #define I2C_BD_SCL_PIN   PA5          //WifiCrtl (Green) or BlTouch (yellow)
     #define I2C_BD_SDA_PIN   Z_MIN_PIN    //PA11 (White) or BltTouch (grey)
-  #elif ENABLE(SR_MKS)
+  #elif ANY(SR_MKS, Q5, NANO)
     #define I2C_BD_SCL_PIN   SERVO0_PIN    //PA8(Green)
-    #define I2C_BD_SDA_PIN   Z_MIN_PIN    //PC8(White) or PB2 (PW_OFF)
+    #define I2C_BD_SDA_PIN   PS_ON_PIN    //PB2 (PW_OFF)(White)
   #endif
   #define I2C_BD_DELAY  18 //20
 #endif

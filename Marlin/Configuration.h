@@ -95,23 +95,23 @@
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
   #ifdef QQSP
-    #define MOTHERBOARD BOARD_FLSUN_HISPEED
-    //#define MOTHERBOARD BOARD_MKS_ROBIN_MINI
-    //#define MOTHERBOARD BOARD_MKS_SGEN_L
+    #define MOTHERBOARD BOARD_FLSUN_HISPEED            // (Default) QQSP 1st MoBo 
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_MINI         // QQS 1st MoBo 
+    //#define MOTHERBOARD BOARD_MKS_SGEN_L             // QQ old Mobo
     #define BAUD_RATE_GCODE
   #endif
   #ifdef Q5
     #define MOTHERBOARD BOARD_MKS_ROBIN_NANO           // (Default) Q5 old MoBo 
-    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4 // Q5 new MoBo
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4 // (2021) Q5 new MoBo
     #define BAUD_RATE_GCODE
   #endif
   #ifdef SR_MKS
-    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3      // (Default) SR 2nd MoBo 
-    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3_1      // SR new MoBo
+    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3        // (Default) SR 2nd MoBo 
+    //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3_1      // (2022) SR 3rd MoBo
     #define BAUD_RATE_GCODE
   #endif
   #ifdef SR_BTT
-    #define MOTHERBOARD BOARD_BTT_SKR_V1_3
+    #define MOTHERBOARD BOARD_BTT_SKR_V1_3             // (Default) SR 1st MoBo 
   #endif
 #endif
 

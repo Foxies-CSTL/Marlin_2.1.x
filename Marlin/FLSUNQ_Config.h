@@ -7,9 +7,10 @@
  *================= With pins_MKS_ROBIN_NANO.h BOARD (Q5)====================
  *================= With pins_MKS_ROBIN_NANO_V1_3_F4.h BOARD (Q5-2021-)======
  *================= With pins_MKS_ROBIN_NANO_V3.h BOARD (SRM)================
+ *================= With pins_MKS_ROBIN_NANO_V3_1.h BOARD (SRM-2022)=========
  *================= With pins_BTT_SKR_V1_3.h BOARD (SRB)=====================
  *===========================================================================
- *                         MARLIN_v2.1.2
+ *                         MARLIN_v2.1.2.1
  * For a Delta printer start with one of the configuration files in
  * the directory and customize for your machine:
  * https://github.com/MarlinFirmware/Configurations/tree/release-2.1.2/config/examples/delta/FLSUN/ 
@@ -33,10 +34,11 @@
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
 #define QQSP                         // (Default_QQS) env = flsun_hispeedv1
                                      // env:flsun_hispeedv1 (GD32F303VE6) 
-//#define Q5                         // env = mks_robin_nano35 or (Q5_2021) env = mks_robin_nano_v1_3_f4 (#define TEMP_TIMER  5)
-                                     // for Q5_2021 = uncomment/comment your MoBo in configuration.h (Line114)
-//#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc
-//#define SR_BTT                     // env = lpc1768
+//#define Q5                         // env = mks_robin_nano_v1v2 or (Q5_2021) env = mks_robin_nano_v1_3_f4 (#define TEMP_TIMER  5)
+                                     // for Q5_2021 = uncomment/comment your MoBo in configuration.h (Line105)
+//#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc or SR_2022 env = mks_robin_nano_v3_1_usb_flash_drive_msc
+                                     // for SR_2022 = uncomment/comment your MoBo in configuration.h (Line110)
+//#define SR_BTT                     // env = LPC1768
               
       // NOTE: change in platformio.ini file or
       // click on the "Default" icon on the bottom edge of the window and 

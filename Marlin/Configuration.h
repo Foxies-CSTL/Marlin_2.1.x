@@ -3829,11 +3829,13 @@ EEPROM_W25Q
  *   TFT_ROTATE_270, TFT_ROTATE_270_MIRROR_X, TFT_ROTATE_270_MIRROR_Y,
  *   TFT_MIRROR_X, TFT_MIRROR_Y, TFT_NO_ROTATION
  */
-#if ALL(TFT_COLOR_UI, Q5)|| ALL(TFT_CLASSIC_UI, Q5)
-  #define TFT_ROTATION TFT_ROTATE_180
-#endif
+
 #ifndef TFT_ROTATION
-  #define TFT_ROTATION TFT_NO_ROTATION
+  #if ALL(TFT_COLOR_UI, Q5)|| ALL(TFT_CLASSIC_UI, Q5)
+    #define TFT_ROTATION TFT_ROTATE_180
+  #else
+    #define TFT_ROTATION TFT_NO_ROTATION
+  #endif
 #endif
 
 //=============================================================================
@@ -3857,7 +3859,7 @@ EEPROM_W25Q
   #define BUTTON_DELAY_EDIT      50 // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU     250 // (ms) Button repeat delay for menus
 
-  //#define DISABLE_ENCODER         // Disable the click encoder, if any
+  #define DISABLE_ENCODER           // Disable the click encoder, if any
   //#define TOUCH_IDLE_SLEEP_MINS 5 // (minutes) Display Sleep after a period of inactivity. Set with M255 S.
 
   #define TOUCH_SCREEN_CALIBRATION //or (M995)

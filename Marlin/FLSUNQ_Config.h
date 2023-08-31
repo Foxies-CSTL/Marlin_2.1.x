@@ -29,6 +29,7 @@
 * add state time/restant
 * Show the E position (filament used) during printing
 * Show the last file on first place.
+* New theme DELTAFOX.
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV
@@ -88,7 +89,7 @@
 #if ANY(Q5, QQSP)
                 /*--- Choice UI TFT ----*/
   #define TFT_COLOR_UI           //(C) (Default) UI Color MARLIN
-  //=====Option portrait for QQSP/Q5 TFT_COLOR_UI ======
+  //=====Option portrait for QQSP/Q5/SR TFT_COLOR_UI ======
   //#define TFT_ROTATION TFT_ROTATE_90      //Enable mode PORTRAIT for COLOR_UI(90 or 270)
 
   //#define TFT_CLASSIC_UI       //(F) Standard LCD (UI Classic LCD)

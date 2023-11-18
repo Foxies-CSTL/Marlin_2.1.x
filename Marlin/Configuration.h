@@ -100,11 +100,12 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#if ANY(QQSP, Q5)
-  #define SERIAL_PORT 3
-  #define BAUDRATE 115200
+#ifndef MOBO
+  #if ANY(QQSP, Q5)
+    #define SERIAL_PORT 3
+    #define BAUDRATE 115200
+  #endif
 #endif
-
 /**
  * Serial Port Baud Rate
  * This is the default communication speed for all serial ports.
@@ -127,7 +128,7 @@
  */
 //#define SERIAL_PORT_2 -1
 //#define BAUDRATE_2 250000   // Enable to override BAUDRATE
-#if ANY(SR_MKS, SR_BTT)
+#if ANY(SR_MKS, SR_BTT, NANO3)
   #ifdef SR_BTT
     #ifdef MOD_AUX
       #define SERIAL_PORT 3 // 3=ESP3Dv3.0 MKS-Wifi
@@ -139,7 +140,7 @@
       #define BAUDRATE 115200
     #endif
   #endif
-  #ifdef SR_MKS
+  #if ANY(SR_MKS, NANO3)
     #define SERIAL_PORT -1  // -1 for communication with USB(1,=nok)
     #define BAUDRATE 250000
     #ifdef ESP3D_30
@@ -2516,10 +2517,10 @@
   #endif
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
-  #define UBL_HILBERT_CURVE         // Use Hilbert distribution for less travel when probing multiple points
+  //#define UBL_HILBERT_CURVE         // Use Hilbert distribution for less travel when probing multiple points
 
-  //#define UBL_TILT_ON_MESH_POINTS         // Use nearest mesh points with G29 J for better Z reference
-  //#define UBL_TILT_ON_MESH_POINTS_3POINT  // Use nearest mesh points with G29 J0 (3-point)
+  #define UBL_TILT_ON_MESH_POINTS         // Use nearest mesh points with G29 J for better Z reference
+  #define UBL_TILT_ON_MESH_POINTS_3POINT  // Use nearest mesh points with G29 J0 (3-point)
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500   // Save the currently active mesh in the current slot on M500

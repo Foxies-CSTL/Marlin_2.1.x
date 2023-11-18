@@ -30,6 +30,7 @@
 * Show the E position (filament used) during printing
 * Show the last file on first place.
 * New theme DELTAFOX.
+* disable UBL_HILBERT and enable UBL_TILT
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV
@@ -44,6 +45,7 @@
                                      // env:flsun_hispeedv1 (GD32F303VE6) 
 //#define Q5                         // env = mks_robin_nano_v1v2 or (Q5_2021) env = mks_robin_nano_v1_3_f4
 //#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4 // for Q5_2021 = uncomment/comment for your MoBo nanoV1.3.
+
 //#define SR_MKS                     // env = mks_robin_nano_v3_usb_flash_drive_msc
 //#define SR_BTT                     // env = lpc1768
               
@@ -137,9 +139,10 @@
 //#define EXTRUDER_STEPS  410            // Uncomment to ajust your eSteps (on firmware-32steps is doubled).
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
-//#define BMG                            //(B) Uncommment for BMG_left.
-//#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx.
-//#define OMG                            //(O) Uncommment for OMG.(QQS no inv)
+//#define BMG                            //(B) Uncommment for BMG_left(3:1).
+//#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx(3:1).
+//#define OMG                            //(O) Uncommment for OMG.(QQS no inv)(3:1)
+//#define OMR                            //(o) Uncommment for OMR.(QQS no inv)(1:1)
                   /*  Custom Effector  */
                   /* rods, height, arms*/
 //#define QQS_SR                         // Custom effector with balls like SR printer.
@@ -385,6 +388,9 @@
 #ifdef Q_UART8
   #define MICROSTEPS32
   #define Q_TMC
+  #ifdef Q5
+    #define NANO1X
+  #endif
   #define DRIVER_AXES TMC2208
   #ifndef DRIVER_EXT
     #define DRIVER_EXT TMC2208
@@ -395,13 +401,16 @@
 #if ANY(Q_UART9, SR_MKS, SR_BTT)
   #define MICROSTEPS32
   #define Q_TMC
+  #ifdef Q5
+    #define NANO1X
+  #endif
   #define DRIVER_AXES TMC2209
   #ifndef DRIVER_EXT
     #define DRIVER_EXT TMC2209
   #endif
 #endif
 //Add definition for UART for Q5
-#if ALL(Q5, Q_UART8)||ALL(Q5, Q_UART9)||ALL(NANO1X, Q_UART8)||ALL(NANO1X, Q_UART9)
+#if ALL(Q5, Q_UART8, NANO1X)||ALL(Q5, Q_UART9, NANO1X)||ALL(NANO1X, Q_UART8)||ALL(NANO1X, Q_UART9)
     #define X_SERIAL_TX_PIN             PA10  // RXD1
     #define X_SERIAL_RX_PIN             PA10  // RXD1
     #define Y_SERIAL_TX_PIN             PA9   // TXD1
@@ -484,6 +493,8 @@
       #define EXTRUDER_STEPS 1440 //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
     #elif ENABLED(OMG)           
       #define EXTRUDER_STEPS 790 //  
+    #elif ENABLED(OMR)           
+      #define EXTRUDER_STEPS 200 //Extruder Drive Feeder Upgrate for Ender rapport 1:1
     #elif ANY(BMG, SR_MKS, SR_BTT)
       #define EXTRUDER_STEPS 834 //  Extruder BMG(Left/Right)
     #else
@@ -494,6 +505,8 @@
       #define EXTRUDER_STEPS 720 //  Extruder SuperHX, Mini-Sherpa, Orbiter, LGX_Lite
     #elif ENABLED(OMG)           
       #define EXTRUDER_STEPS 390
+    #elif ENABLED(OMR)           
+      #define EXTRUDER_STEPS 100 //Extruder Drive Feeder Upgrate for Ender rapport 1:1
     #elif ANY(BMG, SR_MKS, SR_BTT)
       #define EXTRUDER_STEPS 417 //  Extruder BMG(Left/Right)
     #else

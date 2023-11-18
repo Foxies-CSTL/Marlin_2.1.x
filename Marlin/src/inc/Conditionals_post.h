@@ -103,6 +103,8 @@
 
 #if ANY(AXIS4_ROTATES, AXIS5_ROTATES, AXIS6_ROTATES, AXIS7_ROTATES, AXIS8_ROTATES, AXIS9_ROTATES)
   #define HAS_ROTATIONAL_AXES 1
+#else
+  #undef MANUAL_MOVE_DISTANCE_DEG
 #endif
 
 #if HAS_X_AXIS
@@ -2943,14 +2945,26 @@
  * Bed Probe dependencies
  */
 #if ANY(MESH_BED_LEVELING, HAS_BED_PROBE)
-  #ifndef Z_PROBE_OFFSET_RANGE_MIN
-    #define Z_PROBE_OFFSET_RANGE_MIN -20
+  #ifndef PROBE_OFFSET_ZMIN
+    #define PROBE_OFFSET_ZMIN -20
   #endif
-  #ifndef Z_PROBE_OFFSET_RANGE_MAX
-    #define Z_PROBE_OFFSET_RANGE_MAX 20
+  #ifndef PROBE_OFFSET_ZMAX
+    #define PROBE_OFFSET_ZMAX  20
   #endif
 #endif
 #if HAS_BED_PROBE
+  #ifndef PROBE_OFFSET_XMIN
+    #define PROBE_OFFSET_XMIN -50
+  #endif
+  #ifndef PROBE_OFFSET_XMAX
+    #define PROBE_OFFSET_XMAX  50
+  #endif
+  #ifndef PROBE_OFFSET_YMIN
+    #define PROBE_OFFSET_YMIN -50
+  #endif
+  #ifndef PROBE_OFFSET_YMAX
+    #define PROBE_OFFSET_YMAX  50
+  #endif
   #if ALL(ENDSTOPPULLUPS, USE_Z_MIN_PROBE)
     #define ENDSTOPPULLUP_ZMIN_PROBE
   #endif

@@ -3962,7 +3962,7 @@
    * M200 D0 to disable, M200 Dn to set a new diameter (and enable volumetric).
    * M200 S0/S1 to disable/enable volumetric extrusion.
    */
-  //#define VOLUMETRIC_DEFAULT_ON
+  #define VOLUMETRIC_DEFAULT_ON
 
   //#define VOLUMETRIC_EXTRUDER_LIMIT
   #if ENABLED(VOLUMETRIC_EXTRUDER_LIMIT)
@@ -4090,7 +4090,6 @@
   #define MAIN_MENU_ITEM_5_DESC "1.Bed Level. UBL for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_5_GCODE "G29L1\nM1004B70S1"
   #define MAIN_MENU_ITEM_5_CONFIRM
-
 
   #ifdef MPCTEMP
     #define MAIN_MENU_ITEM_6_DESC "1.Run Autotune on Active extruder"

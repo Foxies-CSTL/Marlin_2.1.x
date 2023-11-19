@@ -101,6 +101,8 @@
   //#define TFT_DWIN_UI          //(D) UI for DGUS screen
 
   //#define TFT_OTHER            // For the user who haven't the same screen.
+#elif ENABLED(SR_BTT)
+  #define TFT_BTT_UI           //(r) UI TOUCH by BTT-TFT Family (emulation LCD Marlin)
 #else
                 /*--- Choice UI TFT ----*/
   #define TFT_COLOR_UI           //(C) UI Color MARLIN with Mks-TS35v2

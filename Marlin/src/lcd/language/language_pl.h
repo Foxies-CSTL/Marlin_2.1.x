@@ -239,9 +239,9 @@ namespace LanguageNarrow_pl {
   LSTR MSG_MOVE_E                         = _UxGT("Ekstruzja (os E)");
   LSTR MSG_MOVE_EN                        = _UxGT("Ekstruzja (os E) *");
   LSTR MSG_HOTEND_TOO_COLD                = _UxGT("Dysza za zimna");
-  LSTR MSG_MOVE_N_MM                      = _UxGT("Przesuń co $ mm");
-  LSTR MSG_MOVE_N_IN                      = _UxGT("Przesuń co $ in");
-  LSTR MSG_MOVE_N_DEG                     = _UxGT("Przesuń co $ ") LCD_STR_DEGREE;
+  LSTR MSG_MOVE_N_MM                      = _UxGT("Przesuń co $mm");
+  LSTR MSG_MOVE_N_IN                      = _UxGT("Przesuń co $in");
+  LSTR MSG_MOVE_N_DEG                     = _UxGT("Przesuń co $") LCD_STR_DEGREE;
   LSTR MSG_SPEED                          = _UxGT("Predkość");
   LSTR MSG_MESH_Z_OFFSET                  = _UxGT("Stół Z");
   LSTR MSG_NOZZLE                         = _UxGT("Dysza");
@@ -466,7 +466,6 @@ namespace LanguageNarrow_pl {
   LSTR MSG_REVERSE_GRADIENT               = _UxGT("Odwrotny gradient");
 
   LSTR MSG_GAMES                          = _UxGT("Gry");
-
 
   LSTR MSG_EDIT_PASSWORD                  = _UxGT("Zmień hasło");
   LSTR MSG_LOGIN_REQUIRED                 = _UxGT("Wymagane zalogowanie");

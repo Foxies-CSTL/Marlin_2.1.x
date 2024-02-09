@@ -297,7 +297,7 @@ void menu_main() {
               #if ENABLED(TFT_COLOR_UI)
                 // Menu display issue on item removal with multi language selection menu
                 if (encoderTopLine > 0) encoderTopLine--;
-                ui.refresh(LCDVIEW_CALL_REDRAW_NEXT);
+                ui.refresh(LCDVIEW_CLEAR_CALL_REDRAW);
               #endif
             });
           #endif
@@ -333,12 +333,12 @@ void menu_main() {
     SUBMENU(MSG_MOTION, menu_motion);
   }
 
-  #if ALL(ADVANCED_PAUSE_FEATURE, DISABLE_ENCODER)
-    FILAMENT_CHANGE_ITEM();
-  #endif
-
   #if HAS_CUTTER
     SUBMENU(MSG_CUTTER(MENU), STICKY_SCREEN(menu_spindle_laser));
+  #endif
+
+  #if ENABLED(ADVANCED_PAUSE_FEATURE)
+    FILAMENT_CHANGE_ITEM();
   #endif
 
   #if HAS_TEMPERATURE
@@ -414,7 +414,7 @@ void menu_main() {
             #if ENABLED(TFT_COLOR_UI)
               // Menu display issue on item removal with multi language selection menu
               if (encoderTopLine > 0) encoderTopLine--;
-              ui.refresh(LCDVIEW_CALL_REDRAW_NEXT);
+              ui.refresh(LCDVIEW_CLEAR_CALL_REDRAW);
             #endif
           });
         #endif
@@ -502,10 +502,6 @@ void menu_main() {
         GET_TEXT_F(MSG_HOST_SHUTDOWN), (const char *)nullptr, F("?")
       );
     });
-  #endif
-
-  #if ENABLED(ADVANCED_PAUSE_FEATURE) && DISABLED(DISABLE_ENCODER)
-    FILAMENT_CHANGE_ITEM();
   #endif
 
   END_MENU();

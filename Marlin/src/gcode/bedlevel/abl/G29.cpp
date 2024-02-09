@@ -55,10 +55,6 @@
   #include "../../../lcd/e3v2/proui/dwin.h"
 #endif
 
-#if HAS_MULTI_HOTEND
-  #include "../../../module/tool_change.h"
-#endif
-
 #define DEBUG_OUT ENABLED(DEBUG_LEVELING_FEATURE)
 #include "../../../core/debug_out.h"
 
@@ -225,6 +221,7 @@ public:
  *     There's no extra effect if you have a fixed Z probe.
  */
 G29_TYPE GcodeSuite::G29() {
+
   DEBUG_SECTION(log_G29, "G29", DEBUGGING(LEVELING));
 
   // Leveling state is persistent when done manually with multiple G29 commands
@@ -347,7 +344,7 @@ G29_TYPE GcodeSuite::G29() {
 
     abl.verbose_level = parser.intval('V');
     if (!WITHIN(abl.verbose_level, 0, 4)) {
-      SERIAL_ECHOLNPGM("?(V)erbose level implausible (0-4).");
+      SERIAL_ECHOLNPGM(GCODE_ERR_MSG("(V)erbose level implausible (0-4)."));
       G29_RETURN(false, false);
     }
 
@@ -368,11 +365,11 @@ G29_TYPE GcodeSuite::G29() {
       if (parser.seenval('P')) abl.grid_points.x = abl.grid_points.y = parser.value_int();
 
       if (!WITHIN(abl.grid_points.x, 2, GRID_MAX_POINTS_X)) {
-        SERIAL_ECHOLNPGM("?Probe points (X) implausible (2-" STRINGIFY(GRID_MAX_POINTS_X) ").");
+        SERIAL_ECHOLNPGM(GCODE_ERR_MSG("Probe points (X) implausible (2-" STRINGIFY(GRID_MAX_POINTS_X) ")."));
         G29_RETURN(false, false);
       }
       if (!WITHIN(abl.grid_points.y, 2, GRID_MAX_POINTS_Y)) {
-        SERIAL_ECHOLNPGM("?Probe points (Y) implausible (2-" STRINGIFY(GRID_MAX_POINTS_Y) ").");
+        SERIAL_ECHOLNPGM(GCODE_ERR_MSG("Probe points (Y) implausible (2-" STRINGIFY(GRID_MAX_POINTS_Y) ")."));
         G29_RETURN(false, false);
       }
 
@@ -407,7 +404,7 @@ G29_TYPE GcodeSuite::G29() {
           DEBUG_ECHOLNPGM("G29 L", abl.probe_position_lf.x, " R", abl.probe_position_rb.x,
                              " F", abl.probe_position_lf.y, " B", abl.probe_position_rb.y);
         }
-        SERIAL_ECHOLNPGM("? (L,R,F,B) out of bounds.");
+        SERIAL_ECHOLNPGM(GCODE_ERR_MSG(" (L,R,F,B) out of bounds."));
         G29_RETURN(false, false);
       }
 
@@ -990,10 +987,10 @@ G29_TYPE GcodeSuite::G29() {
 
   TERN_(HAS_BED_PROBE, probe.move_z_after_probing());
 
-  #ifdef Z_PROBE_END_SCRIPT
-    if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Z Probe End Script: ", Z_PROBE_END_SCRIPT);
+  #ifdef EVENT_GCODE_AFTER_G29
+    if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Z Probe End Script: ", EVENT_GCODE_AFTER_G29);
     planner.synchronize();
-    process_subcommands_now(F(Z_PROBE_END_SCRIPT));
+    process_subcommands_now(F(EVENT_GCODE_AFTER_G29));
   #endif
 
   probe.use_probing_tool(false);

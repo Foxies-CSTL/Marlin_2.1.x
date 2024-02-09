@@ -155,7 +155,6 @@ namespace LanguageNarrow_uk {
 
   LSTR MSG_UBL_DOING_G29                    = _UxGT("Виконується G29");
   LSTR MSG_UBL_TOOLS                        = _UxGT("Інструменти UBL");
-  LSTR MSG_UBL_LEVEL_BED                    = _UxGT("Налаштування UBL");
   LSTR MSG_LCD_TILTING_MESH                 = _UxGT("Точка нахилу");
   LSTR MSG_UBL_MANUAL_MESH                  = _UxGT("Ручне введ. сітки");
   LSTR MSG_UBL_BC_INSERT                    = _UxGT("Розм. шайбу і вимір.");
@@ -638,7 +637,6 @@ namespace LanguageNarrow_uk {
   LSTR MSG_START_OVER                       = _UxGT("Старт через");
   LSTR MSG_REMINDER_SAVE_SETTINGS           = _UxGT("Не забудь зберегти!");
   LSTR MSG_PASSWORD_REMOVED                 = _UxGT("Пароль видалений");
-
 
   //
   // Filament Change screens show up to 2 lines on a 3-line display

@@ -317,8 +317,8 @@
 
 #if ENABLED(NEOPIXEL_LED)
   #define LED_PWM                           PC7   // IO1
-  #ifndef NEOPIXEL_PIN
-    #define NEOPIXEL_PIN                 LED_PWM  // USED WIFI IO0/IO1 PIN
+  #ifndef BOARD_NEOPIXEL_PIN
+    #define BOARD_NEOPIXEL_PIN           LED_PWM  // USED WIFI IO0/IO1 PIN
   #endif
 #endif
 
@@ -347,6 +347,7 @@
 //
 // LCD / Controller
 //
+
 #ifndef BEEPER_PIN
   #define BEEPER_PIN                        PC5
 #endif

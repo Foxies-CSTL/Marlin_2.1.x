@@ -147,6 +147,7 @@
 //
 // LCD / Controller
 //
+
 #if HAS_WIRED_LCD || TOUCH_UI_ULTIPANEL
 
   #if !MB(MINIRAMBO_10A)
@@ -172,7 +173,7 @@
 
       #define SD_DETECT_PIN                   72
 
-    #else                                         // !MINIRAMBO_10A
+    #else // !MINIRAMBO_10A
 
       // AUX-4
       #define BEEPER_PIN                      84

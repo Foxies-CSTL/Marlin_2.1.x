@@ -31,6 +31,7 @@
 * Show the last file on first place.
 * New theme DELTAFOX.
 * disable UBL_HILBERT and enable UBL_TILT
+* New menu for filament (runout lengh, time)
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV

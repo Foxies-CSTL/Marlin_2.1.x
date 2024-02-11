@@ -185,6 +185,15 @@
 //#define SERIAL_PORT_3 1
 //#define BAUDRATE_3 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
 
+/**
+ * Select a serial port to communicate with RS485 protocol
+ * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
+ */
+//#define RS485_SERIAL_PORT 1
+#ifdef RS485_SERIAL_PORT
+  //#define RS485_BUS_BUFFER_SIZE 128
+#endif
+
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
 
@@ -1330,32 +1339,6 @@
 
 // @section endstops
 
-// Specify here all the endstop connectors that are connected to any endstop or probe.
-// Almost all printers will be using one per axis. Probes will use one or more of the
-// extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
-/*
-#ifdef N_PROBE
-  #define USE_XMIN_PLUG
-  #define USE_YMIN_PLUG
-#endif
-#define USE_ZMIN_PLUG // a Z probe
-//#define USE_IMIN_PLUG
-//#define USE_JMIN_PLUG
-//#define USE_KMIN_PLUG
-//#define USE_UMIN_PLUG
-//#define USE_VMIN_PLUG
-//#define USE_WMIN_PLUG
-#define USE_XMAX_PLUG
-#define USE_YMAX_PLUG
-#define USE_ZMAX_PLUG
-//#define USE_IMAX_PLUG
-//#define USE_JMAX_PLUG
-//#define USE_KMAX_PLUG
-//#define USE_UMAX_PLUG
-//#define USE_VMAX_PLUG
-//#define USE_WMAX_PLUG
-*/
-
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
 #if DISABLED(ENDSTOPPULLUPS)
@@ -2419,7 +2402,8 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-//#define EVENT_GCODE_AFTER_G29 "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
+//#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
+#define EVENT_GCODE_AFTER_G29 "G28"
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable one of
@@ -2638,13 +2622,6 @@
    */
   #define BED_TRAMMING_LEVELING_ORDER { LF, RF, RB, LB }
 #endif
-
-/**
- * Commands to execute at the end of G29 probing.
- * Useful to retract or move the Z probe out of the way.
- */
-//#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
-#define Z_PROBE_END_SCRIPT "G28"
 
 #ifdef HX43
   #define Z_PROBE_END_HEIGHT  100 // MKS HX43 require this to work
@@ -3320,7 +3297,7 @@ EEPROM_W25Q
 
 //
 // Elefu RA Board Control Panel
-// http://www.elefu.com/index.php?route=product/product&product_id=53
+// https://web.archive.org/web/20140823033947/http://www.elefu.com/index.php?route=product/product&product_id=53
 //
 //#define RA_CONTROL_PANEL
 
@@ -3644,6 +3621,9 @@ EEPROM_W25Q
  *  - Download https://github.com/CrealityOfficial/Ender-3S1/archive/3S1_Plus_Screen.zip
  *  - Copy the downloaded DWIN_SET folder to the SD card.
  *
+ * CREALITY_TOUCH
+ *  - CR-6 OEM touch screen. A DWIN display with touch.
+ *
  * Flash display with DGUS Displays for Marlin:
  *  - Format the SD card to FAT32 with an allocation size of 4kb.
  *  - Download files as specified for your type of display.
@@ -3659,11 +3639,6 @@ EEPROM_W25Q
   //#define LCD_SCREEN_ROTATE 90          // Portrait Mode or 800x480 displays
   //#define IA_CREALITY_BOOT_DELAY 1500   // (ms)
 #endif
-
-//
-// CR-6 OEM touch screen. A DWIN display with touch.
-//
-//#define DWIN_CREALITY_TOUCHLCD
 
 //
 // Touch-screen LCD for Malyan M200/M300 printers

@@ -41,7 +41,7 @@
 //#define SR_BTT                     // env = LPC1768
               
       // NOTE: change in platformio.ini file or
-      // click on the "Default" icon on the bottom edge of the window and 
+      // click on the "Default(Marlin-Firmwares)" icon on the bottom edge of the window and 
       // choose "env:xxxxxxx").
 
 /*________________________2___________________________*/

@@ -91,7 +91,7 @@
 //
 // Servos
 //
-#define SERVO0_PIN                        PA8   // use IO0 to enable BLTOUCH support/remove Mks_Wifi
+#define SERVO0_PIN                           PA8   // use IO0 to enable BLTOUCH support/remove Mks_Wifi
 
 //
 // Limit Switches
@@ -317,7 +317,6 @@
 // LED / NEOPixel
 //
 //#define LED_PIN                           PB2   // BOOT1
-
 #if ENABLED(NEOPIXEL_LED)
   #define LED_PWM                           PC7   // IO1
   #ifndef BOARD_NEOPIXEL_PIN
@@ -350,7 +349,6 @@
 //
 // LCD / Controller
 //
-
 #ifndef BEEPER_PIN
   #define BEEPER_PIN                        PC5
 #endif

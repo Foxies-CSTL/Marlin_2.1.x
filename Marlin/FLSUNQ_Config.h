@@ -20,8 +20,9 @@
 * -For TMC mode UART, look the "pins_FLSUN_HISPEED.h" file (src/pins/stm32f1/) for more information to wire.
 * -To enable Stallguard function (Homing and/or probing) with TMC2209 with wiring Diag/EndStop and put some jumpers.
 * -Comment/Uncomment line to add or modify some options. 
-*  Default is actif for QQS and it's uncommented ;-)
+* Default is actif for QQS and it's uncommented ;-)
 *
+* ===========News feature for V2.1.3 ==========
 * Change EEPROM reset with disable(M593 F0) IS to prepare your Delta without IS enable. 
 * Add mode portrait for TFT32/TS35.
 * New MoBo temp.
@@ -32,13 +33,15 @@
 * New theme DELTAFOX.
 * disable UBL_HILBERT and enable UBL_TILT
 * New menu for filament (runout lengh, time)
+* New menu for Auto-Sleep screen to 0 at 99mn screenview. (M255 S5)
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV
 //===================================================
 #ifndef XP_DEV                       // (Default)
 // Init EEPROM on first boot after a new build.
-#define EEPROM_INIT_NOW   
+#define EEPROM_INIT_NOW
+//#define CONFIG_EXPORT 2 //generate a config.ini to help to build with only Marlin'src.
 /*_______________________1___________________________*/
 //==================== Hardware =====================//
 /*-------------Motherboard/Printer-(1 CHOICE)-------*/
@@ -286,10 +289,9 @@
   //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
-  //#define TOUCH_IDLE_SLEEP_MINS 5     // Auto-Sleep to 5mn screenview. (M255 S100)
-  //#define LCD_BACKLIGHT_TIMEOUT_MINS 3 // (mn) Timeout before turning off the backlight
   //#define MENU_ADDAUTOSTART           // Add a menu option to run auto#.g files
-#define SOUND_MENU_ITEM                 // Add a mute option to the LCD menu
+  #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
+  #define DISPLAY_SLEEP_MINUTES 5       // Auto-Sleep to 5mn screenview. (M255 S5)
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED

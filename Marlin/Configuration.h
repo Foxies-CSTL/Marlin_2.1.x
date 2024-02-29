@@ -1187,7 +1187,7 @@
     #define DELTA_DIAGONAL_ROD       280.0      // (mm)
 
   // Distance between bed and nozzle Z home position
-    #define DELTA_HEIGHT             370.00     // (mm) Get this value from G33 auto calibrate
+    #define DELTA_HEIGHT             365.00     // (mm) Get this value from G33 auto calibrate
 
     #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // (mm) Get these values from G33 auto calibrate
 
@@ -1963,12 +1963,18 @@
   #define Z_CLEARANCE_DEPLOY_PROBE    0 
   #define Z_CLEARANCE_BETWEEN_PROBES  1 
   #define Z_CLEARANCE_MULTI_PROBE     1
-#else
-  #define Z_CLEARANCE_DEPLOY_PROBE   15 // (mm) Z Clearance for Deploy/Stow
+#elif ENABLED(X_PROBE)
+  #define Z_CLEARANCE_DEPLOY_PROBE   10 // (mm) Z Clearance for Deploy/Stow
   #define Z_CLEARANCE_BETWEEN_PROBES  5 // (mm) Z Clearance between probe points
   #define Z_CLEARANCE_MULTI_PROBE     5 // (mm) Z Clearance between multiple probes
-  #define Z_PROBE_ERROR_TOLERANCE     5 // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
-//#define Z_AFTER_PROBING           5 // (mm) Z position after probing is done
+  #define Z_PROBE_ERROR_TOLERANCE     3 // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
+  //#define Z_AFTER_PROBING            10 // (mm) Z position after probing is done
+#else
+  #define Z_CLEARANCE_DEPLOY_PROBE   30 // (mm) Z Clearance for Deploy/Stow
+  #define Z_CLEARANCE_BETWEEN_PROBES  5 // (mm) Z Clearance between probe points
+  #define Z_CLEARANCE_MULTI_PROBE     5 // (mm) Z Clearance between multiple probes
+  #define Z_PROBE_ERROR_TOLERANCE     3 // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
+  //#define Z_AFTER_PROBING            15 // (mm) Z position after probing is done
 #endif
 
 #define Z_PROBE_LOW_POINT          -4 // (mm) Farthest distance below the trigger-point to go before stopping
@@ -2004,8 +2010,8 @@
   //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
   //#define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
 #endif
-//#define PROBING_FANS_OFF          // Turn fans off when probing
-//#define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing
+#define PROBING_FANS_OFF          // Turn fans off when probing
+#define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing
 //#define PROBING_STEPPERS_OFF      // Turn all steppers off (unless needed to hold position) when probing (including extruders)
 //#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
 
@@ -2106,7 +2112,7 @@
 
 // @section homing
 
-//#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed. Also enable HOME_AFTER_DEACTIVATE for extra safety.
+#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed. Also enable HOME_AFTER_DEACTIVATE for extra safety.
 #ifdef STALLGUARD_2
   #define HOME_AFTER_DEACTIVATE   // Require rehoming after steppers are deactivated. Also enable NO_MOTION_BEFORE_HOMING for extra safety.
 #endif
@@ -2124,7 +2130,7 @@
 //#define Z_AFTER_HOMING         10   // (mm) Height to move to after homing (if Z was homed)
 //#define XY_AFTER_HOMING { 10, 10 }  // (mm) Move to an XY position after homing (and raising Z)
 
-//#define EVENT_GCODE_AFTER_HOMING "M300 P440 S200"  // Commands to run after G28 (and move to XY_AFTER_HOMING)
+#define EVENT_GCODE_AFTER_HOMING "M300 P440 S200"  // Commands to run after G28 (and move to XY_AFTER_HOMING)
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
@@ -2402,7 +2408,7 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-//#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
+//#define Z_PROBE_END_SCRIPT "G28" //"G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
 #define EVENT_GCODE_AFTER_G29 "G28"
 
 /**
@@ -3092,9 +3098,6 @@ EEPROM_W25Q
  * you must uncomment the following option or it won't work.
  */
 #define SDSUPPORT
-#ifdef Q5
-  #define SDIO_SUPPORT
-#endif
 
 /**
  * SD CARD: ENABLE CRC

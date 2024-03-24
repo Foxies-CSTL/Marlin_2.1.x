@@ -400,7 +400,12 @@ namespace Language_fr {
   LSTR MSG_FILAMENTUNLOAD                 = _UxGT("Retrait filament");
   LSTR MSG_FILAMENTUNLOAD_E               = _UxGT("Retrait filament *");
   LSTR MSG_FILAMENTUNLOAD_ALL             = _UxGT("Retirer tout");
-  LSTR MSG_ATTACH_MEDIA                   = _UxGT("Charger le média");
+  #if ENABLED(MULTI_VOLUME)
+    LSTR MSG_ATTACH_SD_MEDIA                 = _UxGT("Charger CarteSD");
+    LSTR MSG_ATTACH_USB_MEDIA             = _UxGT("Charger clef USB");
+  #else
+    LSTR MSG_ATTACH_MEDIA                 = _UxGT("Charger ") MEDIA_TYPE_EN;
+  #endif
   LSTR MSG_CHANGE_MEDIA                   = _UxGT("Actualiser média");
   LSTR MSG_RELEASE_MEDIA                  = _UxGT("Retirer le média");
   LSTR MSG_ZPROBE_OUT                     = _UxGT("Sonde Z hors lit");

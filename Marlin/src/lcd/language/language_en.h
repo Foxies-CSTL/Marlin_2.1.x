@@ -562,7 +562,7 @@ namespace Language_en {
   LSTR MSG_FILAMENTUNLOAD_E               = _UxGT("Unload * Filament");
   LSTR MSG_FILAMENTUNLOAD_ALL             = _UxGT("Unload All");
   #if ENABLED(MULTI_VOLUME)
-    LSTR MSG_ATTACH_MEDIA                 = _UxGT("Attach SD Card");
+    LSTR MSG_ATTACH_SD_MEDIA                 = _UxGT("Attach SD Card");
     LSTR MSG_ATTACH_USB_MEDIA             = _UxGT("Attach USB Drive");
   #else
     LSTR MSG_ATTACH_MEDIA                 = _UxGT("Attach ") MEDIA_TYPE_EN;

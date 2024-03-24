@@ -573,7 +573,12 @@ namespace Language_uk {
   LSTR MSG_FILAMENTUNLOAD                   = _UxGT("Видалити пруток");
   LSTR MSG_FILAMENTUNLOAD_E                 = _UxGT("Видалити пруток *");
   LSTR MSG_FILAMENTUNLOAD_ALL               = _UxGT("Видалити все");
-  LSTR MSG_ATTACH_MEDIA                     = _UxGT("Вставити SD-картку");
+  #if ENABLED(MULTI_VOLUME)
+    LSTR MSG_ATTACH_SD_MEDIA                = _UxGT("Attach SD Card");
+    LSTR MSG_ATTACH_USB_MEDIA               = _UxGT("Attach USB Drive");
+  #else
+    LSTR MSG_ATTACH_MEDIA                   = _UxGT("Вставити SD-картку") MEDIA_TYPE_EN;
+  #endif  
   LSTR MSG_CHANGE_MEDIA                     = _UxGT("Заміна SD-картки");
   LSTR MSG_RELEASE_MEDIA                    = _UxGT("Видаліть SD-картку");
   LSTR MSG_ZPROBE_OUT                       = _UxGT("Z-Зонд поза столом");

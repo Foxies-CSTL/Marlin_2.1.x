@@ -373,7 +373,12 @@ namespace Language_es {
   LSTR MSG_FILAMENTUNLOAD                 = _UxGT("Descargar filamento");
   LSTR MSG_FILAMENTUNLOAD_E               = _UxGT("Descargar fil. *");
   LSTR MSG_FILAMENTUNLOAD_ALL             = _UxGT("Descargar todo");
-  LSTR MSG_ATTACH_MEDIA                   = _UxGT("Iniciar SD/FD");
+  #if ENABLED(MULTI_VOLUME)
+    LSTR MSG_ATTACH_SD_MEDIA                 = _UxGT("Iniciar SD/FD");
+    LSTR MSG_ATTACH_USB_MEDIA             = _UxGT("Iniciar USB");
+  #else
+    LSTR MSG_ATTACH_MEDIA                 = _UxGT("Iniciar ") MEDIA_TYPE_EN;
+  #endif
   LSTR MSG_CHANGE_MEDIA                   = _UxGT("Cambiar SD/FD");
   LSTR MSG_RELEASE_MEDIA                  = _UxGT("Lanzar SD/FD");
   LSTR MSG_ZPROBE_OUT                     = _UxGT("Sonda Z fuera cama");

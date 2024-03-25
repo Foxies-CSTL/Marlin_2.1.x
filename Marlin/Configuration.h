@@ -863,7 +863,6 @@
   #define MPC_INCLUDE_FAN                             // Model the fan speed?
   
   #ifdef XP1
-    #define MPC_HEATER_POWER { 50.0f }
     #define MPC_BLOCK_HEAT_CAPACITY { 13.6647 }           // (J/K) Heat block heat capacities.
     #define MPC_SENSOR_RESPONSIVENESS { 0.0666 }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.
     #define MPC_AMBIENT_XFER_COEFF { 0.0774 }           // (W/K) Heat transfer coefficients from heat block to room air with fan off.
@@ -871,7 +870,6 @@
       #define MPC_AMBIENT_XFER_COEFF_FAN255 { 0.1294 }  // (W/K) Heat transfer coefficients from heat block to room air with fan on full.
     #endif  
   #else
-  // #define MPC_HEATER_POWER { 40.0f }
   // Measured physical constants from M306
     #define MPC_BLOCK_HEAT_CAPACITY { 16.7f }           // (J/K) Heat block heat capacities.
     #define MPC_SENSOR_RESPONSIVENESS { 0.22f }         // (K/s per ∆K) Rate of change of sensor temperature from heat block.

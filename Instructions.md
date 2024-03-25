@@ -62,7 +62,7 @@ Here is a summary of the steps to follow in order:
 
  => it's correct so store settings. Go to next print and enjoy.
 
- => This isn't correct so do a test print of the pattern (not interruptible).
+ => This isn't correct so do a test print of the pattern via "Special Delta" menu (not interruptible).
  
   a. Result is correct on the whole then problem with the Slicer settings, check dot 7.
 

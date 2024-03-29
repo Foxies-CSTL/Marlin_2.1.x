@@ -2857,9 +2857,6 @@
  * you must uncomment the following option or it won't work.
  */
 #define SDSUPPORT
-#ifdef Q5
-  #define SDIO_SUPPORT
-#endif
 
 /**
  * SD CARD: ENABLE CRC

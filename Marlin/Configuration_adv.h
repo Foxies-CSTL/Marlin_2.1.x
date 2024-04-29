@@ -1797,6 +1797,9 @@
     #if ENABLED(POWER_LOSS_RECOVER_ZHOME)
       //#define POWER_LOSS_ZHOME_POS { 0, 0 } // Safe XY position to home Z while avoiding objects on the bed
     #endif
+    #ifdef DBUG
+      #define DEBUG_POWER_LOSS_RECOVERY
+    #endif
   #endif
 
   /**

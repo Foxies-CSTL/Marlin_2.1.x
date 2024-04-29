@@ -77,8 +77,6 @@
   #include "lcd/e3v2/common/encoder.h"
   #if ENABLED(DWIN_CREALITY_LCD)
     #include "lcd/e3v2/creality/dwin.h"
-  #elif ENABLED(DWIN_LCD_PROUI)
-    #include "lcd/e3v2/proui/dwin.h"
   #elif ENABLED(DWIN_CREALITY_LCD_JYERSUI)
     #include "lcd/e3v2/jyersui/dwin.h"
   #endif
@@ -268,7 +266,7 @@ PGMSTR(M112_KILL_STR, "M112 Shutdown");
 MarlinState marlin_state = MF_INITIALIZING;
 
 // For M109 and M190, this flag may be cleared (by M108) to exit the wait loop
-bool wait_for_heatup = true;
+bool wait_for_heatup = false;
 
 // For M0/M1, this flag may be cleared (by M108) to exit the wait-for-user loop
 #if HAS_RESUME_CONTINUE
@@ -476,11 +474,16 @@ inline void manage_inactivity(const bool no_stepper_sleep=false) {
 
   #if HAS_KILL
 
-    // Check if the kill button was pressed and wait just in case it was an accidental
-    // key kill key press
+    // Check if the kill button was pressed and wait to ensure the signal is not noise
+    // typically caused by poor insulation and grounding on LCD cables.
+    // Lower numbers here will increase response time and therefore safety rating.
+    // It is recommended to set this as low as possibe without false triggers.
     // -------------------------------------------------------------------------------
+    #ifndef KILL_DELAY
+      #define KILL_DELAY 250
+    #endif
+
     static int killCount = 0;   // make the inactivity button a bit less responsive
-    const int KILL_DELAY = 750;
     if (kill_state())
       killCount++;
     else if (killCount > 0)
@@ -1594,11 +1597,11 @@ void setup() {
     SERIAL_ECHO_TERNARY(err, "BL24CXX Check ", "failed", "succeeded", "!\n");
   #endif
 
-  #if HAS_DWIN_E3V2_BASIC
+  #if ENABLED(DWIN_CREALITY_LCD)
     SETUP_RUN(dwinInitScreen());
   #endif
 
-  #if HAS_SERVICE_INTERVALS && !HAS_DWIN_E3V2_BASIC
+  #if HAS_SERVICE_INTERVALS && DISABLED(DWIN_CREALITY_LCD)
     SETUP_RUN(ui.reset_status(true));  // Show service messages or keep current status
   #endif
 

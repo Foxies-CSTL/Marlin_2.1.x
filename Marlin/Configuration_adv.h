@@ -1206,7 +1206,7 @@
  * effectiveness during high speed movements.
  *
  * Tune with M593 D<factor> F<frequency>
- */
+ 
 //#define INPUT_SHAPING_X
 //#define INPUT_SHAPING_Y
 //#define INPUT_SHAPING_Z

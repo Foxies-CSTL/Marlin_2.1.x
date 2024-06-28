@@ -126,7 +126,7 @@
 #define LCD_LANGUAGE en                // Change for your country ('bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'el':'Greek', 'fi':'Finnish', 'hr':'Croatian', 'hu':'Hungarian', 'jp_kana':'Japanese', 'nl':'Dutch', 'pl':'Polish', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', etc)
 //#define LCD_LANGUAGE_2 fr                // Add your language for TFT_COLOR_UI ex: zh_CN
 
-//#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
+#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
 
 /*_________________________________4______________________________*/
           /*---- Extruder, Custom effector and Modules -----*/
@@ -146,7 +146,7 @@
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left(3:1).
-//#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx(3:1).
+#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx(3:1).
 //#define OMG                            //(O) Uncommment for OMG.(QQS no inv)(3:1)
 //#define OMR                            //(o) Uncommment for OMR.(QQS no inv)(1:1)
                   /*  Custom Effector  */
@@ -193,7 +193,7 @@
 //#define HEATER_0_MAXTEMP 300           // Uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
+#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -253,7 +253,7 @@
 //#define SDCARD_SORT_ALPHA
 //#define SD_REPRINT_LAST_SELECTED_FILE  // Reselect last print file.
 //#define CONFIGURATION_EMBEDDING        // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
-//#define INPUT_SHAPING                  // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
+#define INPUT_SHAPING                  // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
 
 //-----------------------------//
 //For tests on my dev'printer!!//
@@ -561,32 +561,45 @@
 #ifdef INPUT_SHAPING    //Default QQSP
   #define INPUT_SHAPING_X
   #define INPUT_SHAPING_Y
-  #define SHAPING_MENU 
+  #define INPUT_SHAPING_Z
+  //#define SHAPING_MIN_FREQ  20.0      // (Hz) By default the minimum of the shaping frequencies. Override to affect SRAM usage.
+  //#define SHAPING_MAX_STEPRATE 10000  // By default the maximum total step rate of the shaped axes. Override to affect SRAM usage.
+  #define SHAPING_MENU                 // Add a menu to the LCD to set shaping parameters.
   #ifdef Q5
-    #define SHAPING_FREQ_X    40.00
-    #define SHAPING_ZETA_X  0.15f
-    #define SHAPING_FREQ_Y    40.00
-    #define SHAPING_ZETA_Y  0.15f
+    #define SHAPING_FREQ_X  40.00
+    #define SHAPING_ZETA_X   0.15
+    #define SHAPING_FREQ_Y  40.00
+    #define SHAPING_ZETA_Y   0.15
+    #define SHAPING_FREQ_Z  40.0        // (Hz) The default dominant resonant frequency on the Z axis.
+    #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
   #elif ALL(SRM, DDRIVE)   //SDHX 20230215
-    #define SHAPING_FREQ_X    51.06
-    #define SHAPING_ZETA_X  0.15f  
-    #define SHAPING_FREQ_Y    43.48
-    #define SHAPING_ZETA_Y  0.15f
+    #define SHAPING_FREQ_X  40.0  //51.06
+    #define SHAPING_ZETA_X   0.15  
+    #define SHAPING_FREQ_Y  40.0
+    #define SHAPING_ZETA_Y   0.15
+    #define SHAPING_FREQ_Z  40.0        // (Hz) The default dominant resonant frequency on the Z axis.
+    #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
   #elif ALL(QQSP, DDRIVE)
-    #define SHAPING_FREQ_X   51.06// 25.6
-    #define SHAPING_ZETA_X  0.15f  
-    #define SHAPING_FREQ_Y   43.48// 25.6
-    #define SHAPING_ZETA_Y  0.15f      
+    #define SHAPING_FREQ_X  43.48// 25.6
+    #define SHAPING_ZETA_X   0.15  
+    #define SHAPING_FREQ_Y  43.48// 25.6
+    #define SHAPING_ZETA_Y   0.15     
+    #define SHAPING_FREQ_Z  43.48        // (Hz) The default dominant resonant frequency on the Z axis.
+    #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
   #elif ANY(SR_BTT, SR_MKS)
-    #define SHAPING_FREQ_X    25.0   // info FLSun
-    #define SHAPING_ZETA_X  0.15f
-    #define SHAPING_FREQ_Y    23.39   // info FLSun
-    #define SHAPING_ZETA_Y  0.15f 
+    #define SHAPING_FREQ_X  25.0   // info FLSun
+    #define SHAPING_ZETA_X   0.15
+    #define SHAPING_FREQ_Y  25.0   // info FLSun
+    #define SHAPING_ZETA_Y   0.15 
+    #define SHAPING_FREQ_Z  25.0        // (Hz) The default dominant resonant frequency on the Z axis.
+    #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
   #else
-    #define SHAPING_FREQ_X    31.6  //27.8
-    #define SHAPING_ZETA_X  0.20f
-    #define SHAPING_FREQ_Y    23.6  //27.8
-    #define SHAPING_ZETA_Y  0.20f
+    #define SHAPING_FREQ_X  27.8  //27.8
+    #define SHAPING_ZETA_X   0.15
+    #define SHAPING_FREQ_Y  27.8  //27.8
+    #define SHAPING_ZETA_Y   0.15
+    #define SHAPING_FREQ_Z  27.8        // (Hz) The default dominant resonant frequency on the Z axis.
+    #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
   #endif   
 #endif
 

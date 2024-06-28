@@ -1330,17 +1330,22 @@ void setup() {
     #endif
   #endif
 
-  #if ALL(HAS_MEDIA, SDCARD_EEPROM_EMULATION)
+  #if HAS_MEDIA && ANY(SDCARD_EEPROM_EMULATION, POWER_LOSS_RECOVERY)
     SETUP_RUN(card.mount());          // Mount media with settings before first_load
   #endif
 
-  SETUP_RUN(settings.first_load());   // Load data from EEPROM if available (or use defaults)
-                                      // This also updates variables in the planner, elsewhere
+  // Prepare some LCDs to display early
+  #if HAS_EARLY_LCD_SETTINGS
+    SETUP_RUN(settings.load_lcd_state());
+  #endif
 
   #if ALL(HAS_WIRED_LCD, SHOW_BOOTSCREEN)
     SETUP_RUN(ui.show_bootscreen());
     const millis_t bootscreen_ms = millis();
   #endif
+
+  SETUP_RUN(settings.first_load());   // Load data from EEPROM if available (or use defaults)
+                                      // This also updates variables in the planner, elsewhere
 
   #if ENABLED(PROBE_TARE)
     SETUP_RUN(probe.tare_init());

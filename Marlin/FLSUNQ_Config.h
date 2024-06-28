@@ -146,7 +146,7 @@
 
 // BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left(3:1).
-#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx(3:1).
+//#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx(3:1).
 //#define OMG                            //(O) Uncommment for OMG.(QQS no inv)(3:1)
 //#define OMR                            //(o) Uncommment for OMR.(QQS no inv)(1:1)
                   /*  Custom Effector  */
@@ -193,7 +193,7 @@
 //#define HEATER_0_MAXTEMP 300           // Uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
+//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -219,7 +219,7 @@
   //======Many options for Modules: ========//
 #define LIN_ADVANCE                    // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
 #define POWER_LOSS_RECOVERY            // (Default) Continue print after Power-Loss.
-//#define FWRETRACT                      // (Default) Firmware-based and LCD-controlled retract
+#define FWRETRACT                      // (Default) Firmware-based and LCD-controlled retract
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -253,7 +253,7 @@
 //#define SDCARD_SORT_ALPHA
 //#define SD_REPRINT_LAST_SELECTED_FILE  // Reselect last print file.
 //#define CONFIGURATION_EMBEDDING        // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
-#define INPUT_SHAPING                  // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
+//#define INPUT_SHAPING                  // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
 
 //-----------------------------//
 //For tests on my dev'printer!!//

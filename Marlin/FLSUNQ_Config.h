@@ -258,8 +258,7 @@
   //#define MEDIA_MENU_AT_TOP            // Add Print media menu at top list.
   //#define PREHEAT_SHORTCUT_MENU_ITEM   // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS               // Add menu "Cancel Objet"
-  //#define DISPLAY_SLEEP_MINUTES 2      // Auto-Sleep screenview(minutes) Timeout 
-  //#define LCD_BACKLIGHT_TIMEOUT_MINS 3 //Set LCD sleep time: "M255 S<minutes>" (0-99)
+  //#define TOUCH_IDLE_SLEEP_MINS 5      // (minutes) Display Sleep after a period of inactivity. Set with M255 S.
   #define SOUND_MENU_ITEM                // Add a mute option to the LCD menu
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)

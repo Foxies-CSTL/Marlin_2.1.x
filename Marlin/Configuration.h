@@ -100,7 +100,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#ifndef MOBO
+#ifdef MOBO
   #if ANY(QQSP, Q5)
     #define SERIAL_PORT 3
     #define BAUDRATE 115200

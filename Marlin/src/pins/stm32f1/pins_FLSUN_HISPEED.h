@@ -379,10 +379,10 @@
 //  #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
 //  #define DOGLCD_SCK                        -1
   
-//  #define TOUCH_CS_PIN                      PC2   // SPI2_NSS
-//  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
-//  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
-//  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
+  #define TOUCH_CS_PIN                      PC2   // SPI2_NSS
+  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
+  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
+  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
   
   #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
   #define FSMC_CS_PIN                       PD7   // NE4

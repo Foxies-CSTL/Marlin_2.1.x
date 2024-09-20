@@ -218,7 +218,7 @@
 /*_______________________6____________________*/
   //======Many options for Modules: ========//
 #define LIN_ADVANCE                    // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
-#define POWER_LOSS_RECOVERY            // (Default) Continue print after Power-Loss.
+//#define POWER_LOSS_RECOVERY            // (Default) Continue print after Power-Loss.
 #define FWRETRACT                      // (Default) Firmware-based and LCD-controlled retract
 
 //=================================================================================//

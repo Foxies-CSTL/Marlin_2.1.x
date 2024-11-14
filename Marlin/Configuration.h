@@ -59,7 +59,8 @@
  *                      https://www.thingiverse.com/thing:1278865
  */
 
-#include "AMB8_Config.h"
+//#include "AMB8_Config.h"
+#include "Funsize_Config.h"
 
 // @section info
 
@@ -103,7 +104,10 @@
   #endif
   #ifdef SKR
     #define MOTHERBOARD BOARD_BTT_SKR_V2_0_REV_B
-  #endif  
+  #endif
+  #ifdef NANO12
+    #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
+  #endif    
 #endif
 
 /**
@@ -116,6 +120,9 @@
  */
 #if ANY(STOCK, RAMPS)
   #define SERIAL_PORT 0
+#endif
+#ifdef NANO12
+  #define SERIAL_PORT 3
 #endif
 #ifdef SKR
   #define SERIAL_PORT 1
@@ -170,6 +177,9 @@
 #endif
 #ifdef SKR
   #define CUSTOM_MACHINE_NAME "AMB8_BNBSXv2"
+#endif
+#ifdef NANO12
+  #define CUSTOM_MACHINE_NAME "Recreator_FunSize"
 #endif
 
 // Printer's unique ID, used by some programs to differentiate between machines.
@@ -1791,7 +1801,7 @@
 //#define INVERT_V_DIR false
 //#define INVERT_W_DIR false
 
-#if ANY(STOCK, SKR)
+#if ANY(STOCK, SKR, NANO12)
   #define INVERT_X_DIR true         //BEAR Montage tete Prusa/BEAR (true)
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR true

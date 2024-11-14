@@ -286,6 +286,7 @@
 #if ALL(ADD_MENUS, TFT_CLASSIC_UI)||ALL(ADD_MENUS, TFT_COLOR_UI)||ALL(ADD_MENUS, TFT_BTT_UI)
   #define DELTA_CALIBRATION_MENU        // (Default) Auto for CLASSIC and COLOR.
   #define LCD_INFO_MENU                 // (Default) Informations printer.
+  #define SDSUPPORT                     // enable Medias (SDCard, USBKey)
   //#define MEDIA_MENU_AT_TOP           // Add Print media menu at top list.
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"

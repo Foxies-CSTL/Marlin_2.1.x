@@ -449,10 +449,10 @@ namespace LanguageNarrow_en {
   LSTR MSG_A_RETRACT                      = _UxGT("Retract Accel");
   LSTR MSG_A_TRAVEL                       = _UxGT("Travel Accel");
   LSTR MSG_INPUT_SHAPING                  = _UxGT("Input Shaping");
-  LSTR MSG_SHAPING_ENABLE                 = _UxGT("Enable @ shaping");
-  LSTR MSG_SHAPING_DISABLE                = _UxGT("Disable @ shaping");
-  LSTR MSG_SHAPING_FREQ                   = _UxGT("@ frequency");
-  LSTR MSG_SHAPING_ZETA                   = _UxGT("@ damping");
+  LSTR MSG_SHAPING_ENABLE_N               = _UxGT("Enable @ shaping");
+  LSTR MSG_SHAPING_DISABLE_N              = _UxGT("Disable @ shaping");
+  LSTR MSG_SHAPING_FREQ_N                 = _UxGT("@ frequency");
+  LSTR MSG_SHAPING_ZETA_N                 = _UxGT("@ damping");
   LSTR MSG_SHAPING_A_FREQ                 = STR_A _UxGT(" frequency");  // ProUI
   LSTR MSG_SHAPING_B_FREQ                 = STR_B _UxGT(" frequency");  // ProUI
   LSTR MSG_SHAPING_C_FREQ                 = STR_C _UxGT(" frequency");  // ProUI
@@ -1101,6 +1101,9 @@ namespace LanguageWide_en {
     LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Longest Job Time");
     LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Extruded Total");
     LSTR MSG_HOMING_FEEDRATE_N            = _UxGT("@ Homing Feedrate");
+    LSTR MSG_HOMING_FEEDRATE_X            = _UxGT("X Homing Feedrate");
+    LSTR MSG_HOMING_FEEDRATE_Y            = _UxGT("Y Homing Feedrate");
+    LSTR MSG_HOMING_FEEDRATE_Z            = _UxGT("Z Homing Feedrate");
     LSTR MSG_EEPROM_INITIALIZED           = _UxGT("Default Settings Restored");
   #endif
 }

@@ -120,19 +120,10 @@
   // Software serial
   //
   #define X_SERIAL_TX_PIN                   PD6
-  #define X_SERIAL_RX_PIN                   PD6
-
   #define Y_SERIAL_TX_PIN                   PC11
-  #define Y_SERIAL_RX_PIN                   PC11
-
   #define Z_SERIAL_TX_PIN                   PA8
-  #define Z_SERIAL_RX_PIN                   PA8
-
   #define E0_SERIAL_TX_PIN                  PG2
-  #define E0_SERIAL_RX_PIN                  PG2
-
   #define Z2_SERIAL_TX_PIN                  PG6
-  #define Z2_SERIAL_RX_PIN                  PG6
 
   // Reduce baud rate to improve software serial reliability
   #define TMC_BAUD_RATE 19200

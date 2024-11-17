@@ -548,7 +548,7 @@
   #define XYZ_CURRENT       900
 #endif
 #ifndef XYZ_CURRENT_HOME
-  #define XYZ_CURRENT_HOME  600
+  #define XYZ_CURRENT_HOME  900
 #endif  
 #ifndef E_CURRENT
   #ifdef DDRIVE

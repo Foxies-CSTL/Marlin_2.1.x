@@ -2992,14 +2992,14 @@
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   #define PAUSE_PARK_RETRACT_FEEDRATE         60  // (mm/s) Initial retract feedrate.
   #define PAUSE_PARK_RETRACT_LENGTH            3  // (mm) Initial retract.
-  #ifdef Q5
+  #ifdef DDRIVE
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE   20  //40 LGX
+    #define FILAMENT_CHANGE_UNLOAD_ACCEL      25
+    #define FILAMENT_CHANGE_UNLOAD_LENGTH    100
+  #elif ENABLED(Q5)
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE   28
     #define FILAMENT_CHANGE_UNLOAD_ACCEL      25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH    550
-  #elif ENABLED(DDRIVE)
-    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE   20    //40 LGX
-    #define FILAMENT_CHANGE_UNLOAD_ACCEL      25
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH    100
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE   40
     #define FILAMENT_CHANGE_UNLOAD_ACCEL      25
@@ -3016,14 +3016,14 @@
   #define FILAMENT_CHANGE_SLOW_LOAD_FEEDRATE   6  // (mm/s) Slow move when starting load.
   #define FILAMENT_CHANGE_SLOW_LOAD_LENGTH     5  // (mm) Slow length, to allow time to insert material.
                                                   // 0 to disable start loading and skip to fast load only
-  #ifdef Q5
+  #ifdef DDRIVE
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  15 //20 LGX
+    #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25 //15 LGX
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    60  
+  #elif ENABLED(Q5)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
-  #elif ENABLED(DDRIVE)
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  15 //20 LGX
-    #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25 //15 LGX
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    60
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
@@ -4172,50 +4172,54 @@
   #define CUSTOM_MENU_MAIN_SCRIPT_RETURN   // Return to status screen after a script
   #define CUSTOM_MENU_MAIN_ONLY_IDLE       // Only show custom menu when the machine is idle
 
-  #define MAIN_MENU_ITEM_1_DESC "Init. EEPROM"
+  #define MAIN_MENU_ITEM_1_DESC "1.Init. EEPROM"
   #define MAIN_MENU_ITEM_1_GCODE "M502\nM593F0\nM500\nM997"
   #define MAIN_MENU_ITEM_1_CONFIRM
 
-  #define MAIN_MENU_ITEM_2_DESC "Fast Calib.Delta"
+  #define MAIN_MENU_ITEM_2_DESC "2a.Fast Calib.Delta"
   #define MAIN_MENU_ITEM_2_GCODE "G33P3V3\nM500\nM140S0"
   #define MAIN_MENU_ITEM_2_CONFIRM
 
-  #define MAIN_MENU_ITEM_3_DESC "Fine Calib.Delta"
+  #define MAIN_MENU_ITEM_3_DESC "2b.Fine Calib.Delta"
   #define MAIN_MENU_ITEM_3_GCODE "G33P5V3\nM500\nM140S0"  //P6ok
   #define MAIN_MENU_ITEM_3_CONFIRM
 
-  #define MAIN_MENU_ITEM_4_DESC "ZOffSet Wizard"
+  #define MAIN_MENU_ITEM_4_DESC "3.ZOffSet Wizard"
   #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
-  #define MAIN_MENU_ITEM_5_DESC "1.Bed Level. UBL for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_5_DESC "4a.Bed Level. UBL for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_5_GCODE "G29L1\nM1004B70S1"
   #define MAIN_MENU_ITEM_5_CONFIRM
 
   #ifdef MPCTEMP
-    #define MAIN_MENU_ITEM_6_DESC "1.Run Autotune on Active extruder"
+    #define MAIN_MENU_ITEM_6_DESC "5a.Run Autotune on Active extruder"
     #define MAIN_MENU_ITEM_6_GCODE "M306T\nM500\nG28\nM107"
   #else
-    #define MAIN_MENU_ITEM_6_DESC "1.Run PID_Nozzle_for " PREHEAT_1_LABEL
+    #define MAIN_MENU_ITEM_6_DESC "5a.Run PID_Nozzle_for " PREHEAT_1_LABEL
     #define MAIN_MENU_ITEM_6_GCODE "M106P0S180\nM303E0C8S210U\nM500\nG28\nM107\nM117 PID Tune Done"
   #endif
   #define MAIN_MENU_ITEM_6_CONFIRM
 
-  #define MAIN_MENU_ITEM_7_DESC "1.Print_Test_Pattern in " PREHEAT_1_LABEL
-  #define MAIN_MENU_ITEM_7_GCODE "G28\nG29L1\nG26I0P4\nM500\nG28\nM117 Print Mesh Done"
+  #define MAIN_MENU_ITEM_7_DESC "6.Run PID_Bed for " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_7_GCODE "M303E-1C8S60U\nM500\nG28\nM117 Bed PID Tune Done"
   #define MAIN_MENU_ITEM_7_CONFIRM
-
-  #define MAIN_MENU_ITEM_8_DESC "2.Bed Level. UBL for " PREHEAT_2_LABEL
-  #define MAIN_MENU_ITEM_8_GCODE "G29L2\nM1004B80S2"
+  
+  #define MAIN_MENU_ITEM_8_DESC "7.Print_Test_Pattern in " PREHEAT_1_LABEL
+  #define MAIN_MENU_ITEM_8_GCODE "G28\nG29L1\nG26I0P4\nM500\nG28\nM117 Print Mesh Done"
   #define MAIN_MENU_ITEM_8_CONFIRM
 
-  #define MAIN_MENU_ITEM_9_DESC "3.Bed Level. UBL for " PREHEAT_3_LABEL
-  #define MAIN_MENU_ITEM_9_GCODE "G29L3\nM1004B90S3"
+  #define MAIN_MENU_ITEM_9_DESC "4b.Bed Level. UBL for " PREHEAT_2_LABEL
+  #define MAIN_MENU_ITEM_9_GCODE "G29L2\nM1004B80S2"
   #define MAIN_MENU_ITEM_9_CONFIRM
 
-  #define MAIN_MENU_ITEM_10_DESC "Reboot Printer"
-  #define MAIN_MENU_ITEM_10_GCODE "M997"
+  #define MAIN_MENU_ITEM_10_DESC "4c.Bed Level. UBL for " PREHEAT_3_LABEL
+  #define MAIN_MENU_ITEM_10_GCODE "G29L3\nM1004B90S3"
   #define MAIN_MENU_ITEM_10_CONFIRM
+
+  #define MAIN_MENU_ITEM_11_DESC "Reboot Printer"
+  #define MAIN_MENU_ITEM_11_GCODE "M997"
+  #define MAIN_MENU_ITEM_11_CONFIRM
 
 
   //#define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"

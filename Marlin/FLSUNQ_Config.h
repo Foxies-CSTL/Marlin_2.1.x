@@ -30,6 +30,7 @@
 * add state time/restant
 * Show the E position (filament used) during printing
 * Show the last file on first place.
+* Reorder menu "Special Delta" + add PID Bed (Y.UNDE)
 * New theme DELTAFOX.
 * disable UBL_HILBERT and enable UBL_TILT
 * New menu for filament (runout lengh, time)
@@ -123,10 +124,10 @@
 * == For TFT_COLOR_UI, TFT_CLASSIC_UI =====//
 * =========================================//
 */
-#define LCD_LANGUAGE en                // Change for your country ('bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'el':'Greek', 'fi':'Finnish', 'hr':'Croatian', 'hu':'Hungarian', 'jp_kana':'Japanese', 'nl':'Dutch', 'pl':'Polish', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', etc)
-//#define LCD_LANGUAGE_2 fr                // Add your language for TFT_COLOR_UI ex: zh_CN
+#define LCD_LANGUAGE en                    // Change for your country ('bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'el':'Greek', 'fi':'Finnish', 'hr':'Croatian', 'hu':'Hungarian', 'jp_kana':'Japanese', 'nl':'Dutch', 'pl':'Polish', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', etc)
+//#define LCD_LANGUAGE_2 fr                 // Add your language for TFT_COLOR_UI ex: zh_CN
 
-#define BOOT_MARLIN_LOGO_SMALL         // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
+//#define BOOT_MARLIN_LOGO_SMALL           // Small Logo Marlin to reduce de binary. Comment to have normal LOGO(Default).
 
 /*_________________________________4______________________________*/
           /*---- Extruder, Custom effector and Modules -----*/
@@ -193,7 +194,7 @@
 //#define HEATER_0_MAXTEMP 300           // Uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
+#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -250,7 +251,7 @@
 //#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
 
 //----------Options Plus-----------//
-//#define SDCARD_SORT_ALPHA
+#define SDCARD_SORT_ALPHA
 //#define SD_REPRINT_LAST_SELECTED_FILE  // Reselect last print file.
 //#define CONFIGURATION_EMBEDDING        // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
 //#define INPUT_SHAPING                  // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
@@ -292,7 +293,7 @@
   //#define CANCEL_OBJECTS              // Add menu "Cancel Objet"
   //#define MENU_ADDAUTOSTART           // Add a menu option to run auto#.g files
   #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
-  #define DISPLAY_SLEEP_MINUTES 5       // Auto-Sleep to 5mn screenview. (M255 S5)
+  #define DISPLAY_SLEEP_MINUTES 15      // Auto-Sleep to 5mn screenview. (M255 S5)
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
@@ -304,6 +305,9 @@
   #ifdef NEOPIXEL_LED
     #define LED_CONTROL_MENU            // To control LedStrip.
   #endif
+  #ifndef TFT_THEME
+    #define TFT_THEME  DELTAFOX        // TFT Themes for Color_UI
+  #endif                               // Marlin/src/lcd/tft/themes:DELTAFOX-WHITE,BLACK_MARLIN,YOGI_Q5,etc 
 #endif
 
 /**
@@ -341,12 +345,10 @@
   #define MKS_TS35_V2_0             // Only for NanoV2 or V3
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
   #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
-  #define TFT_THEME DELTAFOX        // TFT Theme for Color_UI
 #elif ENABLED(TFT_OTHER)
   //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
   #define MKS_ROBIN_TFT35           // Mks_Robin_TFT35V2.0
   //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
-  #define TFT_THEME DELTAFOX        // TFT Theme for Color_UI
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #elif ENABLED(TFT_PORTRAIT)
   #define TFT_ROTATION TFT_ROTATE_90       //PORTRAIT TFT32
@@ -354,11 +356,9 @@
   #define TOUCH_ORIENTATION TOUCH_PORTRAIT //PORTRAIT TFT32
   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
-  #define TFT_THEME DELTAFOX        // TFT Theme for Color_UI
 #else
   #define MKS_ROBIN_TFT32           // (Default) Mks_Robin_TFT_V2.0
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
-  #define TFT_THEME DELTAFOX        // TFT Theme for Color_UI
 #endif
 
 // Set for QQS(4xA4988) or Q5(3x2208+A4988) 
@@ -565,13 +565,13 @@
   #define INPUT_SHAPING_Z
   //#define SHAPING_MIN_FREQ  20.0      // (Hz) By default the minimum of the shaping frequencies. Override to affect SRAM usage.
   //#define SHAPING_MAX_STEPRATE 10000  // By default the maximum total step rate of the shaped axes. Override to affect SRAM usage.
-  #define SHAPING_MENU                 // Add a menu to the LCD to set shaping parameters.
-  #ifdef Q5
-    #define SHAPING_FREQ_X  40.00
-    #define SHAPING_ZETA_X   0.15
-    #define SHAPING_FREQ_Y  40.00
-    #define SHAPING_ZETA_Y   0.15
-    #define SHAPING_FREQ_Z  40.0        // (Hz) The default dominant resonant frequency on the Z axis.
+  #define SHAPING_MENU                  // Add a menu to the LCD to set shaping parameters.
+  #if ALL(Q5, DDRIVE)
+    #define SHAPING_FREQ_X  43.48
+    #define SHAPING_ZETA_X   0.15  
+    #define SHAPING_FREQ_Y  43.48
+    #define SHAPING_ZETA_Y   0.15     
+    #define SHAPING_FREQ_Z  43.48       // (Hz) The default dominant resonant frequency on the Z axis.
     #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
   #elif ALL(SRM, DDRIVE)   //SDHX 20230215
     #define SHAPING_FREQ_X  40.0  //51.06
@@ -585,7 +585,14 @@
     #define SHAPING_ZETA_X   0.15  
     #define SHAPING_FREQ_Y  43.48// 25.6
     #define SHAPING_ZETA_Y   0.15     
-    #define SHAPING_FREQ_Z  43.48        // (Hz) The default dominant resonant frequency on the Z axis.
+    #define SHAPING_FREQ_Z  43.48       // (Hz) The default dominant resonant frequency on the Z axis.
+    #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
+  #elif ENABLED(Q5)
+    #define SHAPING_FREQ_X  40.00
+    #define SHAPING_ZETA_X   0.15
+    #define SHAPING_FREQ_Y  40.00
+    #define SHAPING_ZETA_Y   0.15
+    #define SHAPING_FREQ_Z  40.0        // (Hz) The default dominant resonant frequency on the Z axis.
     #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
   #elif ANY(SR_BTT, SR_MKS)
     #define SHAPING_FREQ_X  25.0   // info FLSun

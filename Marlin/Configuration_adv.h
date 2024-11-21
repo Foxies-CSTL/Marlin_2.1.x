@@ -4185,7 +4185,7 @@
   #define MAIN_MENU_ITEM_3_CONFIRM
 
   #define MAIN_MENU_ITEM_4_DESC "3.ZOffSet Wizard"
-  #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig158)
+  #define MAIN_MENU_ITEM_4_GCODE "G28" //Modif menu_main.cpp(lig167)
   #define MAIN_MENU_ITEM_4_CONFIRM
 
   #define MAIN_MENU_ITEM_5_DESC "4a.Bed Level. UBL for " PREHEAT_1_LABEL

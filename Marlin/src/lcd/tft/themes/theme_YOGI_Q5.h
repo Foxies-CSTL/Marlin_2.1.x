@@ -55,15 +55,15 @@
 #define COLOR_DARK_ORANGE     0xFC40  // #FF8C00
 #define COLOR_CORAL_RED       0xF9E7  // #FF3F3F
 
-#define COLOR_DARK_PURPLE     0x9930  // #992380
+//#define COLOR_DARK_PURPLE     0x9930  // #992380
 
 #define MOVE_AXIS_SCREEN  // Special "Move Axis" screen activated by touching coordinates area
 
 #ifndef COLOR_BACKGROUND
-  #define COLOR_BACKGROUND    COLOR_DARK  // YU 0x20AC  // #1E156E
+  #define COLOR_BACKGROUND    COLOR_DARKGREY2  // YU 0x20AC  // #1E156E
 #endif
 #ifndef COLOR_SELECTION_BG
-  #define COLOR_SELECTION_BG  0x9930  // #992380
+  #define COLOR_SELECTION_BG  COLOR_BLACK  // #992380
 #endif
 #ifndef COLOR_WEBSITE_URL
   #define COLOR_WEBSITE_URL   0x03B7  // #0075BD
@@ -73,10 +73,10 @@
   #define COLOR_INACTIVE          COLOR_GREY
 #endif
 #ifndef COLOR_COLD
-  #define COLOR_COLD              COLOR_AQUA
+  #define COLOR_COLD              COLOR_LIGHT_BLUE // YU COLOR_AQUA
 #endif
 #ifndef COLOR_HOTEND
-  #define COLOR_HOTEND            COLOR_SCARLET
+  #define COLOR_HOTEND            COLOR_DARK_ORANGE
 #endif
 #ifndef COLOR_HEATED_BED
   #define COLOR_HEATED_BED        COLOR_DARK_ORANGE
@@ -92,35 +92,35 @@
 #endif
 
 #ifndef COLOR_AXIS_HOMED
-  #define COLOR_AXIS_HOMED        COLOR_WHITE
+  #define COLOR_AXIS_HOMED        COLOR_LIGHT_BLUE
 #endif
 #ifndef COLOR_AXIS_NOT_HOMED
-  #define COLOR_AXIS_NOT_HOMED    COLOR_YELLOW
+  #define COLOR_AXIS_NOT_HOMED    COLOR_RED
 #endif
 
 #ifndef COLOR_RATE_100
-  #define COLOR_RATE_100          COLOR_VIVID_GREEN
+  #define COLOR_RATE_100          COLOR_DODGER_BLUE
 #endif
 #ifndef COLOR_RATE_ALTERED
   #define COLOR_RATE_ALTERED      COLOR_YELLOW
 #endif
 
 #ifndef COLOR_PRINT_TIME
-  #define COLOR_PRINT_TIME        COLOR_VIVID_GREEN
+  #define COLOR_PRINT_TIME        COLOR_OLIVE
 #endif
 
 #ifndef COLOR_PROGRESS_FRAME
-  #define COLOR_PROGRESS_FRAME    COLOR_WHITE
+  #define COLOR_PROGRESS_FRAME    COLOR_LIGHT_BLUE
 #endif
 #ifndef COLOR_PROGRESS_BAR
-  #define COLOR_PROGRESS_BAR      COLOR_BLUE
+  #define COLOR_PROGRESS_BAR      COLOR_DARK_ORANGE //blue
 #endif
 #ifndef COLOR_PROGRESS_BG
-  #define COLOR_PROGRESS_BG       COLOR_BLACK
+  #define COLOR_PROGRESS_BG       COLOR_BACKGROUND //YU black
 #endif
 
 #ifndef COLOR_STATUS_MESSAGE
-  #define COLOR_STATUS_MESSAGE    COLOR_YELLOW
+  #define COLOR_STATUS_MESSAGE    COLOR_WHITE
 #endif
 
 #ifndef COLOR_CONTROL_ENABLED
@@ -130,17 +130,17 @@
   #define COLOR_CONTROL_DISABLED  COLOR_GREY
 #endif
 #ifndef COLOR_CONTROL_CANCEL
-  #define COLOR_CONTROL_CANCEL    COLOR_SCARLET
+  #define COLOR_CONTROL_CANCEL    COLOR_DARK_ORANGE
 #endif
 #ifndef COLOR_CONTROL_CONFIRM
-  #define COLOR_CONTROL_CONFIRM   COLOR_VIVID_GREEN
+  #define COLOR_CONTROL_CONFIRM   COLOR_LIGHT_BLUE
 #endif
 #ifndef COLOR_BUSY
   #define COLOR_BUSY              COLOR_SILVER
 #endif
 
 #ifndef COLOR_MENU_TEXT
-  #define COLOR_MENU_TEXT         COLOR_YELLOW
+  #define COLOR_MENU_TEXT         COLOR_WHITE
 #endif
 #ifndef COLOR_MENU_VALUE
   #define COLOR_MENU_VALUE        COLOR_WHITE
@@ -150,11 +150,11 @@
   #define COLOR_SLIDER            COLOR_WHITE
 #endif
 #ifndef COLOR_SLIDER_INACTIVE
-  #define COLOR_SLIDER_INACTIVE   COLOR_GREY
+  #define COLOR_SLIDER_INACTIVE   COLOR_WHITE
 #endif
 
 #ifndef COLOR_UBL
-  #define COLOR_UBL               COLOR_WHITE
+  #define COLOR_UBL               COLOR_PURPLE
 #endif
 
 #ifndef COLOR_TOUCH_CALIBRATION
@@ -166,4 +166,27 @@
 #endif
 #ifndef COLOR_KILL_SCREEN_TEXT
   #define COLOR_KILL_SCREEN_TEXT  COLOR_WHITE
+#endif
+//YU
+#ifndef COLOR_MENU_STATIC_TEXT
+  #define COLOR_MENU_STATIC_TEXT  COLOR_SILVER
+#endif
+#ifndef COLOR_MENU_BACK_TEXT
+  #define COLOR_MENU_BACK_TEXT    COLOR_WHITE
+#endif
+#ifndef COLOR_MENU_EDIT_TEXT
+  #define COLOR_MENU_EDIT_TEXT    COLOR_WHITE
+#endif
+
+#ifndef E_BTN_COLOR
+  #define E_BTN_COLOR             COLOR_YELLOW
+#endif
+#ifndef X_BTN_COLOR
+  #define X_BTN_COLOR             COLOR_CORAL_RED
+#endif
+#ifndef Y_BTN_COLOR
+  #define Y_BTN_COLOR             COLOR_VIVID_GREEN
+#endif
+#ifndef Z_BTN_COLOR
+  #define Z_BTN_COLOR             COLOR_LIGHT_BLUE
 #endif

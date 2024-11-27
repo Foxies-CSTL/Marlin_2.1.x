@@ -27,6 +27,7 @@
 #define COLOR_DARKGREY        0x4208  // #404040
 #define COLOR_DARKGREY2       0x39E7  // #303030
 #define COLOR_DARK            0x0003  // #000019
+#define COLOR_DARK_YU         0x2104  // #1f1f1f
 
 #define COLOR_RED             0xF800  // #FF0000
 #define COLOR_SCARLET         0xF904  // #FF2020
@@ -47,7 +48,9 @@
 #define COLOR_GREEN           0x03E0  // #008000
 #define COLOR_NAVY            0x000F  // #000080
 #define COLOR_OLIVE           0x8400  // #808000
+#define COLOR_OLIVE_YU        0xd6ee  // #d3de77
 #define COLOR_PURPLE          0x8010  // #800080
+#define COLOR_PURPLE_YU       0xdc1f  // #dc81ff
 #define COLOR_TEAL            0x0410  // #008080
 
 #define COLOR_ORANGE          0xFC00  // #FF7F00
@@ -55,15 +58,13 @@
 #define COLOR_DARK_ORANGE     0xFC40  // #FF8C00
 #define COLOR_CORAL_RED       0xF9E7  // #FF3F3F
 
-//#define COLOR_DARK_PURPLE     0x9930  // #992380
-
 #define MOVE_AXIS_SCREEN  // Special "Move Axis" screen activated by touching coordinates area
 
 #ifndef COLOR_BACKGROUND
-  #define COLOR_BACKGROUND    COLOR_DARKGREY2  // YU 0x20AC  // #1E156E
+  #define COLOR_BACKGROUND    COLOR_DARK_YU  // YU 0x20AC  // #1E156E
 #endif
 #ifndef COLOR_SELECTION_BG
-  #define COLOR_SELECTION_BG  COLOR_BLACK  // #992380
+  #define COLOR_SELECTION_BG  COLOR_DARKGREY  // #992380
 #endif
 #ifndef COLOR_WEBSITE_URL
   #define COLOR_WEBSITE_URL   0x03B7  // #0075BD
@@ -95,22 +96,23 @@
   #define COLOR_AXIS_HOMED        COLOR_LIGHT_BLUE
 #endif
 #ifndef COLOR_AXIS_NOT_HOMED
-  #define COLOR_AXIS_NOT_HOMED    COLOR_RED
+  #define COLOR_AXIS_NOT_HOMED    COLOR_ORANGE
 #endif
 
 #ifndef COLOR_RATE_100
   #define COLOR_RATE_100          COLOR_DODGER_BLUE
 #endif
 #ifndef COLOR_RATE_ALTERED
-  #define COLOR_RATE_ALTERED      COLOR_YELLOW
+  #define COLOR_RATE_ALTERED      COLOR_DARK_ORANGE
 #endif
 
 #ifndef COLOR_PRINT_TIME
-  #define COLOR_PRINT_TIME        COLOR_OLIVE
+  //#define COLOR_PRINT_TIME        COLOR_OLIVE
+  #define COLOR_PRINT_TIME        COLOR_OLIVE_YU
 #endif
 
 #ifndef COLOR_PROGRESS_FRAME
-  #define COLOR_PROGRESS_FRAME    COLOR_LIGHT_BLUE
+  #define COLOR_PROGRESS_FRAME    COLOR_PURPLE_YU
 #endif
 #ifndef COLOR_PROGRESS_BAR
   #define COLOR_PROGRESS_BAR      COLOR_DARK_ORANGE //blue
@@ -120,7 +122,7 @@
 #endif
 
 #ifndef COLOR_STATUS_MESSAGE
-  #define COLOR_STATUS_MESSAGE    COLOR_WHITE
+  #define COLOR_STATUS_MESSAGE    COLOR_ORANGE
 #endif
 
 #ifndef COLOR_CONTROL_ENABLED
@@ -147,18 +149,18 @@
 #endif
 
 #ifndef COLOR_SLIDER
-  #define COLOR_SLIDER            COLOR_WHITE
+  #define COLOR_SLIDER            COLOR_ORANGE
 #endif
 #ifndef COLOR_SLIDER_INACTIVE
   #define COLOR_SLIDER_INACTIVE   COLOR_WHITE
 #endif
 
 #ifndef COLOR_UBL
-  #define COLOR_UBL               COLOR_PURPLE
+  #define COLOR_UBL               COLOR_DARK_ORANGE
 #endif
 
 #ifndef COLOR_TOUCH_CALIBRATION
-  #define COLOR_TOUCH_CALIBRATION COLOR_WHITE
+  #define COLOR_TOUCH_CALIBRATION COLOR_ORANGE
 #endif
 
 #ifndef COLOR_KILL_SCREEN_BG
@@ -175,17 +177,17 @@
   #define COLOR_MENU_BACK_TEXT    COLOR_WHITE
 #endif
 #ifndef COLOR_MENU_EDIT_TEXT
-  #define COLOR_MENU_EDIT_TEXT    COLOR_WHITE
+  #define COLOR_MENU_EDIT_TEXT    COLOR_MENU_TEXT
 #endif
 
 #ifndef E_BTN_COLOR
   #define E_BTN_COLOR             COLOR_YELLOW
 #endif
 #ifndef X_BTN_COLOR
-  #define X_BTN_COLOR             COLOR_CORAL_RED
+  #define X_BTN_COLOR             COLOR_ORANGE
 #endif
 #ifndef Y_BTN_COLOR
-  #define Y_BTN_COLOR             COLOR_VIVID_GREEN
+  #define Y_BTN_COLOR             COLOR_GREEN
 #endif
 #ifndef Z_BTN_COLOR
   #define Z_BTN_COLOR             COLOR_LIGHT_BLUE

@@ -34,6 +34,7 @@
 * New theme DELTAFOX.
 * disable UBL_HILBERT and enable UBL_TILT
 * New menu for filament (runout lengh, time)
+* New menu Debug to show the EndStop state.
 * New menu for Auto-Sleep screen to 0 at 99mn screenview. (M255 S5)
 */
 //For run tests on my dev'printer!!
@@ -145,9 +146,9 @@
 //#define INV_EXT                        // Uncommment to reverse direction for BMG_righ/Sherpa/SuperDriveHX.
 //#define EXTRUDER_STEPS  410            // Uncomment to ajust your eSteps (on firmware-32steps is doubled).
 
-// BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (n) step(720).
+// BMG_right Extruder (B) step(417) ou SuperDriveHX Extruder (X) step(720).
 //#define BMG                            //(B) Uncommment for BMG_left(3:1).
-//#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDrive/Lgx(3:1).
+//#define DDRIVE                         //(X) Uncommment for Mini-Sherpa/SuperDriveHX/Lgx(3:1).
 //#define OMG                            //(O) Uncommment for OMG.(QQS no inv)(3:1)
 //#define OMR                            //(o) Uncommment for OMR.(QQS no inv)(1:1)
                   /*  Custom Effector  */
@@ -218,9 +219,10 @@
 
 /*_______________________6____________________*/
   //======Many options for Modules: ========//
-#define LIN_ADVANCE                    // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
-//#define POWER_LOSS_RECOVERY            // (Default) Continue print after Power-Loss.
-#define FWRETRACT                      // (Default) Firmware-based and LCD-controlled retract
+#define LIN_ADVANCE                     // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
+//#define POWER_LOSS_RECOVERY             // (Default) Continue print after Power-Loss.
+#define FWRETRACT                       // (Default) Firmware-based and LCD-controlled retract
+//#define INPUT_SHAPING                   // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -247,14 +249,13 @@
 //#define BINARY_FILE_TRANSFER           // Bin transfert for ESP3D firmware v2.1 or others.
                                          // Not compatible with the MEATPACK option.
 //------ Support for MeatPack G-code compression (OCTOPRINT)--------//
-#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB. block the request octoprint
+//#define MEATPACK_ON_SERIAL_PORT_1      // (M) With connection USB. block the request octoprint
 //#define MEATPACK_ON_SERIAL_PORT_2      // With other connection like Tx/Rx Wifi socket.
 
 //----------Options Plus-----------//
-#define SDCARD_SORT_ALPHA
+//#define SDCARD_SORT_ALPHA              // order by name
 //#define SD_REPRINT_LAST_SELECTED_FILE  // Reselect last print file.
 //#define CONFIGURATION_EMBEDDING        // Use 'M503 C' to write the settings out to the SD Card as 'mc.zip'.
-//#define INPUT_SHAPING                  // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
 
 //-----------------------------//
 //For tests on my dev'printer!!//
@@ -294,6 +295,7 @@
   //#define MENU_ADDAUTOSTART           // Add a menu option to run auto#.g files
   #define SOUND_MENU_ITEM               // Add a mute option to the LCD menu
   #define DISPLAY_SLEEP_MINUTES 15      // Auto-Sleep to 5mn screenview. (M255 S5)
+  #define LCD_ENDSTOP_TEST              // Menu > Endstop Test for endstop/probe/runout testing
   #ifndef STALLGUARD_2                   
   // Only with TMC2209 sensorless (need wiring DIAG pins)
     #define DIAG_JUMPERS_REMOVED
@@ -566,7 +568,14 @@
   //#define SHAPING_MIN_FREQ  20.0      // (Hz) By default the minimum of the shaping frequencies. Override to affect SRAM usage.
   //#define SHAPING_MAX_STEPRATE 10000  // By default the maximum total step rate of the shaped axes. Override to affect SRAM usage.
   #define SHAPING_MENU                  // Add a menu to the LCD to set shaping parameters.
-  #if ALL(Q5, DDRIVE)
+  #if ALL(QQSP, DDRIVE)
+    #define SHAPING_FREQ_X  43.48// 25.6
+    #define SHAPING_ZETA_X   0.15  
+    #define SHAPING_FREQ_Y  43.48// 25.6
+    #define SHAPING_ZETA_Y   0.15     
+    #define SHAPING_FREQ_Z  43.48       // (Hz) The default dominant resonant frequency on the Z axis.
+    #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
+  #elif ALL(Q5, DDRIVE)
     #define SHAPING_FREQ_X  43.48
     #define SHAPING_ZETA_X   0.15  
     #define SHAPING_FREQ_Y  43.48
@@ -579,13 +588,6 @@
     #define SHAPING_FREQ_Y  40.0
     #define SHAPING_ZETA_Y   0.15
     #define SHAPING_FREQ_Z  40.0        // (Hz) The default dominant resonant frequency on the Z axis.
-    #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
-  #elif ALL(QQSP, DDRIVE)
-    #define SHAPING_FREQ_X  43.48// 25.6
-    #define SHAPING_ZETA_X   0.15  
-    #define SHAPING_FREQ_Y  43.48// 25.6
-    #define SHAPING_ZETA_Y   0.15     
-    #define SHAPING_FREQ_Z  43.48       // (Hz) The default dominant resonant frequency on the Z axis.
     #define SHAPING_ZETA_Z   0.15       // Damping ratio of the Z axis (range: 0.0 = no damping to 1.0 = critical damping).
   #elif ENABLED(Q5)
     #define SHAPING_FREQ_X  40.00

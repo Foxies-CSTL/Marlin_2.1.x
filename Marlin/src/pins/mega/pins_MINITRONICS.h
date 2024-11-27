@@ -44,9 +44,9 @@
 //
 // Limit Switches
 //
-#define X_MIN_PIN                              5
-#define Y_MIN_PIN                              2
-#define Z_MIN_PIN                              6
+#define X_STOP_PIN                             5
+#define Y_STOP_PIN                             2
+#define Z_STOP_PIN                             6
 
 //
 // Steppers

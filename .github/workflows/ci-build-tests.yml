@@ -34,12 +34,15 @@ jobs:
     name: Build Test
     if: github.repository == 'MarlinFirmware/Marlin'
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: true
       matrix:
         test-platform:
+
+        # RP2040
+        - SKR_Pico
 
         # Native
         - linux_native

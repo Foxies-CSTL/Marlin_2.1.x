@@ -167,8 +167,8 @@
 //#define HEATER_0_MAXTEMP 350           // Don't uncomment Volcano line.
 
 // To change the old PID nozzle for Hotend with a new Model Predictive Control.
-//#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
-//#define BOOT_MARLIN_LOGO_SMALL
+#define MPCTEMP                        // (m) ex: run "M306 P40" to configure MPCTEMP for 40W hotend heater 
+#define BOOT_MARLIN_LOGO_SMALL
 
 /*__________________________5_____________________________*/
       /** =============================
@@ -194,7 +194,7 @@
   //======Many options for Modules: ========//
 #define LIN_ADVANCE                      // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
 #define POWER_LOSS_RECOVERY              // (Default) Continue print after Power-Loss.
-//#define FWRETRACT                      // Firmware-based and LCD-controlled retract
+#define FWRETRACT                      // Firmware-based and LCD-controlled retract
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -256,6 +256,7 @@
   #define DELTA_CALIBRATION_MENU         // (Default) Auto for CLASSIC and COLOR.
   #define LCD_INFO_MENU                  // (Default) Informations printer.
   //#define MEDIA_MENU_AT_TOP            // Add Print media menu at top list.
+  //#define BROWSE_MEDIA_ON_INSERT       // Open the file browser when media is inserted
   //#define PREHEAT_SHORTCUT_MENU_ITEM   // Add preheat/temperature menu (first page)
   //#define CANCEL_OBJECTS               // Add menu "Cancel Objet"
   //#define TOUCH_IDLE_SLEEP_MINS 5      // (minutes) Display Sleep after a period of inactivity. Set with M255 S.

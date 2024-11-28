@@ -1369,7 +1369,7 @@
 #if HAS_MANUAL_MOVE_MENU
   #define MANUAL_FEEDRATE_XYZ 50*60
   #define MANUAL_FEEDRATE { MANUAL_FEEDRATE_XYZ, MANUAL_FEEDRATE_XYZ, 10*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
-  #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
+  #define FINE_MANUAL_MOVE 0.02    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
     #define ULTIPANEL_FEEDMULTIPLY  // Encoder sets the feedrate multiplier on the Status Screen
@@ -2706,14 +2706,14 @@
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   #define PAUSE_PARK_RETRACT_FEEDRATE         60  // (mm/s) Initial retract feedrate.
   #define PAUSE_PARK_RETRACT_LENGTH            3  // (mm) Initial retract.
-  #ifdef Q5
-    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     28
-    #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
-    #define FILAMENT_CHANGE_UNLOAD_LENGTH      550
-  #elif ENABLED(DDRIVE)
+  #ifdef DDRIVE
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     20
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
     #define FILAMENT_CHANGE_UNLOAD_LENGTH      100
+  #elif ENABLED(Q5)
+    #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     28
+    #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
+    #define FILAMENT_CHANGE_UNLOAD_LENGTH      550
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     40
     #define FILAMENT_CHANGE_UNLOAD_ACCEL        25
@@ -2730,14 +2730,14 @@
   #define FILAMENT_CHANGE_SLOW_LOAD_FEEDRATE   6  // (mm/s) Slow move when starting load.
   #define FILAMENT_CHANGE_SLOW_LOAD_LENGTH     5  // (mm) Slow length, to allow time to insert material.
                                                   // 0 to disable start loading and skip to fast load only
-  #ifdef Q5
-    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
-    #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
-  #elif ENABLED(DDRIVE)
+  #ifdef DDRIVE
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  15
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
     #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    60
+   #elif ENABLED(Q5)   
+    #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
+    #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   600
   #elif ANY(SR_MKS, SR_BTT)
     #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  40
     #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25

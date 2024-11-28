@@ -151,11 +151,8 @@
     //#define E0_SLAVE_ADDRESS 0    // :  :  :
 
     #define X_SERIAL_TX_PIN                  PA8  // IO0
-    #define X_SERIAL_RX_PIN      X_SERIAL_TX_PIN  // IO0
     #define Y_SERIAL_TX_PIN      X_SERIAL_TX_PIN  // IO0
-    #define Y_SERIAL_RX_PIN      X_SERIAL_TX_PIN  // IO0
     #define Z_SERIAL_TX_PIN      X_SERIAL_TX_PIN  // IO0
-    #define Z_SERIAL_RX_PIN      X_SERIAL_TX_PIN  // IO0
   #else /*  TMC220x   */
     // SoftwareSerial with one pin per driver
     // Compatible with TMC2208 and TMC2209 drivers
@@ -164,11 +161,8 @@
     #define  Z_SLAVE_ADDRESS 0
     
     #define X_SERIAL_TX_PIN                   PA10  // RXD1
-    #define X_SERIAL_RX_PIN                   PA10  // RXD1
     #define Y_SERIAL_TX_PIN                   PA9   // TXD1
-    #define Y_SERIAL_RX_PIN                   PA9   // TXD1
     #define Z_SERIAL_TX_PIN                   PC7   // IO1
-    #define Z_SERIAL_RX_PIN                   PC7   // IO1 
   #endif
 #else
   // Motor current PWM pins
@@ -343,8 +337,8 @@
   #define FSMC_CS_PIN                       PD7   // NE4
   #define FSMC_RS_PIN                       PD11  // A0
 
-  //#define TOUCH_BUTTONS_HW_SPI
-  //#define TOUCH_BUTTONS_HW_SPI_DEVICE          2  
+  #define TOUCH_BUTTONS_HW_SPI
+  #define TOUCH_BUTTONS_HW_SPI_DEVICE          2  
   #define TFT_CS_PIN                 FSMC_CS_PIN
   #define TFT_RS_PIN                 FSMC_RS_PIN 
   #define TFT_RESET_PIN                     PC6   // FSMC_RST

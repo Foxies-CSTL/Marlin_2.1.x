@@ -22,6 +22,10 @@
 
 #include "../inc/MarlinConfig.h"
 
+/**
+ * cardreader.cpp - SD card / USB flash drive file handling interface
+ */
+
 #if HAS_MEDIA
 
 //#define DEBUG_CARDREADER
@@ -182,7 +186,7 @@ CardReader::CardReader() {
 }
 
 //
-// Get a DOS 8.3 filename in its useful form
+// Get a DOS 8.3 filename in its useful form, e.g., "MYFILE  EXT" => "MYFILE.EXT"
 //
 char *createFilename(char * const buffer, const dir_t &p) {
   char *pos = buffer;
@@ -191,8 +195,12 @@ char *createFilename(char * const buffer, const dir_t &p) {
     if (i == 8) *pos++ = '.';
     *pos++ = p.name[i];
   }
-  *pos++ = 0;
+  *pos++ = '\0';
   return buffer;
+}
+
+inline bool extIsBIN(char *ext) {
+  return ext[0] == 'B' && ext[1] == 'I' && ext[2] == 'N';
 }
 
 //
@@ -213,9 +221,7 @@ bool CardReader::is_visible_entity(const dir_t &p OPTARG(CUSTOM_FIRMWARE_UPLOAD,
   ) return false;
 
   flag.filenameIsDir = DIR_IS_SUBDIR(&p);               // We know it's a File or Folder
-  setBinFlag(p.name[8] == 'B' &&                        // List .bin files (a firmware file for flashing)
-             p.name[9] == 'I' &&
-             p.name[10]== 'N');
+  setBinFlag(extIsBIN((char *)&p.name[8]));             // List .bin files (a firmware file for flashing)
 
   return (
     flag.filenameIsDir                                  // All Directories are ok
@@ -882,7 +888,7 @@ void CardReader::selectFileByIndex(const int16_t nr) {
       strcpy(filename, sortshort[nr]);
       strcpy(longFilename, sortnames[nr]);
       TERN_(HAS_FOLDER_SORTING, flag.filenameIsDir = IS_DIR(nr));
-      setBinFlag(strcmp_P(strrchr(filename, '.'), PSTR(".BIN")) == 0);
+      setBinFlag(extIsBIN(strrchr(filename, '.') + 1));
       return;
     }
   #endif
@@ -900,7 +906,7 @@ void CardReader::selectFileByName(const char * const match) {
         strcpy(filename, sortshort[nr]);
         strcpy(longFilename, sortnames[nr]);
         TERN_(HAS_FOLDER_SORTING, flag.filenameIsDir = IS_DIR(nr));
-        setBinFlag(strcmp_P(strrchr(filename, '.'), PSTR(".BIN")) == 0);
+        setBinFlag(extIsBIN(strrchr(filename, '.') + 1));
         return;
       }
   #endif

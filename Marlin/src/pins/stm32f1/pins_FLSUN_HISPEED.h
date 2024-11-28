@@ -181,9 +181,10 @@
     #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
     #define Z_SERIAL_TX_PIN                   PC7  // IO1
     #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
-  #ifndef TMC_BAUD_RATE
-    #define TMC_BAUD_RATE                  19200
-  #endif
+    #ifndef TMC_BAUD_RATE
+      #define TMC_BAUD_RATE                  19200
+    #endif
+  #endif  
 #else
   // Motor current PWM pins
   #define MOTOR_CURRENT_PWM_XY_PIN          PA6   // VREF2/3 CONTROL XY
@@ -192,6 +193,7 @@
   #ifndef DEFAULT_PWM_MOTOR_CURRENT
     #define DEFAULT_PWM_MOTOR_CURRENT { 900, 900, 900 }
   #endif
+#endif
 
   /**
    * MKS Robin_Wifi or another ESP8266 module
@@ -208,7 +210,7 @@
    *       ￣￣ AE￣￣
    */
   // Module ESP-WIFI
-  #if ENABLED(WIFISUPPORT)
+  #if ANY(WIFISUPPORT,ESP3D_30)
     //Mode COMMUNICATION_PROTOCOL RAW_SERIAL with monitoring ESP3Dv3
     #define MKS_WIFI_SERIAL_NUM             SERIAL_PORT_2
     #define MKS_WIFI_UART                   USART1
@@ -223,9 +225,8 @@
     #define WIFI_IO0_PIN                    PA8   // MKS ESP WIFI IO0 PIN
     #define WIFI_IO1_PIN       			        PC7   // MKS ESP WIFI IO1 PIN
     #define WIFI_RESET_PIN				          PA5   // MKS ESP WIFI RESET PIN
-  #else
-    //#undef PLATFORM_M997_SUPPORT                //Issue with the Mks Cura plugin that sends M997s(reboot MoBo).
   #endif
+    //#undef PLATFORM_M997_SUPPORT                //Issue with the Mks Cura plugin that sends M997s(reboot MoBo).
   /* fix Marlin 
   #if ENABLED(WIFISUPPORT)
     #define ESP_WIFI_MODULE_COM                  2  // Must also set either SERIAL_PORT or SERIAL_PORT_2 to this
@@ -238,7 +239,6 @@
     #define ESP_WIFI_MODULE_GPIO1_PIN         PC7
   #endif
   */
-#endif
 
 //
 // EXTRUDER

@@ -277,7 +277,7 @@
     //#define USES_MKS_WIFI_FUNCTION    // Bin transfert MKS for ESP3D firmware v3.0 or others
   #elif ENABLED(ESP3D_30)// Enable UART1 on socket WIFI (MKs boards)
     #define MKS_WIFI
-    #define EEPROM_W25Q
+    //#define EEPROM_W25Q
     #define BOOT_MARLIN_LOGO_SMALL
   #else
     #define MOD_AUX    

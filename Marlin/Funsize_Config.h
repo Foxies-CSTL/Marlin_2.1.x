@@ -21,10 +21,11 @@
 //#define STOCK                        //(S) For 4xA4988 with Robin_mini Board(Comment POWER_LOSS_RECOVERY)
 //#define RAMPS                        //(S) For 4xA4988(green or red color)
 //#define SKR                          //env: BIGTREE_SKR_2_USB
-#define NANO12                       //env: mks_robin_nano_v1v2
+//#define NANO12                       //env: mks_robin_nano_v1v2
+#define SGEN                          //env: lpc1789
 
 /* MODE TMC */
-#define AMB8_TMC                     //(8) For 4xTMC220x_STANDALONE For 2208(white color) or 2209(black color)
+//#define AMB8_TMC                     //(8) For 4xTMC220x_STANDALONE For 2208(white color) or 2209(black color)
 //#define AMB8_UARTx                   //(U8/U9) 4xTMC220x Note: For 2209 change TMC2208 by TMC2209 at the bottom file and remove on your printer the module WIFI.
 //#define AMB8_UART9                   //(UH) Mode special 2209 wiring with one I/O pin (Remove module ESP12)
 
@@ -32,7 +33,7 @@
 * Options: 
 * LV8729/A4988/TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209 
 */
-#define DRIVER_EXT A4988
+//#define DRIVER_EXT A4988
 
 /* QQS Stock have a clone TITAN EXtruder,
 * also if you have another try this.
@@ -43,14 +44,15 @@
 
 /*--- Choice UI TFT ----*/
 //#define TFT_CLASSIC_UI             //(F) UI STANDARD 
-#define TFT_COLOR_UI               //(C) UI MARLIN
+//#define TFT_COLOR_UI               //(C) UI MARLIN
 //#define TFT_LVGL_UI                //(I) UI MKS
-//#define TFT_BTT_UI                 //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
+#define TFT_BTT_UI                 //(r) UI Classic (emulation LCD Marlin) for BTT TFT screen.
 //#define TFT_DWIN_UI                //(D) UI for DGUS screen
 //#define TFT_ROTATION TFT_ROTATE_180
 
 /*----  Modules -----*/
 //#define ESP_WIFI                   //(W) Module ESP8266/ESP12
+//#define WIFISUPPORT
 
 /*For LedStrip which need an external power source on Vcc pin.*/
 //#define NEOPIXEL_LED               //(N) Use port GPIO Wifi module (PA10/PA9/PA8/PC7)
@@ -69,14 +71,17 @@
   #define TEMP_SENSOR_BED 5
   #define TEMP_SENSOR_CHAMBER 11
   #define TEMP_CHAMBER_PIN TEMP_1_PIN //
-#else
+#elif ENABLED(SGEN)
   #define TEMP_SENSOR_0 13
   #define TEMP_SENSOR_BED 0
+#else
+  #define TEMP_SENSOR_0 13
+  #define TEMP_SENSOR_BED 1
   //#define TEMP_SENSOR_CHAMBER 0
   //#define TEMP_CHAMBER_PIN TEMP_1_PIN //
 #endif
 //#define MICROSTEPS32
-#define Z_OFFSET  -4.21
+#define Z_OffSet  -4.21
 //============= End_Hardware ===============//
 
 //Choice add menu: (OPT)
@@ -87,17 +92,18 @@
 #define CUSTOM_MENU_MAIN
 #define STATUS_MESSAGE_SCROLLING
 #define SET_PROGRESS_MANUALLY
+#define SOUND_MENU_ITEM   // Add a mute option to the LCD menu
 
 //  Type Calibration (CAL)
 //#define AUTO_BED_LEVELING_BILINEAR //(A)
 #define AUTO_BED_LEVELING_UBL    //(U) 
-#define LCD_BED_TRAMMING
-#define G26_MESH_VALIDATION //UBL
+//#define LCD_BED_TRAMMING
+//#define G26_MESH_VALIDATION //UBL
 //#define Z_STEPPER_AUTO_ALIGN
 
 // Option for Octoprint (OCTO)
 //#define HOST_ACTION_COMMANDS       // Action Command Prompt support Message on Octoprint
-//#define UTF_FILENAME_SUPPORT
+#define UTF_FILENAME_SUPPORT
 #define EMERGENCY_PARSER
 //#define BINARY_FILE_TRANSFER
 //#define MEATPACK_ON_SERIAL_PORT_1
@@ -106,14 +112,21 @@
 //#define SDCARD_CONNECTION ONBOARD//LCD   //Actif default
 //#define MULTI_VOLUME
 //#define CANCEL_OBJECTS
-#define SDCARD_SORT_ALPHA
+//#define SDCARD_SORT_ALPHA
 #define AUTO_REPORT_POSITION
 //#define AUTO_REPORT_TEMPERATURES  //Actif
 //#define M115_GEOMETRY_REPORT      //Actif
 #define M114_DETAIL
 #define REPORT_FAN_CHANGE
 #define GCODE_CASE_INSENSITIVE
-
+// ===== OPTIONS USER =========
+#if ANY(SGEN,NANO12)
+// Frivolous Game Options
+  #define MARLIN_BRICKOUT
+  #define MARLIN_INVADERS
+  #define MARLIN_SNAKE
+  #define BOOT_MARLIN_LOGO_ANIMATED // Animated Marlin logo. Costs ~3260 (or ~940) bytes of flash.
+#endif
 /* OPTION no validate */
 //#define USE_CONTROLLER_FAN         //BOARD FAN
 //EXTRUDER_AUTO_FAN   //
@@ -176,7 +189,7 @@
 #endif
 
 //Set for A4988 
-#ifdef STOCK
+#if ANY(STOCK,SGEN)
     #define DRIVER_AXES A4988
     #ifndef DRIVER_EXT
       #define DRIVER_EXT A4988

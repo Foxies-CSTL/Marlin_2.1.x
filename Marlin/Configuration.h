@@ -108,7 +108,10 @@
   #endif
   #ifdef NANO12
     #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
-  #endif    
+  #endif
+  #ifdef SGEN
+    #define MOTHERBOARD BOARD_MKS_SGEN_L
+  #endif   
 #endif
 
 // @section serial
@@ -121,7 +124,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#if ANY(STOCK, RAMPS)
+#if ANY(STOCK, RAMPS, SGEN)
   #define SERIAL_PORT 0
 #endif
 #ifdef NANO12
@@ -181,7 +184,7 @@
 #ifdef SKR
   #define CUSTOM_MACHINE_NAME "AMB8_BNBSXv2"
 #endif
-#ifdef NANO12
+#if ANY(SGEN,NANO12)
   #define CUSTOM_MACHINE_NAME "Recreator_FunSize"
 #endif
 
@@ -1648,9 +1651,9 @@
  
 // Pour le support http://www.thingiverse.com/thing:2111157 201810
 #if ANY(RAMPS, SKR)
-  #define NOZZLE_TO_PROBE_OFFSET { 28, 5, Z_OFFSET }
+  #define NOZZLE_TO_PROBE_OFFSET { 28, 5, Z_OffSet }
 #else
-  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, Z_OFFSET }
+  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, Z_OffSet }
 #endif
 
 // Most probes should stay away from the edges of the bed, but
@@ -1806,7 +1809,7 @@
 
 #define DISABLE_E
                // Disable the extruder when not stepping
-#ifdef RAMPS
+#if ANY(RAMPS,SGEN)
   #define DISABLE_OTHER_EXTRUDERS   // Keep only the active extruder enabled
 #endif  
 
@@ -1830,7 +1833,7 @@
 //#define INVERT_V_DIR false
 //#define INVERT_W_DIR false
 
-#if ANY(STOCK, SKR, NANO12)
+#if ANY(STOCK,SKR,NANO12,SGEN)
   #define INVERT_X_DIR true         //BEAR Montage tete Prusa/BEAR (true)
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR true
@@ -2765,7 +2768,7 @@
 // Note: Test audio output with the G-Code:
 //  M300 S<frequency Hz> P<duration ms>
 //
-#ifdef RAMPS
+#if ANY(RAMPS,SGEN)
   #define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
   #define LCD_FEEDBACK_FREQUENCY_HZ 5000
 #endif

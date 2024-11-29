@@ -76,44 +76,27 @@
 
 #if HAS_TMC_UART
   #define X_SERIAL_TX_PIN                   PE7
-  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
-
   #define X2_SERIAL_TX_PIN                  PA15
-  #define X2_SERIAL_RX_PIN      X2_SERIAL_TX_PIN
-
   #define Y_SERIAL_TX_PIN                   PE15
-  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
-
   #define Z_SERIAL_TX_PIN                   PD10
-  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
-
   #define Z2_SERIAL_TX_PIN                  PD11
-  #define Z2_SERIAL_RX_PIN      Z2_SERIAL_TX_PIN
-
   #define E0_SERIAL_TX_PIN                  PD7
-  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
-
   #define E1_SERIAL_TX_PIN                  PC14
-  #define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
-
   #define E2_SERIAL_TX_PIN                  PC15
-  #define E2_SERIAL_RX_PIN      E2_SERIAL_TX_PIN
 #endif
 
 //
-// Software SPI pins for TMC2130 stepper drivers
+// SPI pins for TMC2130 stepper drivers
 //
 #define TMC_USE_SW_SPI
-#if ENABLED(TMC_USE_SW_SPI)
-  #ifndef TMC_SW_MOSI
-    #define TMC_SW_MOSI                     PE14
-  #endif
-  #ifndef TMC_SW_MISO
-    #define TMC_SW_MISO                     PE13
-  #endif
-  #ifndef TMC_SW_SCK
-    #define TMC_SW_SCK                      PE12
-  #endif
+#ifndef TMC_SPI_MOSI
+  #define TMC_SPI_MOSI                      PE14
+#endif
+#ifndef TMC_SPI_MISO
+  #define TMC_SPI_MISO                      PE13
+#endif
+#ifndef TMC_SPI_SCK
+  #define TMC_SPI_SCK                       PE12
 #endif
 
 #if HOTENDS > 3 || E_STEPPERS > 3

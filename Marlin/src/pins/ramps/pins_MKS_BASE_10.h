@@ -23,6 +23,9 @@
 
 /**
  * MKS BASE 1.0 – Arduino Mega2560 with RAMPS v1.4 pin assignments
+ * Schematics:
+ * Schematic: https://reprap.org/wiki/File:MKS_Base_V1.0_source.zip
+ * ATmega2560
  *
  * Rev B - Override pin definitions for CASE_LIGHT and M3/M4/M5 spindle control
  */

@@ -23,6 +23,8 @@
 
 /**
  * AZTEEG_X3_PRO (Arduino Mega) pin assignments
+ * Schematic: http://files.panucatt.com/datasheets/x3pro_sch_v1.0.zip
+ * ATmega2560
  */
 
 #define REQUIRE_MEGA2560
@@ -53,8 +55,8 @@
 #define Y_STOP_PIN                            14
 #define Z_STOP_PIN                            18
 
-#ifndef FAN_PIN
-  #define FAN_PIN                              6
+#ifndef FAN0_PIN
+  #define FAN0_PIN                             6
 #endif
 
 #if ENABLED(CASE_LIGHT_ENABLE) && !PIN_EXISTS(CASE_LIGHT)
@@ -142,7 +144,7 @@
 #undef BEEPER_PIN
 #define BEEPER_PIN                            33
 
-#if EITHER(VIKI2, miniVIKI)
+#if ANY(VIKI2, miniVIKI)
   #undef SD_DETECT_PIN
   #define SD_DETECT_PIN                       49  // For easy adapter board
   #undef BEEPER_PIN
@@ -169,7 +171,7 @@
 #undef SPINDLE_DIR_PIN
 
 #if HAS_CUTTER                                    // EXP2 header
-  #if EITHER(VIKI2, miniVIKI)
+  #if ANY(VIKI2, miniVIKI)
     #define BTN_EN2                           31  // Pin 7 needed for Spindle PWM
   #endif
   #define SPINDLE_LASER_PWM_PIN                7  // Hardware PWM

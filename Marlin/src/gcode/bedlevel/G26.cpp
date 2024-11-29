@@ -58,10 +58,10 @@
  *
  *   L #  Layer       Layer height. (Height of nozzle above bed)  If not specified .20mm will be used.
  *
- *   O #  Ooooze      How much your nozzle will Ooooze filament while getting in position to print. This
- *                    is over kill, but using this parameter will let you get the very first 'circle' perfect
- *                    so you have a trophy to peel off of the bed and hang up to show how perfectly you have your
- *                    Mesh calibrated. If not specified, a filament length of .3mm is assumed.
+ *   O #  Ooze        How much your nozzle will Ooooze filament while getting in position to print. If not
+ *                    specified, a filament length of .3mm is assumed. This might be overkill, but this
+ *                    parameter ensures the very first 'circle' is perfect (providing an ideal trophy to hang
+ *                    up to show off your perfectly calibrated Mesh).
  *
  *   P #  Prime       Prime the nozzle with specified length of filament. If this parameter is not
  *                    given, no prime action will take place. If the parameter specifies an amount, that much
@@ -102,7 +102,7 @@
 #define G26_OK false
 #define G26_ERR true
 
-#include "../../gcode/gcode.h"
+#include "../gcode.h"
 #include "../../feature/bedlevel/bedlevel.h"
 
 #include "../../MarlinCore.h"
@@ -162,8 +162,8 @@ float g26_random_deviation = 0.0;
    */
   bool user_canceled() {
     if (!ui.button_pressed()) return false; // Return if the button isn't pressed
-    ui.set_status(GET_TEXT_F(MSG_G26_CANCELED), 99);
-    TERN_(HAS_MARLINUI_MENU, ui.quick_feedback());
+    LCD_MESSAGE_MAX(MSG_G26_CANCELED);
+    ui.quick_feedback();
     ui.wait_for_release();
     return true;
   }
@@ -321,11 +321,9 @@ typedef struct {
     #if HAS_HEATED_BED
 
       if (bed_temp > 25) {
-        #if HAS_WIRED_LCD
-          ui.set_status(GET_TEXT_F(MSG_G26_HEATING_BED), 99);
-          ui.quick_feedback();
-          TERN_(HAS_MARLINUI_MENU, ui.capture());
-        #endif
+        LCD_MESSAGE_MAX(MSG_G26_HEATING_BED);
+        ui.quick_feedback();
+        TERN_(HAS_MARLINUI_MENU, ui.capture());
         thermalManager.setTargetBed(bed_temp);
 
         // Wait for the temperature to stabilize
@@ -340,20 +338,16 @@ typedef struct {
     #endif // HAS_HEATED_BED
 
     // Start heating the active nozzle
-    #if HAS_WIRED_LCD
-      ui.set_status(GET_TEXT_F(MSG_G26_HEATING_NOZZLE), 99);
-      ui.quick_feedback();
-    #endif
+    LCD_MESSAGE_MAX(MSG_G26_HEATING_NOZZLE);
+    ui.quick_feedback();
     thermalManager.setTargetHotend(hotend_temp, active_extruder);
 
     // Wait for the temperature to stabilize
     if (!thermalManager.wait_for_hotend(active_extruder, true OPTARG(G26_CLICK_CAN_CANCEL, true)))
       return G26_ERR;
 
-    #if HAS_WIRED_LCD
-      ui.reset_status();
-      ui.quick_feedback();
-    #endif
+    ui.reset_status();
+    ui.completion_feedback();
 
     return G26_OK;
   }
@@ -371,7 +365,7 @@ typedef struct {
 
       if (prime_flag == -1) {  // The user wants to control how much filament gets purged
         ui.capture();
-        ui.set_status(GET_TEXT_F(MSG_G26_MANUAL_PRIME), 99);
+        LCD_MESSAGE_MAX(MSG_G26_MANUAL_PRIME);
         ui.chirp();
 
         destination = current_position;
@@ -398,17 +392,15 @@ typedef struct {
 
         ui.wait_for_release();
 
-        ui.set_status(GET_TEXT_F(MSG_G26_PRIME_DONE), 99);
+        LCD_MESSAGE_MAX(MSG_G26_PRIME_DONE);
         ui.quick_feedback();
         ui.release();
       }
       else
     #endif
     {
-      #if HAS_WIRED_LCD
-        ui.set_status(GET_TEXT_F(MSG_G26_FIXED_LENGTH), 99);
-        ui.quick_feedback();
-      #endif
+      LCD_MESSAGE_MAX(MSG_G26_FIXED_LENGTH);
+      ui.quick_feedback();
       destination = current_position;
       destination.e += prime_length;
       prepare_internal_move_to_destination(fr_slow_e);
@@ -636,7 +628,7 @@ void GcodeSuite::G26() {
   }
 
   // Get repeat from 'R', otherwise do one full circuit
-  int16_t g26_repeats;
+  grid_count_t g26_repeats;
   #if HAS_MARLINUI_MENU
     g26_repeats = parser.intval('R', GRID_MAX_POINTS + 1);
   #else
@@ -715,7 +707,7 @@ void GcodeSuite::G26() {
       #error "A_CNT must be a positive value. Please change A_INT."
     #endif
     float trig_table[A_CNT];
-    LOOP_L_N(i, A_CNT)
+    for (uint8_t i = 0; i < A_CNT; ++i)
       trig_table[i] = INTERSECTION_CIRCLE_RADIUS * cos(RADIANS(i * A_INT));
 
   #endif // !ARC_SUPPORT
@@ -853,7 +845,7 @@ void GcodeSuite::G26() {
   } while (--g26_repeats && location.valid());
 
   LEAVE:
-  ui.set_status(GET_TEXT_F(MSG_G26_LEAVING), -1);
+  LCD_MESSAGE_MIN(MSG_G26_LEAVING);
   TERN_(EXTENSIBLE_UI, ExtUI::onMeshUpdate(location, ExtUI::G26_FINISH));
 
   g26.retract_filament(destination);

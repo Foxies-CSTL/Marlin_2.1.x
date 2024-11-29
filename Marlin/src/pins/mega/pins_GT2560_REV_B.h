@@ -23,6 +23,8 @@
 
 /**
  * Geeetech GT2560 Rev B Pins
+ * Schematic: https://www.geeetech.com/wiki/images/7/72/GT2560_REVB.pdf
+ * ATmega2560
  */
 
 #define BOARD_INFO_NAME "GT2560 Rev B"

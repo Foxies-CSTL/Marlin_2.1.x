@@ -49,7 +49,7 @@
 #define DEBUG_OUT ENABLED(DEBUG_LEVELING_FEATURE)
 #include "../core/debug_out.h"
 
-// Initialized by settings.load()
+// Initialized by settings.load
 float delta_height;
 abc_float_t delta_endstop_adj{0};
 float delta_radius,
@@ -242,7 +242,7 @@ void home_delta() {
   #endif
 
   // Move all carriages together linearly until an endstop is hit.
-  current_position.z = DIFF_TERN(HAS_BED_PROBE, delta_height + 10, probe.offset.z);
+  current_position.z = DIFF_TERN(USE_PROBE_FOR_Z_HOMING, delta_height + 10, probe.offset.z);
   line_to_current_position(homing_feedrate(Z_AXIS));
   planner.synchronize();
   TERN_(HAS_DELTA_SENSORLESS_PROBING, endstops.report_states());

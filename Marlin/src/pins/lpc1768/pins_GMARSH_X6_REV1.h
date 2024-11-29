@@ -23,6 +23,7 @@
 
 /**
  * GMARSH X6 Rev.1 pin assignments
+ * Schematic: https://github.com/gmarsh/gmarsh_x6/blob/master/armprinter_2208_1heater.pdf
  */
 
 #include "env_validate.h"
@@ -86,25 +87,16 @@
 //
 #if HAS_TMC_UART
   #define X_SERIAL_TX_PIN                  P1_00
-  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
-
   #define Y_SERIAL_TX_PIN                  P1_09
-  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
-
   #define Z_SERIAL_TX_PIN                  P1_16
-  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
-
   #define E0_SERIAL_TX_PIN                 P0_04
-  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
-
   #define E1_SERIAL_TX_PIN                 P2_02
-  #define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
-
   #define E2_SERIAL_TX_PIN                 P2_06
-  #define E2_SERIAL_RX_PIN      E2_SERIAL_TX_PIN
 
   // Reduce baud rate to improve software serial reliability
-  #define TMC_BAUD_RATE                    19200
+  #ifndef TMC_BAUD_RATE
+    #define TMC_BAUD_RATE                  19200
+  #endif
 #else
   #error "TMC2208 UART configuration is required for GMarsh X6."
 #endif
@@ -121,7 +113,7 @@
 //
 #define HEATER_BED_PIN                     P1_19  // Not a PWM pin, software PWM required
 #define HEATER_0_PIN                       P3_26  // PWM1[3]
-#define FAN_PIN                            P3_25  // Part cooling fan - connected to PWM1[2]
+#define FAN0_PIN                           P3_25  // Part cooling fan - connected to PWM1[2]
 #define E0_AUTO_FAN_PIN                    P0_27  // Extruder cooling fan
 
 //
@@ -139,7 +131,7 @@
   #define BTN_EN2                          P1_24
   #define BTN_ENC                          P1_25
   #define LCD_PINS_RS                      P0_20
-  #define LCD_PINS_ENABLE                  P0_21
+  #define LCD_PINS_EN                      P0_21
   #define LCD_PINS_D4                      P2_11
   #define LCD_PINS_D5                      P0_22
   #define LCD_PINS_D6                      P1_29

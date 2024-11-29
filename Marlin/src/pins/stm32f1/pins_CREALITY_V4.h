@@ -27,7 +27,7 @@
 
 #include "env_validate.h"
 
-#if HAS_MULTI_HOTEND || E_STEPPERS > 1
+#if !E_ERROR && (HAS_MULTI_HOTEND || E_STEPPERS > 1)
   #error "Creality v4 only supports 1 hotend / E stepper."
 #endif
 
@@ -35,7 +35,7 @@
   #define BOARD_INFO_NAME      "Creality V4"
 #endif
 #ifndef DEFAULT_MACHINE_NAME
-  #define DEFAULT_MACHINE_NAME "Ender 3 V2"
+  #define DEFAULT_MACHINE_NAME "Ender-3 V2"
 #endif
 
 #define BOARD_NO_NATIVE_USB
@@ -53,11 +53,16 @@
 #if NO_EEPROM_SELECTED
   #define IIC_BL24CXX_EEPROM                      // EEPROM on I2C-0
   //#define SDCARD_EEPROM_EMULATION
+  #undef NO_EEPROM_SELECTED
 #endif
 
 #if ENABLED(IIC_BL24CXX_EEPROM)
-  #define IIC_EEPROM_SDA                    PA11
-  #define IIC_EEPROM_SCL                    PA12
+  #ifndef IIC_EEPROM_SDA
+    #define IIC_EEPROM_SDA                  PA11
+  #endif
+  #ifndef IIC_EEPROM_SCL
+    #define IIC_EEPROM_SCL                  PA12
+  #endif
   #define MARLIN_EEPROM_SIZE               0x800  // 2K (24C16)
 #elif ENABLED(SDCARD_EEPROM_EMULATION)
   #define MARLIN_EEPROM_SIZE               0x800  // 2K
@@ -89,6 +94,13 @@
 
 #ifndef Z_MIN_PROBE_PIN
   #define Z_MIN_PROBE_PIN                   PB1   // BLTouch IN
+#endif
+
+//
+// Probe enable
+//
+#if ENABLED(PROBE_ENABLE_DISABLE) && !defined(PROBE_ENABLE_PIN)
+  #define PROBE_ENABLE_PIN            SERVO0_PIN
 #endif
 
 //
@@ -148,8 +160,8 @@
 #ifndef HEATER_BED_PIN
   #define HEATER_BED_PIN                    PA2   // HOT BED
 #endif
-#ifndef FAN_PIN
-  #define FAN_PIN                           PA0   // FAN
+#ifndef FAN0_PIN
+  #define FAN0_PIN                          PA0   // FAN
 #endif
 #define FAN_SOFT_PWM_REQUIRED
 
@@ -158,8 +170,20 @@
 //
 #define SD_DETECT_PIN                       PC7
 #define SDCARD_CONNECTION ONBOARD
-#define SDIO_SUPPORT
+#define ONBOARD_SDIO
 #define NO_SD_HOST_DRIVE                          // This board's SD is only seen by the printer
+
+/**    Debug port
+ *       -----
+ *       | 1 | VCC
+ *       | 2 | PA13
+ *       | 3 | PA14
+ *       | 4 | GND
+ *       -----
+ */
+
+#define DEBUG_02_PIN                        PA13
+#define DEBUG_03_PIN                        PA14
 
 #if ANY(RET6_12864_LCD, HAS_DWIN_E3V2, IS_DWIN_MARLINUI)
 
@@ -173,16 +197,32 @@
    *   GND | 9 10 | 5V
    *        ------
    */
-  #define EXP3_01_PIN                       PC6
-  #define EXP3_02_PIN                       PB2
-  #define EXP3_03_PIN                       PB10
-  #define EXP3_04_PIN                       PB11
-  #define EXP3_05_PIN                       PB14
-  #define EXP3_06_PIN                       PB13
-  #define EXP3_07_PIN                       PB12
-  #define EXP3_08_PIN                       PB15
+  #ifndef EXP3_01_PIN
+    #define EXP3_01_PIN                     PC6
+  #endif
+  #ifndef EXP3_02_PIN
+    #define EXP3_02_PIN                     PB2
+  #endif
+  #ifndef EXP3_03_PIN
+    #define EXP3_03_PIN                     PB10
+  #endif
+  #ifndef EXP3_04_PIN
+    #define EXP3_04_PIN                     PB11
+  #endif
+  #ifndef EXP3_05_PIN
+    #define EXP3_05_PIN                     PB14
+  #endif
+  #ifndef EXP3_06_PIN
+    #define EXP3_06_PIN                     PB13
+  #endif
+  #ifndef EXP3_07_PIN
+    #define EXP3_07_PIN                     PB12
+  #endif
+  #ifndef EXP3_08_PIN
+    #define EXP3_08_PIN                     PB15
+  #endif
 
-#elif EITHER(VET6_12864_LCD, DWIN_VET6_CREALITY_LCD)
+#elif ANY(VET6_12864_LCD, DWIN_VET6_CREALITY_LCD)
 
   /**
    *    VET6 12864 LCD
@@ -203,14 +243,14 @@
   #define EXP3_07_PIN                       PA4
   #define EXP3_08_PIN                       PA7
 
-#elif EITHER(CR10_STOCKDISPLAY, FYSETC_MINI_12864_2_1)
+#elif ANY(CR10_STOCKDISPLAY, FYSETC_MINI_12864_2_1)
   #error "Define RET6_12864_LCD or VET6_12864_LCD to select pins for the LCD with the Creality V4 controller."
 #endif
 
 #if ENABLED(CR10_STOCKDISPLAY)
 
   #define LCD_PINS_RS                EXP3_07_PIN
-  #define LCD_PINS_ENABLE            EXP3_08_PIN
+  #define LCD_PINS_EN                EXP3_08_PIN
   #define LCD_PINS_D4                EXP3_06_PIN
 
   #define BTN_ENC                    EXP3_02_PIN
@@ -233,9 +273,7 @@
 
 #elif ENABLED(FYSETC_MINI_12864_2_1)
 
-  #ifndef NO_CONTROLLER_CUSTOM_WIRING_WARNING
-    #error "CAUTION! FYSETC_MINI_12864_2_1 and clones require wiring modifications. See 'pins_CREALITY_V4.h' for details. Define NO_CONTROLLER_CUSTOM_WIRING_WARNING to suppress this warning."
-  #endif
+  CONTROLLER_WARNING("CREALITY_V4", "FYSETC_MINI_12864_2_1 and clones")
 
   #if SD_CONNECTION_IS(LCD)
     #error "The LCD SD Card is not connected with this configuration."
@@ -298,11 +336,3 @@
 #define UART4_RX_PIN                        PC11  // default uses sdcard SDIO_D3
 #define UART5_TX_PIN                        PC12  // default uses sdcard SDIO_CK
 #define UART5_RX_PIN                        PD2   // default uses sdcard SDIO_CMD
-
-// SDIO pins
-#define SDIO_D0_PIN                         PC8
-#define SDIO_D1_PIN                         PC9
-#define SDIO_D2_PIN                         PC10
-#define SDIO_D3_PIN                         PC11
-#define SDIO_CK_PIN                         PC12
-#define SDIO_CMD_PIN                        PD2

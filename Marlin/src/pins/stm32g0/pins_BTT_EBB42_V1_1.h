@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#include "env_validate.h"
+
 /** CAUTION **
  * This board definition is to facilitate support for a Filament Extrusion
  * devices, used to convert waste plastic into 3D printable filament.
@@ -32,17 +34,18 @@
 #ifndef BOARD_INFO_NAME
   #define BOARD_INFO_NAME "BTT EBB42 V1.1"
 #endif
+#define BOARD_WEBSITE_URL "github.com/bigtreetech/EBB/tree/master/EBB%20CAN%20V1.1%20(STM32G0B1)/EBB42%20CAN%20V1.1"
 
 //
 // EEPROM
 //
-#if EITHER(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
+#if ANY(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
   #undef NO_EEPROM_SELECTED
   #ifndef FLASH_EEPROM_EMULATION
     #define FLASH_EEPROM_EMULATION
   #endif
   #define EEPROM_PAGE_SIZE      (0x800UL) // 2K
-  #define EEPROM_START_ADDRESS  (0x0801F800UL)
+  #define EEPROM_START_ADDRESS  (0x8000000UL + (STM32_FLASH_SIZE) * 1024UL - (EEPROM_PAGE_SIZE) * 1UL)
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE
 #endif
 
@@ -78,17 +81,6 @@
 //
 // Steppers
 //
-#define X_ENABLE_PIN                        -1
-#define X_STEP_PIN                          PA10 // Unused. Assigned so Marlin will compile
-#define X_DIR_PIN                           -1
-
-#define Y_ENABLE_PIN                        -1
-#define Y_STEP_PIN                          PA10 // Unused. Assigned so Marlin will compile
-#define Y_DIR_PIN                           -1
-
-#define Z_ENABLE_PIN                        -1
-#define Z_STEP_PIN                          PA10 // Unused. Assigned so Marlin will compile
-#define Z_DIR_PIN                           -1
 
 #define E0_ENABLE_PIN                       PD2
 #define E0_STEP_PIN                         PD0
@@ -105,15 +97,17 @@
   //#define TMC_BAUD_RATE 250000
 
   #define E0_SERIAL_TX_PIN                  PA15
-  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
 
   // Reduce baud rate to improve software serial reliability
-  #define TMC_BAUD_RATE                    19200
+  #ifndef TMC_BAUD_RATE
+    #define TMC_BAUD_RATE                  19200
+  #endif
 
   // Default TMC slave addresses
   #ifndef E0_SLAVE_ADDRESS
-    #define E0_SLAVE_ADDRESS 0b00
+    #define E0_SLAVE_ADDRESS                0
   #endif
+  static_assert(E0_SLAVE_ADDRESS == 0, "E0_SLAVE_ADDRESS must be 0 for BOARD_BTT_EBB42_V1_1.");
 #endif
 
 //
@@ -132,20 +126,22 @@
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN                        PA2   // "HE"
-#define FAN_PIN                             PA0   // "FAN0"
+#define HEATER_0_PIN                        PA2   // "HE" V1.1
+#define HEATER_1_PIN                        PB13  // "HE" V1.2
+#define FAN0_PIN                            PA0   // "FAN0"
 #define FAN1_PIN                            PA1   // "FAN1"
 
 //
 // Default NEOPIXEL_PIN
 //
-#ifndef NEOPIXEL_PIN
-  #define NEOPIXEL_PIN                      PD3   // LED driving pin
+#ifndef BOARD_NEOPIXEL_PIN
+  #define BOARD_NEOPIXEL_PIN                PD3   // LED driving pin
 #endif
 
 //
 // LCD / Controller
 //
+
 #if HAS_WIRED_LCD
   #define BTN_EN1                           PB7
   #define BTN_EN2                           PB5

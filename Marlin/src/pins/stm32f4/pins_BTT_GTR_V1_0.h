@@ -31,7 +31,7 @@
 
 #define BOARD_INFO_NAME "BTT GTR V1.0"
 
-#define USES_DIAG_JUMPERS
+#define USES_DIAG_PINS                            // DIAG jumpers rendered useless due to a board design error
 #define HAS_OTG_USB_HOST_SUPPORT                  // USB Flash Drive support
 #define M5_EXTENDER                               // The M5 extender is attached
 
@@ -106,15 +106,33 @@
 // Pins on the extender
 //
 #if ENABLED(M5_EXTENDER)
-  #define X2_STOP_PIN                       PI4   // M5 M1_STOP
-  #define Y2_STOP_PIN                       PF12  // M5 M5_STOP
-  #define Z2_STOP_PIN                       PF4   // M5 M2_STOP
-  #define Z3_STOP_PIN                       PI7   // M5 M4_STOP
-  #define Z4_STOP_PIN                       PF6   // M5 M3_STOP
+  #define USES_DIAG_JUMPERS                       // DIAG jumpers work on M5 extender
+  #ifndef X2_STOP_PIN
+    #define X2_STOP_PIN                     PI4   // M5 M1_STOP
+  #endif
+  #ifndef Y2_STOP_PIN
+    #define Y2_STOP_PIN                     PF12  // M5 M5_STOP
+  #endif
+  #ifndef Z2_STOP_PIN
+    #define Z2_STOP_PIN                     PF4   // M5 M2_STOP
+  #endif
+  #ifndef Z3_STOP_PIN
+    #define Z3_STOP_PIN                     PI7   // M5 M4_STOP
+  #endif
+  #ifndef Z4_STOP_PIN
+    #define Z4_STOP_PIN                     PF6   // M5 M3_STOP
+  #endif
 #endif
 
 #ifndef Z_MIN_PROBE_PIN
   #define Z_MIN_PROBE_PIN                   PH11  // Z Probe must be PH11
+#endif
+
+//
+// Probe enable
+//
+#if ENABLED(PROBE_ENABLE_DISABLE) && !defined(PROBE_ENABLE_PIN)
+  #define PROBE_ENABLE_PIN            SERVO0_PIN
 #endif
 
 //
@@ -202,18 +220,16 @@
 #endif
 
 //
-// Software SPI pins for TMC2130 stepper drivers
+// SPI pins for TMC2130 stepper drivers
 //
-#if ENABLED(TMC_USE_SW_SPI)
-  #ifndef TMC_SW_MOSI
-    #define TMC_SW_MOSI                     PG15
-  #endif
-  #ifndef TMC_SW_MISO
-    #define TMC_SW_MISO                     PB6
-  #endif
-  #ifndef TMC_SW_SCK
-    #define TMC_SW_SCK                      PB3
-  #endif
+#ifndef TMC_SPI_MOSI
+  #define TMC_SPI_MOSI                      PG15
+#endif
+#ifndef TMC_SPI_MISO
+  #define TMC_SPI_MISO                      PB6
+#endif
+#ifndef TMC_SPI_SCK
+  #define TMC_SPI_SCK                       PB3
 #endif
 
 #if HAS_TMC_UART
@@ -239,43 +255,25 @@
   //#define E7_HARDWARE_SERIAL Serial1  // M5 MOTOR 5
 
   #define X_SERIAL_TX_PIN                   PC14
-  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
-
   #define Y_SERIAL_TX_PIN                   PE1
-  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
-
   #define Z_SERIAL_TX_PIN                   PB5
-  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
-
   #define E0_SERIAL_TX_PIN                  PG10
-  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
-
   #define E1_SERIAL_TX_PIN                  PD4
-  #define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
-
   #define E2_SERIAL_TX_PIN                  PC12
-  #define E2_SERIAL_RX_PIN      E2_SERIAL_TX_PIN
-
   #if ENABLED(M5_EXTENDER)
     #define E3_SERIAL_TX_PIN                PG4
-    #define E3_SERIAL_RX_PIN    E3_SERIAL_TX_PIN
-
     #define E4_SERIAL_TX_PIN                PE15
-    #define E4_SERIAL_RX_PIN    E4_SERIAL_TX_PIN
-
     #define E5_SERIAL_TX_PIN                PE7
-    #define E5_SERIAL_RX_PIN    E5_SERIAL_TX_PIN
-
     #define E6_SERIAL_TX_PIN                PF15
-    #define E6_SERIAL_RX_PIN    E6_SERIAL_TX_PIN
-
     #define E7_SERIAL_TX_PIN                PH14
-    #define E7_SERIAL_RX_PIN    E7_SERIAL_TX_PIN
   #endif
 
   // Reduce baud rate to improve software serial reliability
-  #define TMC_BAUD_RATE                    19200
-#endif
+  #ifndef TMC_BAUD_RATE
+    #define TMC_BAUD_RATE                  19200
+  #endif
+
+#endif // HAS_TMC_UART
 
 //
 // Temperature Sensors
@@ -304,9 +302,9 @@
 //#define TEMP_0_MOSI_PIN                   ...   // For MAX31865
 
 #define TEMP_1_CS_PIN                       PH2   // M5 K-TEMP
-#define TEMP_1_SCK_PIN           TEMP_0_SCK_PIN
-#define TEMP_1_MISO_PIN         TEMP_0_MISO_PIN
-//#define TEMP_1_MOSI_PIN       TEMP_0_MOSI_PIN
+#define TEMP_1_SCK_PIN            TEMP_0_SCK_PIN
+#define TEMP_1_MISO_PIN          TEMP_0_MISO_PIN
+//#define TEMP_1_MOSI_PIN        TEMP_0_MOSI_PIN
 
 //
 // Heaters / Fans
@@ -325,7 +323,7 @@
 
 #define HEATER_BED_PIN                      PA2   // Hotbed
 
-#define FAN_PIN                             PE5   // Fan0
+#define FAN0_PIN                            PE5   // Fan0
 #define FAN1_PIN                            PE6   // Fan1
 #define FAN2_PIN                            PC8   // Fan2
 
@@ -392,8 +390,9 @@
 #define EXP2_07_PIN                         PB10
 
 //
-// LCDs and Controllers
+// LCD / Controller
 //
+
 #if ANY(TFT_COLOR_UI, TFT_LVGL_UI, TFT_CLASSIC_UI)
 
   #define TFT_CS_PIN                 EXP2_04_PIN
@@ -421,7 +420,7 @@
     #define BTN_EN1                  EXP1_03_PIN
     #define BTN_EN2                  EXP1_05_PIN
 
-    #define LCD_PINS_ENABLE          EXP1_08_PIN
+    #define LCD_PINS_EN              EXP1_08_PIN
     #define LCD_PINS_D4              EXP1_06_PIN
 
   #elif ENABLED(MKS_MINI_12864)
@@ -440,7 +439,7 @@
     #define BTN_EN1                  EXP2_03_PIN
     #define BTN_EN2                  EXP2_05_PIN
 
-    #define LCD_PINS_ENABLE          EXP1_03_PIN
+    #define LCD_PINS_EN              EXP1_03_PIN
     #define LCD_PINS_D4              EXP1_05_PIN
 
     #if ENABLED(FYSETC_MINI_12864)
@@ -453,7 +452,7 @@
 
       //#define LCD_BACKLIGHT_PIN           -1
       #define LCD_RESET_PIN          EXP1_05_PIN  // Must be high or open for LCD to operate normally.
-      #if EITHER(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
+      #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
         #ifndef RGB_LED_R_PIN
           #define RGB_LED_R_PIN      EXP1_06_PIN
         #endif

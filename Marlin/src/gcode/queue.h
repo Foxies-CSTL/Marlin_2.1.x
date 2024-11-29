@@ -35,7 +35,7 @@ public:
    */
   struct SerialState {
     /**
-     * GCode line number handling. Hosts may include line numbers when sending
+     * G-Code line number handling. Hosts may include line numbers when sending
      * commands to Marlin, and lines will be checked for sequentiality.
      * M110 N<int> sets the current line number.
      */
@@ -48,7 +48,7 @@ public:
   static SerialState serial_state[NUM_SERIAL]; //!< Serial states for each serial port
 
   /**
-   * GCode Command Queue
+   * G-Code Command Queue
    * A simple (circular) ring buffer of BUFSIZE command strings.
    *
    * Commands are copied into this buffer by the command injectors
@@ -78,13 +78,15 @@ public:
     inline void clear() { length = index_r = index_w = 0; }
 
     void advance_pos(uint8_t &p, const int inc) { if (++p >= BUFSIZE) p = 0; length += inc; }
+    inline void advance_w() { advance_pos(index_w, 1); }
+    inline void advance_r() { if (length) advance_pos(index_r, -1); }
 
-    void commit_command(bool skip_ok
-      OPTARG(HAS_MULTI_SERIAL, serial_index_t serial_ind = serial_index_t())
+    void commit_command(const bool skip_ok
+      OPTARG(HAS_MULTI_SERIAL, serial_index_t serial_ind=serial_index_t())
     );
 
-    bool enqueue(const char *cmd, bool skip_ok = true
-      OPTARG(HAS_MULTI_SERIAL, serial_index_t serial_ind = serial_index_t())
+    bool enqueue(const char *cmd, const bool skip_ok=true
+      OPTARG(HAS_MULTI_SERIAL, serial_index_t serial_ind=serial_index_t())
     );
 
     void ok_to_send();
@@ -201,6 +203,12 @@ public:
    */
   static void flush_and_request_resend(const serial_index_t serial_ind);
 
+  #if (defined(ARDUINO_ARCH_STM32F4) || defined(ARDUINO_ARCH_STM32)) && defined(USBCON)
+    static void flush_rx();
+  #else
+    static void flush_rx() {}
+  #endif
+
   /**
    * (Re)Set the current line number for the last received command
    */
@@ -250,7 +258,7 @@ private:
 
   static void get_serial_commands();
 
-  #if ENABLED(SDSUPPORT)
+  #if HAS_MEDIA
     static void get_sdcard_commands();
   #endif
 

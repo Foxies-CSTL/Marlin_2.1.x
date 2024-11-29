@@ -22,10 +22,9 @@
 #pragma once
 
 //
-//  some of the pin mapping functions of the Teensduino extension to the Arduino IDE
-//  do not function the same as the other Arduino extensions
+// Some of the pin mapping functions of the Arduino IDE Teensduino extension
+// function differently from other Arduino extensions.
 //
-
 
 #define TEENSYDUINO_IDE
 
@@ -47,8 +46,6 @@
 #define PD 4
 #define PE 5
 #define PF 6
-
-#undef digitalPinToPort
 
 const uint8_t PROGMEM digital_pin_to_port_PGM[] = {
   PD, // 0  - PD0 - INT0 - PWM
@@ -101,11 +98,11 @@ const uint8_t PROGMEM digital_pin_to_port_PGM[] = {
   PE, // 47 - PE3 (not defined in teensyduino)
 };
 
-#define digitalPinToPort(P) ( pgm_read_byte( digital_pin_to_port_PGM + (P) ) )
+#define digitalPinToPort(P) pgm_read_byte(digital_pin_to_port_PGM[P])
 
 // digitalPinToBitMask(pin) is OK
 
-#define digitalRead_mod(p)  extDigitalRead(p)   // Teensyduino's version of digitalRead doesn't
+#define digitalRead_mod(P)  extDigitalRead(P)   // Teensyduino's version of digitalRead doesn't
                                                 // disable the PWMs so we can use it as is
 
 // portModeRegister(pin) is OK

@@ -23,6 +23,7 @@
 
 /**
  * Azteeg X5 MINI WIFI pin assignments
+ * Schematic: http://files.panucatt.com/datasheets/x5mini_wifi_wiring.pdf
  */
 
 #include "env_validate.h"

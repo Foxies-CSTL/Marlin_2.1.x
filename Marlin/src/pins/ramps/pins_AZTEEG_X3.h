@@ -23,6 +23,8 @@
 
 /**
  * AZTEEG_X3 Arduino Mega with RAMPS v1.4 pin assignments
+ * Schematic: http://files.panucatt.com/datasheets/azteegx3_designfiles.zip
+ * ATmega2560
  */
 
 #define REQUIRE_MEGA2560
@@ -51,7 +53,7 @@
 #undef STAT_LED_RED_PIN
 #undef STAT_LED_BLUE_PIN
 
-#if EITHER(VIKI2, miniVIKI)
+#if ANY(VIKI2, miniVIKI)
 
   #undef DOGLCD_A0
   #undef DOGLCD_CS

@@ -68,6 +68,13 @@
 #define Z_MAX_PIN                           PB12
 
 //
+// Probe enable
+//
+#if ENABLED(PROBE_ENABLE_DISABLE) && !defined(PROBE_ENABLE_PIN)
+  #define PROBE_ENABLE_PIN            SERVO0_PIN
+#endif
+
+//
 // Steppers
 //
 #define X_ENABLE_PIN                        PC15  // Driver0
@@ -126,22 +133,23 @@
 #endif
 
 //
-// Software SPI pins for TMC2130 stepper drivers
+// Default pins for TMC software SPI
 // This board only supports SW SPI for stepper drivers
 //
 #if HAS_TMC_SPI
   #define TMC_USE_SW_SPI
 #endif
-#if ENABLED(TMC_USE_SW_SPI)
-  #if !defined(TMC_SW_MOSI) || TMC_SW_MOSI == -1
-    #define TMC_SW_MOSI                     PE14
-  #endif
-  #if !defined(TMC_SW_MISO) || TMC_SW_MISO == -1
-    #define TMC_SW_MISO                     PE13
-  #endif
-  #if !defined(TMC_SW_SCK) || TMC_SW_SCK == -1
-    #define TMC_SW_SCK                      PE12
-  #endif
+#if !defined(TMC_SPI_MOSI) || TMC_SPI_MOSI == -1
+  #undef TMC_SPI_MOSI
+  #define TMC_SPI_MOSI                      PE14
+#endif
+#if !defined(TMC_SPI_MISO) || TMC_SPI_MISO == -1
+  #undef TMC_SPI_MISO
+  #define TMC_SPI_MISO                      PE13
+#endif
+#if !defined(TMC_SPI_SCK) || TMC_SPI_SCK == -1
+  #undef TMC_SPI_SCK
+  #define TMC_SPI_SCK                       PE12
 #endif
 
 #if HAS_TMC_UART
@@ -150,32 +158,20 @@
   // No Hardware serial for steppers
   //
   #define X_SERIAL_TX_PIN                   PE6
-  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
-
   #define Y_SERIAL_TX_PIN                   PE3
-  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
-
   #define Z_SERIAL_TX_PIN                   PB7
-  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
-
   #define E0_SERIAL_TX_PIN                  PB3
-  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
-
   #define E1_SERIAL_TX_PIN                  PD4
-  #define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
-
   #define E2_SERIAL_TX_PIN                  PD0
-  #define E2_SERIAL_RX_PIN      E2_SERIAL_TX_PIN
-
   #define E3_SERIAL_TX_PIN                  PD15
-  #define E3_SERIAL_RX_PIN      E3_SERIAL_TX_PIN
-
   #define E4_SERIAL_TX_PIN                  PD11
-  #define E4_SERIAL_RX_PIN      E4_SERIAL_TX_PIN
 
   // Reduce baud rate to improve software serial reliability
-  #define TMC_BAUD_RATE                    19200
-#endif
+  #ifndef TMC_BAUD_RATE
+    #define TMC_BAUD_RATE                  19200
+  #endif
+
+#endif // HAS_TMC_UART
 
 //
 // Temperature Sensors
@@ -193,7 +189,7 @@
 #define HEATER_2_PIN                        PA3   // HE2
 #define HEATER_BED_PIN                      PB10  // H-BED
 
-#define FAN_PIN                             PA2   // FAN0
+#define FAN0_PIN                            PA2   // FAN0
 #define FAN1_PIN                            PA1   // FAN1
 #define FAN2_PIN                            PA0   // FAN2
 
@@ -205,9 +201,6 @@
   #define KILL_PIN                        PW_DET
   #define KILL_PIN_STATE                    HIGH
 #endif
-
-// Random Info
-#define USB_SERIAL                          -1    // USB Serial
 
 /**
  *                  ------                                      ------
@@ -237,7 +230,7 @@
 #define EXP2_07_PIN                         PB11
 #define EXP2_08_PIN                         -1    // RESET
 
-#if ENABLED(SDSUPPORT)
+#if HAS_MEDIA
   #ifndef SDCARD_CONNECTION
     #define SDCARD_CONNECTION            ONBOARD
   #endif
@@ -259,7 +252,7 @@
   #endif
 #endif
 
-#if EITHER(TFT_COLOR_UI, TFT_CLASSIC_UI)
+#if ANY(TFT_COLOR_UI, TFT_CLASSIC_UI)
   #define TFT_CS_PIN                 EXP1_07_PIN
   #define TFT_SCK_PIN                EXP2_02_PIN
   #define TFT_MISO_PIN               EXP2_01_PIN
@@ -290,7 +283,7 @@
   #define LCD_READ_ID                       0xD3
   #define LCD_USE_DMA_SPI
 
-  #define TFT_BUFFER_SIZE                  14400
+  #define TFT_BUFFER_WORDS                 14400
 
   #ifndef TOUCH_CALIBRATION_X
     #define TOUCH_CALIBRATION_X           -17253
@@ -310,7 +303,7 @@
 
 #elif HAS_WIRED_LCD
 
-  #define LCD_PINS_ENABLE            EXP1_03_PIN
+  #define LCD_PINS_EN                EXP1_03_PIN
   #define LCD_PINS_RS                EXP1_04_PIN
   #define LCD_BACKLIGHT_PIN                 -1
 
@@ -344,7 +337,7 @@
   #else
 
     #define LCD_PINS_D4              EXP1_05_PIN
-    #if ENABLED(ULTIPANEL)
+    #if IS_ULTIPANEL
       #define LCD_PINS_D5            EXP1_06_PIN
       #define LCD_PINS_D6            EXP1_07_PIN
       #define LCD_PINS_D7            EXP1_08_PIN

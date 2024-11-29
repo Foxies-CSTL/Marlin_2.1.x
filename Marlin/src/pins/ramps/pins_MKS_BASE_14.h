@@ -23,6 +23,7 @@
 
 /**
  * MKS BASE v1.4 with A4982 stepper drivers and digital micro-stepping
+ * ATmega2560
  */
 
 #if HOTENDS > 2 || E_STEPPERS > 2
@@ -31,11 +32,6 @@
 
 #define BOARD_INFO_NAME "MKS BASE 1.4"
 #define MKS_BASE_VERSION                      14
-
-//
-// Heaters / Fans
-//
-#define FAN_PIN                                9  // PH6 ** Pin18 ** PWM9
 
 // Other Mods
 
@@ -47,10 +43,10 @@
 #ifndef RGB_LED_R_PIN
   #define RGB_LED_R_PIN                       50
 #endif
-#ifndef RGB_LED_R_PIN
+#ifndef RGB_LED_G_PIN
   #define RGB_LED_G_PIN                       51
 #endif
-#ifndef RGB_LED_R_PIN
+#ifndef RGB_LED_B_PIN
   #define RGB_LED_B_PIN                       52
 #endif
 

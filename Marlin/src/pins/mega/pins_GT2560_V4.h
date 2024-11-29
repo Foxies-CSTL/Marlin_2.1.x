@@ -23,6 +23,7 @@
 
 /**
  * Geeetech GT2560 V4.X Pins
+ * Schematic: https://www.geeetech.com/download.html?spm=a2g0s.imconversation.0.0.22d23e5fXlQBWv&download_id=45
  */
 
 #define BOARD_INFO_NAME "GT2560 4.x"

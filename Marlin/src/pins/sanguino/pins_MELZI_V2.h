@@ -23,6 +23,9 @@
 
 /**
  * Melzi V2.0 as found at https://www.reprap.org/wiki/Melzi
+ * Schematic: https://www.reprap.org/mediawiki/images/7/7d/Melzi-circuit.png
+ *
+ * ATmega644P
  */
 
 #define BOARD_INFO_NAME "Melzi V2"

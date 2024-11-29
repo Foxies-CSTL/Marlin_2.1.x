@@ -23,6 +23,8 @@
 
 /**
  * MKS GEN L V2 – Arduino Mega2560 with RAMPS v1.4 pin assignments
+ * Schematic: https://github.com/makerbase-mks/MKS-GEN_L/blob/master/hardware/MKS%20Gen_L%20V2.1_001/MKS%20GEN_L%20V2.1_001%20SCH.pdf
+ * ATmega2560
  */
 
 #if HOTENDS > 2 || E_STEPPERS > 2
@@ -34,8 +36,8 @@
 //
 // Heaters / Fans
 //
-// Power outputs EFBF or EFBE
-#define MOSFET_D_PIN                           7
+#define MOSFET_B_PIN                           7
+#define FAN0_PIN                               9
 
 //
 // CS Pins wired to avoid conflict with the LCD

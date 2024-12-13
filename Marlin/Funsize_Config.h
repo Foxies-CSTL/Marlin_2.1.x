@@ -22,7 +22,7 @@
 //#define RAMPS                        //(S) For 4xA4988(green or red color)
 //#define SKR                          //env: BIGTREE_SKR_2_USB
 //#define NANO12                       //env: mks_robin_nano_v1v2
-#define SGEN                          //env: lpc1789
+#define SGEN                          //env: lpc1768
 
 /* MODE TMC */
 //#define AMB8_TMC                     //(8) For 4xTMC220x_STANDALONE For 2208(white color) or 2209(black color)
@@ -33,7 +33,7 @@
 * Options: 
 * LV8729/A4988/TMC2208_STANDALONE/TMC2209_STANDALONE/TMC2208/TMC2209 
 */
-//#define DRIVER_EXT A4988
+//#define DRIVER_EXT TMC2208_STANDALONE
 
 /* QQS Stock have a clone TITAN EXtruder,
 * also if you have another try this.

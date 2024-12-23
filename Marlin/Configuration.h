@@ -1925,9 +1925,9 @@
   #define PROBING_MARGIN 15
 #endif
 
-// X and Y axis travel speed (mm/min) between probes.
+// X and Y axis travel speed between probes.
 // Leave undefined to use the average of the current XY homing feedrate.
-#define XY_PROBE_FEEDRATE (66*60)    //3960 default=133*60
+#define XY_PROBE_FEEDRATE (66*60)    // (mm/min) 3960 default=133*60
 
 #if ANY(N_PROBE, P_PROBE, X_PROBE)
   #define Z_PROBE_FEEDRATE_FAST (80*60)  //4800
@@ -1935,10 +1935,10 @@
 #else
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 //#define Z_PROBE_FEEDRATE_FAST (200*60)
-  #define Z_PROBE_FEEDRATE_FAST (80*60)  //4800 (40*60)  //2400 default=200*60
+  #define Z_PROBE_FEEDRATE_FAST (80*60)  // (mm/min) 4800 (40*60)  //2400 default=200*60
 
-// Feedrate (mm/min) for the "accurate" probe of each point
-  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 8) //8=600 6=400
+// Feedrate for the "accurate" probe of each point
+  #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 8) // (mm/min) 8=600 6=400
 #endif
 
 /**

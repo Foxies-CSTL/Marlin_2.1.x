@@ -4210,6 +4210,11 @@
   #define MAIN_MENU_ITEM_9_GCODE "G29L2\nM1004B80S2"
   #define MAIN_MENU_ITEM_9_CONFIRM
 
+#ifdef INPUT_SHAPING
+  #define MAIN_MENU_ITEM_10_DESC "Reboot Printer"
+  #define MAIN_MENU_ITEM_10_GCODE "M997"
+  #define MAIN_MENU_ITEM_10_CONFIRM
+#else
   #define MAIN_MENU_ITEM_10_DESC "4c.Bed Level. UBL for " PREHEAT_3_LABEL
   #define MAIN_MENU_ITEM_10_GCODE "G29L3\nM1004B90S3"
   #define MAIN_MENU_ITEM_10_CONFIRM
@@ -4217,7 +4222,7 @@
   #define MAIN_MENU_ITEM_11_DESC "Reboot Printer"
   #define MAIN_MENU_ITEM_11_GCODE "M997"
   #define MAIN_MENU_ITEM_11_CONFIRM
-
+#endif
 
   //#define MAIN_MENU_ITEM_1_DESC "Home & UBL Info"
   //#define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"

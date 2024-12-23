@@ -36,6 +36,7 @@
 * New menu for filament (runout lengh, time)
 * New menu Debug to show the EndStop state.
 * New menu for Auto-Sleep screen to 0 at 99mn screenview. (M255 S5)
+* If enable IS mesh slot is 3 vs 4 locations.
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV
@@ -222,7 +223,7 @@
 #define LIN_ADVANCE                     // (L) (Default2209) with K=0 For TMC_UART2208 prefer mode spreadCycle(by TFT menu) or commented if problem.
 //#define POWER_LOSS_RECOVERY             // (Default) Continue print after Power-Loss.
 #define FWRETRACT                       // (Default) Firmware-based and LCD-controlled retract
-//#define INPUT_SHAPING                   // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
+#define INPUT_SHAPING                   // (Z) Zero Vibration (ZV) Input Shaping for X and/or Y movements.
 
 //=================================================================================//
 //======================== End_Hardware ===========================================//
@@ -447,7 +448,7 @@
 #ifdef QQS_UARTH
     #define MICROSTEPS32
     #define Q_TMC
-    //#define BOOT_MARLIN_LOGO_SMALL
+    #define BOOT_MARLIN_LOGO_SMALL
     #define TMC_HARDWARE_SERIAL
     #define DRIVER_AXES TMC2209
     #ifndef DRIVER_EXT
@@ -565,8 +566,8 @@
   #define INPUT_SHAPING_X
   #define INPUT_SHAPING_Y
   #define INPUT_SHAPING_Z
-  //#define SHAPING_MIN_FREQ  20.0      // (Hz) By default the minimum of the shaping frequencies. Override to affect SRAM usage.
-  //#define SHAPING_MAX_STEPRATE 10000  // By default the maximum total step rate of the shaped axes. Override to affect SRAM usage.
+  #define SHAPING_MIN_FREQ  20.0      // (Hz) By default the minimum of the shaping frequencies. Override to affect SRAM usage.
+  #define SHAPING_MAX_STEPRATE 10000  // By default the maximum total step rate of the shaped axes. Override to affect SRAM usage.
   #define SHAPING_MENU                  // Add a menu to the LCD to set shaping parameters.
   #if ALL(QQSP, DDRIVE)
     #define SHAPING_FREQ_X  43.48// 25.6

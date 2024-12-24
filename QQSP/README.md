@@ -1,4 +1,4 @@
-### 2023-02-09 MARLIN 2.1.2 (compatible with GD32*)
+### 2024-12-18 PRE-RELEASE MARLIN 2.1.3 (compatible with GD32*)
 
 - QQS-Pro STOCK With 4xA4988 = QQSP_STOCK-Robin_mini.bin
 - QQS-Pro STOCK With 4xTMC2208 = QQSP_STOCK_TMC8-Robin_mini.bin
@@ -18,6 +18,7 @@ SCWTPULR-Robin_mini.bin => QQSPro Stock
    - (U)Leveling mode -
    - (L)LinearAdvance - 
    - (R)Arc function enabled.
+   - (Z) Input Shaper
 
   🔧**Note**: After choosing your binary, remove the "SCWTPULR-" header or rename the file to "Robin_mini.bin" for QQS,
   place it on your SD card, insert your SD card into the printer and power on your printer.

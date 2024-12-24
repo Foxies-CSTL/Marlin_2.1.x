@@ -8,17 +8,18 @@ Each firmware has a header that corresponds to the hardware (board) and function
 Below is an example with the firmware for a QQS-Pro printer with a HiSpeedv1 board with TMC2208 stepper drivers:
 
 **Exemple:**
-SCWTPULR-Robin_mini.bin => QQSPro Stock
+SCWTmPULRZ-Robin_mini.bin => QQSPro Stock
 => 
    - (S)4xA4988 - 
    - (C)UI Marlin TFT32 - 
    - (W)Wifi module - 
-   - (T)Extruder Titan(Stock) - 
+   - (T)Extruder Titan(Stock) -
+   - (m) New PID nozzle -
    - (P)PreHeat bed - 
    - (U)Leveling mode -
    - (L)LinearAdvance - 
    - (R)Arc function enabled.
-   - (Z) Input Shaper
+   - (Z) Input Shaper -
 
   🔧**Note**: After choosing your binary, remove the "SCWTPULR-" header or rename the file to "Robin_mini.bin" for QQS,
   place it on your SD card, insert your SD card into the printer and power on your printer.

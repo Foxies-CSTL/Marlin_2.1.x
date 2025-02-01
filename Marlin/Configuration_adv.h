@@ -1601,7 +1601,7 @@
   //#define PREHEAT_SHORTCUT_MENU_ITEM  // Define on FLSUNQ_Config
 
   // Add Configuration > Debug Menu > Endstop Test for endstop/probe/runout testing
-  //#define LCD_ENDSTOP_TEST
+  //#define LCD_ENDSTOP_TEST            // Define on FLSUNQ_Config
 
 #endif // HAS_MARLINUI_MENU
 
@@ -2282,7 +2282,7 @@
  * Display Sleep
  * Enable this option to save energy and prevent OLED pixel burn-in.
  */
-//#define DISPLAY_SLEEP_MINUTES 2       // (minutes) Timeout before turning off the screen
+//#define DISPLAY_SLEEP_MINUTES 2       // (minutes) Timeout before turning off the screen // Define on FLSUNQ_Config
 
 /**
  * LCD Backlight Timeout
@@ -2383,9 +2383,9 @@
   //#else
   //  #define ADVANCE_K 0.0        // (mm) Compression length applying to all extruders
   #elif ENABLED(DDRIVE)
-    #define ADVANCE_K 0.0  
+    #define ADVANCE_K 0.048  
   #else
-    #define ADVANCE_K 0.0
+    #define ADVANCE_K 0.22
   #endif
   //#define ADVANCE_K_EXTRA       // Add a second linear advance constant, configurable with M900 L.
   //#define LA_DEBUG              // Print debug information to serial during operation. Disable for production use.
@@ -4104,7 +4104,9 @@
  * Enable M111 debug flags 1=ECHO, 2=INFO, 4=ERRORS (unimplemented).
  * Disable to save some flash. Some hosts (Repetier Host) may rely on this feature.
  */
-#define DEBUG_FLAGS_GCODE
+#ifdef DBUG
+  #define DEBUG_FLAGS_GCODE
+#endif
 
 /**
  * Enable this option for a leaner build of Marlin that removes

@@ -37,6 +37,7 @@
 * New menu Debug to show the EndStop state.
 * New menu for Auto-Sleep screen to 0 at 99mn screenview. (M255 S5)
 * If enable IS mesh slot is 3 vs 4 locations.
+* Add MOBO for others motherboard choice(QQSP,Q5).
 */
 //For run tests on my dev'printer!!
 //#define XP_DEV
@@ -59,6 +60,14 @@
       // NOTE: change in platformio.ini file or
       // click on the "Default" icon on the bottom edge of the window and 
       // choose "env:xxxxxxx").
+
+//********************//
+// Other MOtherBOard //
+//******************//
+//#define MOBO
+//Define your MotherBoard below by uncomment.
+//#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3   //env:mks_robin_nano_v3_usb_flash_drive_msc
+//#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3_1 //STM32F407VE:512KB env:mks_robin_nano_v3_1_usb_flash_drive_msc
 
 /*________________________2___________________________*/
           /*-----Type Stepper Drivers-(1 CHOICE)-----*/
@@ -187,7 +196,7 @@
 
 // For user who change their nozzle thermistor and limited nozzle temp (ie. Volcano)
 // by another one ex: "ATC Semitec 104GT-2/ATC Semitec 104NT-4-R025H42G" = 5, "100k Hisens 3950" = 13 
-//#define TEMP_SENSOR_0 13               // uncomment with a good number/type.
+//#define TEMP_SENSOR_0 5                // uncomment with a good number/type.
 //#define VOLCANO                        // (H) HotEndAllMetal set to 300°C with appropriate thermistor.
 
 
@@ -350,7 +359,7 @@
   #define MULTI_VOLUME              // Multiple volume support(µSD + USB)
 #elif ENABLED(TFT_OTHER)
   //#define MKS_TS35_V2_0           // Only for NanoV2 or V3
-  #define MKS_ROBIN_TFT35           // Mks_Robin_TFT35V2.0
+  //#define MKS_ROBIN_TFT35         // Mks_Robin_TFT35V2.0
   //#define MKS_ROBIN_TFT43         // Mks_Robin_TFT43
   #define TOUCH_SCREEN              // (C/F) (Default) UI MARLIN
 #elif ENABLED(TFT_PORTRAIT)
@@ -410,7 +419,9 @@
 #if ANY(Q_UART9, SR_MKS, SR_BTT)
   #define MICROSTEPS32
   #define Q_TMC
-  #ifdef Q5
+  #if ALL(Q5, MOBO)||ALL(QQSP, MOBO)
+    #define NANO3
+  #else
     #define NANO1X
   #endif
   #define DRIVER_AXES TMC2209
@@ -630,7 +641,7 @@
   #endif
   #define I2C_BD_DELAY  18 //20
 #endif
-// NEOPIXEL for SR_MKS
-#if ALL(NEOPIXEL_LED, SR_MKS)
+// NEOPIXEL for SR_MKS, NANOv3.x
+#if ALL(NEOPIXEL_LED, SR_MKS)||ALL(NEOPIXEL_LED, NANO3)
   #define LED_PWM    SERVO0_PIN
 #endif

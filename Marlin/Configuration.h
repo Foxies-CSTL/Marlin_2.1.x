@@ -1161,7 +1161,7 @@
   // Make delta curves from many straight lines (linear interpolation).
   // This is a trade-off between visible corners (not enough segments)
   // and processor overload (too many expensive sqrt calls).
-  #if ANY(SR_MKS, SR_BTT)
+  #if ANY(SR_MKS, SR_BTT, NANO3)
     #define DEFAULT_SEGMENTS_PER_SECOND 160
   #elif ENABLED(XP12)
     #define DEFAULT_SEGMENTS_PER_SECOND 100  //200
@@ -4004,7 +4004,7 @@ EEPROM_W25Q
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#if ANY(SR_MKS, SR_BTT)
+#if ANY(SR_MKS, SR_BTT, NANO3)
   #define SOFT_PWM_SCALE 0
 #else
   #define SOFT_PWM_SCALE 1

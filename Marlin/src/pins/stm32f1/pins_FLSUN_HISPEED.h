@@ -50,7 +50,7 @@
 //
 #if ANY(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
   #define FLASH_EEPROM_EMULATION
-  #define EEPROM_PAGE_SIZE     (0x800U)           // 2K
+  #define EEPROM_PAGE_SIZE                0x800U  // 2K
   #define EEPROM_START_ADDRESS (0x8000000UL + (STM32_FLASH_SIZE) * 1024UL - (EEPROM_PAGE_SIZE) * 2UL)
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE  // 2K
 #endif
@@ -99,25 +99,6 @@
 #define X_DIAG_PIN                          PA15  //-X
 #define Y_DIAG_PIN                          PA12  //-Y
 #define Z_DIAG_PIN                          PC4   //-Z
-
-#ifdef SENSORLESS_PROBING
-  #define X_STOP_PIN                  X_DIAG_PIN 
-  #define Y_STOP_PIN                  Y_DIAG_PIN
-  #define Z_STOP_PIN                  Z_DIAG_PIN
-  #define Z_MIN_PIN                   Z_DIAG_PIN  //Note= do another test with disable this
-#else
-  #define X_STOP_PIN                  X_DIAG_PIN  // +X 
-  #define Y_STOP_PIN                  Y_DIAG_PIN  // +Y
-  #define Z_MAX_PIN                   Z_DIAG_PIN  // +Z
-  #define Z_MIN_PIN                         PA11  // -Z
-#endif
-
-//
-// Probe enable
-//
-#if ENABLED(PROBE_ENABLE_DISABLE) && !defined(PROBE_ENABLE_PIN)
-  #define PROBE_ENABLE_PIN            SERVO0_PIN
-#endif
 
 //
 // Steppers
@@ -299,19 +280,17 @@
 //
 // Power Supply Control
 //
-#if ENABLED(MKS_PWC)
-  #if ENABLED(TFT_LVGL_UI)
-    #if ENABLED(PSU_CONTROL)
-      #error "PSU_CONTROL is incompatible with MKS_PWC plus TFT_LVGL_UI."
-    #endif
-    #undef MKS_PWC
-    #define SUICIDE_PIN                     PB2   // Enable MKSPWC SUICIDE PIN
-    #define SUICIDE_PIN_STATE               LOW   // Enable MKSPWC PIN STATE
-  #else
-    #define PS_ON_PIN                       PA3   // PW_OFF
-  #endif
-  #define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
-  #define KILL_PIN_STATE                  HIGH  // Enable MKSPWC PIN STATE
+#if ENABLED(PSU_CONTROL)
+  #define KILL_PIN                          PA2   // PW_DET
+  #define KILL_PIN_STATE                    HIGH
+  //#define PS_ON_PIN                       PA3   // PW_CN /PW_OFF
+#endif
+
+#ifndef FIL_RUNOUT_PIN
+  #define FIL_RUNOUT_PIN                    PA4   // MT_DET_1
+#endif
+#ifndef FIL_RUNOUT_STATE
+  #define FIL_RUNOUT_STATE                  LOW
 #endif
 
 //
@@ -337,7 +316,6 @@
   #define SD_SCK_PIN                        PC12
   #define SD_MISO_PIN                       PC8
   #define SD_MOSI_PIN                       PD2
-  #define SD_SS_PIN                         -1
   #define SD_DETECT_PIN                     PD12  // SD_CD (if -1 no detection)
 #else
   #define ONBOARD_SDIO

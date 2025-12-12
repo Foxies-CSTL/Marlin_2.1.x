@@ -430,7 +430,7 @@
   #endif
 #endif
 //Add definition for UART for Q5
-#if ALL(Q5, Q_UART8, NANO1X)||ALL(Q5, Q_UART9, NANO1X)||ALL(NANO1X, Q_UART8)||ALL(NANO1X, Q_UART9)
+#if ALL(Q5, Q_UART8, NANO1X)||ALL(Q5, Q_UART9, NANO1X) //||ALL(NANO1X, Q_UART8)||ALL(NANO1X, Q_UART9)
     #define X_SERIAL_TX_PIN             PA10  // RXD1
     #define X_SERIAL_RX_PIN             PA10  // RXD1
     #define Y_SERIAL_TX_PIN             PA9   // TXD1

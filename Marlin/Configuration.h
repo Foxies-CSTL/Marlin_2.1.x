@@ -836,26 +836,26 @@
     #define DEFAULT_KD_LIST { 114.00, 114.00 }
   #else
     #ifdef Q5
-      #define DEFAULT_Kp 12.88
-      #define DEFAULT_Ki 0.72
-      #define DEFAULT_Kd 57.54
+      #define DEFAULT_KP 12.88
+      #define DEFAULT_KI 0.72
+      #define DEFAULT_KD 57.54
     #elif ANY(SR_MKS, SR_BTT)
     //M301 P23.7612 I1.7268 D81.7385-220
     //M301 P19.6543 I1.4039 D68.7900-240
     //M301 P19.8891 I1.4288 D69.2140-250
-      #define DEFAULT_Kp   13.7
-      #define DEFAULT_Ki   0.48
-      #define DEFAULT_Kd   70.22
+      #define DEFAULT_KP   13.7
+      #define DEFAULT_KI   0.48
+      #define DEFAULT_KD   70.22
     #else
     // FLSUN QQ-S, 200 C with 100% part cooling
-      #define DEFAULT_Kp 21.6708
-      #define DEFAULT_Ki  1.2515
-      #define DEFAULT_Kd 93.8127
+      #define DEFAULT_KP 21.6708
+      #define DEFAULT_KI  1.2515
+      #define DEFAULT_KD 93.8127
     #endif
     // FIND YOUR OWN: measured after M106 S180 with M303 E0 S230 C8 U
-    //#define DEFAULT_Kp
-    //#define DEFAULT_Ki
-    //#define DEFAULT_Kd
+    //#define DEFAULT_KP
+    //#define DEFAULT_KI
+    //#define DEFAULT_KD
   #endif
   #if ENABLED(LCD_PID_AUTOTUNE)
     #define AUTOTUNE_CYCLE          5   //default value is 5
@@ -970,26 +970,26 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  //#define DEFAULT_bedKp  61.05
-  //#define DEFAULT_bedKi  11.72
-  //#define DEFAULT_bedKd 211.99
+  //#define DEFAULT_BED_KP  61.05
+  //#define DEFAULT_BED_KI  11.72
+  //#define DEFAULT_BED_KD 211.99
 
   // FIND YOUR OWN: "M303 E-1 S60 C8 U" to run autotune on the bed at 60 degrees for 8 cycles.
   //M303 E-1 C8 S60 =>Memo M304 P61.05 I11.27 D218.99
 
   // FLSUN QQS-Pro 1.6mm aluminium heater with 4mm lattice glass
   #ifdef Q5
-    #define DEFAULT_bedKp 20.20
-    #define DEFAULT_bedKi 3.94
-    #define DEFAULT_bedKd 69.11
+    #define DEFAULT_BED_KP 20.20
+    #define DEFAULT_BED_KI 3.94
+    #define DEFAULT_BED_KD 69.11
   #elif ANY(SR_MKS, SR_BTT)
-    #define DEFAULT_bedKp 268.6112
-    #define DEFAULT_bedKi 52.5401
-    #define DEFAULT_bedKd 915.5167
+    #define DEFAULT_BED_KP 268.6112
+    #define DEFAULT_BED_KI 52.5401
+    #define DEFAULT_BED_KD 915.5167
   #else
-    #define DEFAULT_bedKp 65.6075
-    #define DEFAULT_bedKi 11.7156
-    #define DEFAULT_bedKd 244.9348
+    #define DEFAULT_BED_KP 65.6075
+    #define DEFAULT_BED_KI 11.7156
+    #define DEFAULT_BED_KD 244.9348
   #endif
 #else
   //#define BED_LIMIT_SWITCHING   // Keep the bed temperature within BED_HYSTERESIS of the target

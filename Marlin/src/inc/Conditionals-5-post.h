@@ -605,11 +605,9 @@
     #endif
   #endif
 
-  #if HAS_SD_DETECT && NONE(HAS_GRAPHICAL_TFT, LCD_USE_DMA_FSMC, HAS_FSMC_GRAPHICAL_TFT, HAS_SPI_GRAPHICAL_TFT, IS_DWIN_MARLINUI, EXTENSIBLE_UI, HAS_DWIN_E3V2, HAS_U8GLIB_I2C_OLED)
-    #define REINIT_NOISY_LCD 1  // Have the LCD re-init on SD insertion
-  #endif
-
-#endif // HAS_MEDIA
+#else // !HAS_MEDIA
+  #undef REINIT_NOISY_LCD
+#endif
 
 /**
  * Power Supply
@@ -3049,9 +3047,10 @@
 #endif
 
 // User Interface
-#if ENABLED(FREEZE_FEATURE) && !PIN_EXISTS(FREEZE) && PIN_EXISTS(KILL)
+#if ENABLED(FREEZE_FEATURE) && DISABLED(NO_FREEZE_PIN) && !PIN_EXISTS(FREEZE) && PIN_EXISTS(KILL)
   #define FREEZE_PIN KILL_PIN
-#elif PIN_EXISTS(KILL) && TERN1(FREEZE_FEATURE, KILL_PIN != FREEZE_PIN)
+  #define FREEZE_STOLE_KILL_PIN_WARNING 1
+#elif PIN_EXISTS(KILL) && TERN1(HAS_FREEZE_PIN, KILL_PIN != FREEZE_PIN)
   #define HAS_KILL 1
 #endif
 #if PIN_EXISTS(HOME)
@@ -3612,6 +3611,14 @@
   #endif
 #endif
 
+#if ALL(SDCARD_SORT_ALPHA, SDSORT_CACHE_NAMES) && DISABLED(SDSORT_DYNAMIC_RAM)
+  #if SDSORT_CACHE_VFATS > VFAT_ENTRIES_LIMIT
+    #undef SDSORT_CACHE_VFATS
+    #define SDSORT_CACHE_VFATS VFAT_ENTRIES_LIMIT
+    #define SDSORT_CACHE_VFATS_WARNING 1
+  #endif
+#endif
+
 // Fallback SPI Speed for SD
 #if HAS_MEDIA && !defined(SD_SPI_SPEED)
   #define SD_SPI_SPEED SPI_FULL_SPEED
@@ -3687,27 +3694,14 @@
 
 // Fixed-Time Motion
 #if ENABLED(FT_MOTION)
-  #define FTM_TS (1.0f / FTM_FS)                      // (s) Time step for trajectory generation. (Reciprocal of FTM_FS)
-  #define FTM_RATIO (FTM_FS / FTM_MIN_SHAPE_FREQ)     // Factor for use in FTM_ZMAX. DON'T CHANGE.
-  #define FTM_SMOOTH_MAX_I uint32_t(TERN0(FTM_SMOOTHING, CEIL(FTM_FS * FTM_MAX_SMOOTHING_TIME))) // Max delays for smoothing
-
-  // Maximum delays for shaping functions (even numbers only!)
-  #define FTM_ZMAX (TERN(HAS_FTM_EI_SHAPING, 2, 1) * FTM_RATIO + FTM_SMOOTH_MAX_I)
-
+  #define FTM_TS (1.0f / FTM_FS)  // (s) Time step for trajectory generation. (Reciprocal of FTM_FS)
   #define FTM_SMOOTHING_ORDER   5 // 3 to 5 is closest to Gaussian
-                                  // Calculate as:
-                                  //  ZV       : FTM_RATIO / 2
-                                  //  ZVD, MZV : FTM_RATIO
-                                  //  2HEI     : FTM_RATIO * 3 / 2
-                                  //  3HEI     : FTM_RATIO * 2
   #ifndef FTM_BUFFER_SIZE
     #define FTM_BUFFER_SIZE 128
   #endif
-  #define FTM_BUFFER_MASK (FTM_BUFFER_SIZE - 1u)
-  #if ANY(BIQU_MICROPROBE_V1, BIQU_MICROPROBE_V2)
-    #ifndef PROBE_WAKEUP_TIME_MS
-      #define PROBE_WAKEUP_TIME_MS 30
-      #define PROBE_WAKEUP_TIME_WARNING 1
-    #endif
+
+  #if ANY(BIQU_MICROPROBE_V1, BIQU_MICROPROBE_V2) && !defined(PROBE_WAKEUP_TIME_MS)
+    #define PROBE_WAKEUP_TIME_MS 30
+    #define PROBE_WAKEUP_TIME_WARNING 1
   #endif
 #endif
